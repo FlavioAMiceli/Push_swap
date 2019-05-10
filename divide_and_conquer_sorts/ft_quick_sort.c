@@ -1,13 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   checker.c                                          :+:    :+:            */
+/*   ft_quick_sort.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/05/10 08:08:04 by fmiceli       #+#    #+#                 */
-/*   Updated: 2019/05/10 08:08:06 by fmiceli       ########   odam.nl         */
+/*   Created: 2019/05/10 09:36:02 by fmiceli       #+#    #+#                 */
+/*   Updated: 2019/05/10 09:36:02 by fmiceli       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
+
+int *ft_quick_sort(int *arr, int(*f)(int, int))
+{
+	return (arr);
+}

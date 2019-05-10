@@ -1,13 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   checker.c                                          :+:    :+:            */
+/*   ft_min.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
+/*   By: fmiceli <fmiceli@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/05/10 08:08:04 by fmiceli       #+#    #+#                 */
-/*   Updated: 2019/05/10 08:08:06 by fmiceli       ########   odam.nl         */
+/*   Created: 2019/02/03 14:00:29 by fmiceli       #+#    #+#                 */
+/*   Updated: 2019/02/03 14:01:23 by fmiceli       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+int	ft_min(int x, int y)
+{
+	if (x <= y)
+		return (x);
+	return (y);
+}

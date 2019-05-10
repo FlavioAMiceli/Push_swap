@@ -1,13 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   checker.c                                          :+:    :+:            */
+/*   ft_putstr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
+/*   By: fmiceli <marvin@codam.nl>                    +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/05/10 08:08:04 by fmiceli       #+#    #+#                 */
-/*   Updated: 2019/05/10 08:08:06 by fmiceli       ########   odam.nl         */
+/*   Created: 2019/01/07 21:48:04 by fmiceli       #+#    #+#                 */
+/*   Updated: 2019/01/12 18:45:15 by fmiceli       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
+
+void	ft_putstr(const char *s)
+{
+	write(1, s, ft_strlen(s));
+}
