@@ -12,6 +12,22 @@
 
 #include "libft.h"
 
+/*
+**	Comb sort
+**
+**	Space: 	O(n) total, O(1) aux
+**	Time:	O(n^2) worst, Ω(n^2/2^p) average, Θ(n log n) best
+**
+**	In-place.
+**	Better at dealing with small values at the end of the list than bubblesort.
+**
+**	Performs bubble sort-like swaps, but at a distance instead of over adjacent
+**	elements. This improves the rate at which small values move to the front.
+**
+**	Shell sort is a similar working algorithm that proves to be more efficient.
+*/
+
+
 int	*ft_comb_sort(int *arr, size_t len, int(*f)(int, int))
 {
 	int		gap;
@@ -19,7 +35,7 @@ int	*ft_comb_sort(int *arr, size_t len, int(*f)(int, int))
 	float	k;
 
 	gap = len;
-	sorted = false;
+	sorted = FALSE;
 	k = 13;
 	while (!sorted)
 	{
@@ -27,15 +43,15 @@ int	*ft_comb_sort(int *arr, size_t len, int(*f)(int, int))
 		if (gap <= 1)
 		{
 			gap = 1;
-			sorted = true;
+			sorted = TRUE;
 		}
 		i = 0;
 		while (i + gap < len)
 		{
-			if (f(arr[i], arr[i + gap]) == false)
+			if (f(arr[i], arr[i + gap]) == FALSE)
 			{
 				ft_swap(arr[i], arr[i + gap]);
-				sorted = false;
+				sorted = FALSE;
 			}
 			i++;
 		}
