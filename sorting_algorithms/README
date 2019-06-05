@@ -1,11 +1,15 @@
 Quicksort:
 	Generally best to use.
-	Doesn't preserve order of same value keys.
+	Unstable, doesn't preserve order of same value keys.
 	Uses some additional memory.
 	Amendable to parallelization.
 
 Mergesort:
-	Stable sorting algorithm.
+	Generally best option for sorting linked lists.
+	Stable.
+	Adaptive.
+	Amendable to parallelization.
+	Uses more extra memory than heapsort.
 
 Heapsort:
 	Good selection based algorithm. Has a better worst-case than quicksort.
@@ -22,4 +26,5 @@ Insertionsort:
 
 Shellsort:
 	Good exchange/insertion style algorithm.
+	Adaptive, faster for already sorted lists.
 	Choosing a good gap sequence is non-trivial.
