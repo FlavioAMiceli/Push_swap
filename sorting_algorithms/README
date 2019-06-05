@@ -1,0 +1,25 @@
+Quicksort:
+	Generally best to use.
+	Doesn't preserve order of same value keys.
+	Uses some additional memory.
+	Amendable to parallelization.
+
+Mergesort:
+	Stable sorting algorithm.
+
+Heapsort:
+	Good selection based algorithm. Has a better worst-case than quicksort.
+	On devices where writes are expensive, selection based algorithms perform
+	better than insertion based ones. Heapsort, like quicksort, is unstable.
+	Heapsort performs better on embedded devices or places where security is a
+	risk than quicksort, since it's worst case is better and won't slow down
+	real time applications as much as quickosrt on (deliberate) difficult
+	large arrays.
+
+Insertionsort:
+	Good for small lists. Usable as basecase for recursion based algorithms.
+	Uses many writes.
+
+Shellsort:
+	Good exchange/insertion style algorithm.
+	Choosing a good gap sequence is non-trivial.
