@@ -28,3 +28,6 @@ Shellsort:
 	Good exchange/insertion style algorithm.
 	Adaptive, faster for already sorted lists.
 	Choosing a good gap sequence is non-trivial.
+
+Radix:
+	
