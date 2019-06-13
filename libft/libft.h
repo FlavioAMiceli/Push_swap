@@ -22,6 +22,8 @@
 # define FALSE 0
 # define FT_INT_MIN -2147483648
 # define FT_INT_MAX 2147483647
+# define BUFF_SIZE 32
+# define FILE_DESC content_size
 
 typedef struct		s_list
 {
@@ -36,6 +38,8 @@ typedef struct		s_magicmask
 	unsigned long	himagic;
 	unsigned long	word;
 }					t_magicmask;
+
+int					get_next_line(const int fd, char **line);
 
 void				ft_putnbr(int n);
 void				ft_putchar(char	c);
