@@ -5,89 +5,97 @@
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/05/10 08:08:04 by fmiceli       #+#    #+#                 */
-/*   Updated: 2019/05/10 08:08:06 by fmiceli       ########   odam.nl         */
+/*   Created: 2019/06/14 16:14:48 by fmiceli       #+#    #+#                 */
+/*   Updated: 2019/06/14 16:14:49 by fmiceli       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//TODO: WRITE IS_VALID
-
-static int		is_valid(t_list **alst, int n_inst, char **tab)
+static int		tab_is_valid(char **tab, int len)
 {
-	t_list	*current;
+	int	i;
+	int	j;
 
-	current = *alst;
-	ft_putendl("Printing instructions:");
-	while (current)
+	i = 0;
+	while (i < len)
 	{
-		ft_putendl(current->content);
-		current = current->next;
-	}
-	ft_putendl("Printing tab:");
-	while (n_inst)
-	{
-		ft_putendl(*tab);
-		ft_putchar('\n');
-		tab++;
+		j = 0;
+		while (tab[i][j] != '\0')
+		{
+			if (ft_isdigit(tab[i][j]) == FALSE)
+				return (FALSE);
+			j++;
+		}
+		i++;
 	}
 	return (TRUE);
 }
 
-static t_list	**get_instructions(t_list **alst)
+static t_list	*set_stack(t_list **addr_stack, char **tab, int len)
 {
-	t_list	*current;
-	char	**line;
+	int	i;
+	int	*num;
 
-	line = (char **)malloc(sizeof(char*));
-	get_next_line(0, line);
-	if (*line)
+	i = len - 1;
+	while (i >= 0)
 	{
-		ft_putendl(*line);
-		current = ft_lstnew(*line, ft_strlen(*line));
-		*alst = current;
-		current = current->next;
-		free(*line);
-		get_next_line(0, line);
+		num = (int *)malloc(sizeof(int));
+		*num = ft_atoi(tab[i]);
+		ft_lstadd(addr_stack, ft_lstnew(num, sizeof(int)));
+		i--;
 	}
-	while (ft_strlen(*line))
-	{
-		ft_putendl(*line);
-		ft_lstappend(&current, ft_lstnew(*line, ft_strlen(*line)));
-		current = current->next;
-		free(*line);
-		get_next_line(0, line);
-	}
-	free(*line);
-	free(line);
-	is_valid(alst, 0, NULL);
-	return (alst);
+	return (*addr_stack);
 }
 
-int			main(int argc, char **argv)
+static int		do_instruction(char *op, t_list **stack_a, t_list **stack_b)
 {
-	t_list	**addr_instructions;
-	int		arr[argc - 1];
-	int		i;
+	(void)op;
+	(void)stack_a;
+	(void)stack_b;
+	return (FALSE);
+}
 
-	addr_instructions = get_instructions(addr_instructions);
-	if (is_valid(addr_instructions, argc - 1, &argv[1]) == FALSE)
+static int		is_sorted(t_list **stack_a, t_list **stack_b, char **tab, int n)
+{
+	(void)stack_a;
+	(void)stack_b;
+	(void)tab;
+	(void)n;
+	return (FALSE);
+}
+
+int				main(int argc, char **argv)
+{
+	t_list	*stack_a;
+	t_list	*stack_b;
+	char	*line;
+	int		is_valid;
+	int		ret;
+
+	if (argc < 2 || tab_is_valid(&argv[1], argc - 1) == FALSE)
 	{
 		ft_putendl_fd("Error", 2);
 		return (1);
 	}
-	i = 1;
-	while (i < argc)
+	stack_a = set_stack(&stack_a, &argv[1], argc - 1);
+	ret = get_next_line(0, &line);
+	while (ret != 0)
 	{
-		arr[i] = ft_atoi(argv[i]);
-		ft_putnbr(arr[i]);
-		ft_putchar('\n');
-		i++;
+		is_valid = do_instruction(line, &stack_a, &stack_b);
+		if (is_valid == FALSE)
+		{
+			ft_putendl_fd("Error", 2);
+			return (1);
+		}
+		free(line);
+		ret = get_next_line(0, &line);
 	}
-	// if (checker(argc - 1, addr_instructions))
-	// 	ft_putendl("OK");
-	// else
-	// 	ft_putendl("KO");
-	return (0);
+	is_valid = is_sorted(&stack_a, &stack_b, &argv[1], argc - 1);
+	{
+		ft_putendl_fd("KO", 2);
+		return (1);
+	}
+	ft_putendl_fd("OK", 2);
+	return (1);
 }
