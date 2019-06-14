@@ -32,22 +32,6 @@ static int		tab_is_valid(char **tab, int len)
 	return (TRUE);
 }
 
-static t_list	*set_stack(t_list **addr_stack, char **tab, int len)
-{
-	int	i;
-	int	*num;
-
-	i = len - 1;
-	while (i >= 0)
-	{
-		num = (int *)malloc(sizeof(int));
-		*num = ft_atoi(tab[i]);
-		ft_lstadd(addr_stack, ft_lstnew(num, sizeof(int)));
-		i--;
-	}
-	return (*addr_stack);
-}
-
 static int		do_instruction(char *op, t_list **stack_a, t_list **stack_b)
 {
 	(void)op;
