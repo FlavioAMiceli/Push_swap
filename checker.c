@@ -12,41 +12,61 @@
 
 #include "push_swap.h"
 
-static int		tab_is_valid(char **tab, int len)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < len)
-	{
-		j = 0;
-		while (tab[i][j] != '\0')
-		{
-			if (ft_isdigit(tab[i][j]) == FALSE)
-				return (FALSE);
-			j++;
-		}
-		i++;
-	}
-	return (TRUE);
-}
-
 static int		do_instruction(char *op, t_list **stack_a, t_list **stack_b)
 {
-	(void)op;
-	(void)stack_a;
-	(void)stack_b;
+	if (ft_strcmp(op, "sa") == 0)
+		return (swap(stack_a));
+	else if (ft_strcmp(op, "sb") == 0)
+		return (swap(stack_b));
+	else if (ft_strcmp(op, "ss") == 0)
+		return (ft_min(swap(stack_a), swap(stack_b)));
+	else if (ft_strcmp(op, "pa") == 0)
+		return (push(stack_a, stack_b));
+	else if (ft_strcmp(op, "pb") == 0)
+		return (push(stack_b, stack_a));
+	else if (ft_strcmp(op, "ra") == 0)
+		return (rotate(stack_a));
+	else if (ft_strcmp(op, "rb") == 0)
+		return (rotate(stack_b));
+	else if (ft_strcmp(op, "rr") == 0)
+		return (ft_min(rotate(stack_a), rotate(stack_b)));
+	else if (ft_strcmp(op, "rra") == 0)
+		return (reverse_rotate(stack_a));
+	else if (ft_strcmp(op, "rrb") == 0)
+		return (reverse_rotate(stack_b));
+	else if (ft_strcmp(op, "rrr") == 0)
+		return (ft_min(reverse_rotate(stack_a), reverse_rotate(stack_b)));
 	return (FALSE);
 }
 
 static int		is_sorted(t_list **stack_a, t_list **stack_b, char **tab, int n)
 {
-	(void)stack_a;
-	(void)stack_b;
-	(void)tab;
-	(void)n;
-	return (FALSE);
+	t_list	*node;
+	int		*sorted;
+	int		i;
+
+	sorted = (int *)malloc(sizeof(int) * n);
+	i = 0;
+	while (i < n)
+	{
+		sorted[i] = ft_atoi(tab[i]);
+		i++;
+	}
+	sorted = ft_quicksort(sorted, n);
+	i = 0;
+	while (i < n)
+	{
+		node = ft_lstdequeue(stack_a);
+		if (sorted[i] != node->content || *stack_b != NULL)
+		{
+			free(sorted);
+			ft_lstdel(node);
+			return (FALSE);
+		}
+		ft_lstdelone(node);
+		i++;
+	}
+	return (TRUE);
 }
 
 int				main(int argc, char **argv)

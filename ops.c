@@ -12,31 +12,38 @@
 
 #include "push_swap.h"
 
-void swap(t_list **stack)
+//TODO: Add validity checks like in swap() to other functions
+
+int swap(t_list **stack)
 {
 	t_list	*node;
 
+	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
+		return (FALSE);
 	node = ft_lstunlink(stack, (*stack)->next);
 	ft_lstadd(stack, node);
+	return (TRUE);
 }
 
-void push(t_list **src, t_list **dst)
+int push(t_list **src, t_list **dst)
 {
 	t_list	*node;
 
 	node = ft_lstdequeue(src);
 	ft_lstadd(dst, node);
+	return (TRUE);
 }
 
-void rotate(t_list **stack)
+int rotate(t_list **stack)
 {
 	t_list	*node;
 
 	node = ft_lstdequeue(stack);
 	ft_lstappend(stack, node);
+	return (TRUE);
 }
 
-void reverse_rotate(t_list **stack)
+int reverse_rotate(t_list **stack)
 {
 	t_list	*new_end;
 	t_list	*node;
@@ -49,4 +56,5 @@ void reverse_rotate(t_list **stack)
 	}
 	new_end->next = NULL;
 	ft_lstadd(stack, node);
+	return (TRUE);
 }

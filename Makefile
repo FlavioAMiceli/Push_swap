@@ -10,10 +10,13 @@
 #                                                                              #
 #******************************************************************************#
 
+NAME=push_swap
+SRCS=set_stack.c tab_is_valid.c ops.c ft_quicksort.c
 NAME_C=checker
 NAME_PS=push_swap
 SRCS_C=checker.c
 SRCS_PS=push_swap.c
+OBJS=$(SRCS:.c=.o)
 OBJS_C=$(SRCS_C:.c=.o)
 OBJS_PS=$(SRCS_PS:.c=.o)
 HEADER=push_swap.h
@@ -21,13 +24,15 @@ LIBFT=./libft/libft.a
 VPATH=/libft
 FLAGS= -Wall -Wextra -Werror
 
-all : $(LIBFT) $(NAME_C) clean
+all : $(LIBFT) $(NAME_C) $(NAME_PS) clean
+
+$(NAME) : $(NAME_PS)
 
 $(NAME_C) :
-	@gcc -o $(NAME_C) $(SRCS_C) $(FLAGS) -I $(HEADER) $(LIBFT)
+	@gcc -o $(NAME_C) $(SRCS) $(SRCS_C) $(FLAGS) -I $(HEADER) $(LIBFT)
 
 $(NAME_PS) :
-	@gcc -o $(NAME_PS) $(SRCS_PS) $(FLAGS) -I $(HEADER) $(LIBFT)
+	@gcc -o $(NAME_PS) $(SRCS) $(SRCS_PS) $(FLAGS) -I $(HEADER) $(LIBFT)
 
 $(LIBFT) :
 	@make -C ./libft/
