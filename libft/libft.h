@@ -62,6 +62,7 @@ void				ft_foreach(int *tab, int len, void (*f)(int));
 
 void				ft_memdel(void **ap);
 void				ft_strdel(char **as);
+void 				ft_nodedel(void *p, size_t n);
 
 int					ft_isupper(int c);
 int					ft_islower(int c);

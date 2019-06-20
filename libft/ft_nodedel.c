@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   push_swap.c                                        :+:    :+:            */
+/*   ft_nodedel.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/06/14 18:05:33 by fmiceli       #+#    #+#                 */
-/*   Updated: 2019/06/14 18:05:34 by fmiceli       ########   odam.nl         */
+/*   Created: 2019/06/20 18:37:32 by fmiceli       #+#    #+#                 */
+/*   Updated: 2019/06/20 18:40:14 by fmiceli       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_nodedel(void *p, size_t n)
 {
-	t_list	*stack_a;
-	t_list	*stack_b;
-
-	if (argc < 2 || tab_is_valid(&argv[1], argc - 1) == FALSE)
-	{
-		ft_putendl_fd("Error", 2);
-		return (1);
-	}
-	stack_a = set_stack(&stack_a, &argv[1], argc - 1);
-	(void)stack_b;
+	ft_memdel(&p);
+	(void)n;
 }

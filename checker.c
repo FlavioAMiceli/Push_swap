@@ -42,28 +42,27 @@ static int		do_instruction(char *op, t_list **stack_a, t_list **stack_b)
 static int		is_sorted(t_list **stack_a, t_list **stack_b, char **tab, int n)
 {
 	t_list	*node;
-	int		*sorted;
+	int		sorted[n];
 	int		i;
 
-	sorted = (int *)malloc(sizeof(int) * n);
 	i = 0;
 	while (i < n)
 	{
 		sorted[i] = ft_atoi(tab[i]);
 		i++;
 	}
-	sorted = ft_quicksort(sorted, n);
+	ft_quicksort(sorted, n);
 	i = 0;
 	while (i < n)
 	{
 		node = ft_lstdequeue(stack_a);
-		if (sorted[i] != node->content || *stack_b != NULL)
+		if (sorted[i] != *((int *)(node->content)) || *stack_b != NULL)
 		{
 			free(sorted);
-			ft_lstdel(node);
+			ft_lstdel(&node, ft_nodedel);
 			return (FALSE);
 		}
-		ft_lstdelone(node);
+		ft_lstdelone(&node, ft_nodedel);
 		i++;
 	}
 	return (TRUE);

@@ -13,7 +13,7 @@
 NAME=push_swap
 SRCS=set_stack.c tab_is_valid.c ops.c ft_quicksort.c
 NAME_C=checker
-NAME_PS=push_swap
+NAME_PS=$(NAME)
 SRCS_C=checker.c
 SRCS_PS=push_swap.c
 OBJS=$(SRCS:.c=.o)
@@ -26,13 +26,11 @@ FLAGS= -Wall -Wextra -Werror
 
 all : $(LIBFT) $(NAME_C) $(NAME_PS) clean
 
-$(NAME) : $(NAME_PS)
+$(NAME) :
+	@gcc -o $(NAME_PS) $(SRCS) $(SRCS_PS) $(FLAGS) -I $(HEADER) $(LIBFT)
 
 $(NAME_C) :
 	@gcc -o $(NAME_C) $(SRCS) $(SRCS_C) $(FLAGS) -I $(HEADER) $(LIBFT)
-
-$(NAME_PS) :
-	@gcc -o $(NAME_PS) $(SRCS) $(SRCS_PS) $(FLAGS) -I $(HEADER) $(LIBFT)
 
 $(LIBFT) :
 	@make -C ./libft/
