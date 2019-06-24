@@ -24,12 +24,12 @@ LIBFT=./libft/libft.a
 VPATH=/libft
 FLAGS= -Wall -Wextra -Werror
 
-all : $(LIBFT) $(NAME_C) $(NAME_PS) clean
+all : $(NAME_C) $(NAME_PS) clean
 
-$(NAME) :
+$(NAME) : $(LIBFT)
 	@gcc -o $(NAME_PS) $(SRCS) $(SRCS_PS) $(FLAGS) -I $(HEADER) $(LIBFT)
 
-$(NAME_C) :
+$(NAME_C) : $(LIBFT)
 	@gcc -o $(NAME_C) $(SRCS) $(SRCS_C) $(FLAGS) -I $(HEADER) $(LIBFT)
 
 $(LIBFT) :

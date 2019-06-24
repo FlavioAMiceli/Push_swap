@@ -21,9 +21,9 @@ static int		do_instruction(char *op, t_list **stack_a, t_list **stack_b)
 	else if (ft_strcmp(op, "ss") == 0)
 		return (ft_min(swap(stack_a), swap(stack_b)));
 	else if (ft_strcmp(op, "pa") == 0)
-		return (push(stack_a, stack_b));
-	else if (ft_strcmp(op, "pb") == 0)
 		return (push(stack_b, stack_a));
+	else if (ft_strcmp(op, "pb") == 0)
+		return (push(stack_a, stack_b));
 	else if (ft_strcmp(op, "ra") == 0)
 		return (rotate(stack_a));
 	else if (ft_strcmp(op, "rb") == 0)
@@ -56,9 +56,8 @@ static int		is_sorted(t_list **stack_a, t_list **stack_b, char **tab, int n)
 	while (i < n)
 	{
 		node = ft_lstdequeue(stack_a);
-		if (sorted[i] != *((int *)(node->content)) || *stack_b != NULL)
+		if (sorted[i] != NUM_ON_STACK || *stack_b != NULL)
 		{
-			free(sorted);
 			ft_lstdel(&node, ft_nodedel);
 			return (FALSE);
 		}
@@ -83,7 +82,7 @@ int				main(int argc, char **argv)
 	}
 	stack_a = set_stack(&stack_a, &argv[1], argc - 1);
 	ret = get_next_line(0, &line);
-	while (ret != 0)
+	while (ret > 0)
 	{
 		is_valid = do_instruction(line, &stack_a, &stack_b);
 		if (is_valid == FALSE)
@@ -95,10 +94,11 @@ int				main(int argc, char **argv)
 		ret = get_next_line(0, &line);
 	}
 	is_valid = is_sorted(&stack_a, &stack_b, &argv[1], argc - 1);
+	if (is_valid)
 	{
-		ft_putendl_fd("KO", 2);
+		ft_putendl_fd("OK", 2);
 		return (1);
 	}
-	ft_putendl_fd("OK", 2);
+	ft_putendl_fd("KO", 2);
 	return (1);
 }

@@ -53,16 +53,19 @@ static int	*ft_insertion_sort(int *arr, size_t len)
 {
 	size_t	i;
 	int		j;
+	int		tmp;
 
-	i = 0;
+	i = 1;
 	while (i < len)
 	{
+		tmp = arr[i];
 		j = i - 1;
-		while (j >= 0 && arr[j - 1] < arr[j])
+		while (j >= 0 && arr[j] > tmp)
 		{
-			ft_swap(&arr[j - 1], &arr[j]);
+			ft_swap(&arr[j + 1], &arr[j]);
 			j--;
 		}
+		arr[j + 1] = tmp;
 		i++;
 	}
 	return (arr);
@@ -99,7 +102,7 @@ static int	*qs(int	*arr, int low, int high)
 	int	pivot_index;
 
 	if (high - low < 10)
-		ft_insertion_sort(&arr[low], (high - low));
+		ft_insertion_sort(&arr[low], (high - low) + 1);
 	else if (low < high)
 	{
 		pivot_index = hoare_partition(arr, low, high) - arr;

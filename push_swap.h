@@ -16,6 +16,7 @@
 
 # include "./libft/libft.h"
 
+# define NUM_ON_STACK *((int *)(node->content))
 
 /*
 **	ops.c
