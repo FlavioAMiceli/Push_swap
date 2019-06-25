@@ -11,7 +11,7 @@
 #******************************************************************************#
 
 NAME=push_swap
-SRCS=set_stack.c tab_is_valid.c ops.c ft_quicksort.c
+SRCS=set_stack.c tab_is_valid.c ops.c ft_quicksort.c ft_intlstflatten.c
 NAME_C=checker
 NAME_PS=$(NAME)
 SRCS_C=checker.c

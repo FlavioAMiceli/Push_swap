@@ -41,7 +41,7 @@ static int		do_instruction(char *op, t_list **stack_a, t_list **stack_b)
 
 static int		is_sorted(t_list **stack_a, t_list **stack_b, char **tab, int n)
 {
-	t_list	*node;
+	int		*sorted_stack;
 	int		sorted[n];
 	int		i;
 
@@ -52,19 +52,17 @@ static int		is_sorted(t_list **stack_a, t_list **stack_b, char **tab, int n)
 		i++;
 	}
 	ft_quicksort(sorted, n);
-	i = 0;
-	while (i < n)
-	{
-		node = ft_lstdequeue(stack_a);
-		if (sorted[i] != NUM_ON_STACK || *stack_b != NULL)
-		{
-			ft_lstdel(&node, ft_nodedel);
-			return (FALSE);
-		}
-		ft_lstdelone(&node, ft_nodedel);
-		i++;
-	}
+	sorted_stack = ft_intlstflatten(stack_a, n);
+	if (*stack_b != NULL
+		|| ft_memcmp(sorted, sorted_stack, n * sizeof(int)) != 0)
+		return (FALSE);
 	return (TRUE);
+}
+
+static	int		put_msg(char *str, int fd)
+{
+	ft_putendl_fd(str, fd);
+	return (fd - 1);
 }
 
 int				main(int argc, char **argv)
@@ -76,29 +74,19 @@ int				main(int argc, char **argv)
 	int		ret;
 
 	if (argc < 2 || tab_is_valid(&argv[1], argc - 1) == FALSE)
-	{
-		ft_putendl_fd("Error", 2);
-		return (1);
-	}
+		return (put_msg("Error", 2));
 	stack_a = set_stack(&stack_a, &argv[1], argc - 1);
 	ret = get_next_line(0, &line);
 	while (ret > 0)
 	{
 		is_valid = do_instruction(line, &stack_a, &stack_b);
 		if (is_valid == FALSE)
-		{
-			ft_putendl_fd("Error", 2);
-			return (1);
-		}
+			return (put_msg("Error", 2));
 		free(line);
 		ret = get_next_line(0, &line);
 	}
 	is_valid = is_sorted(&stack_a, &stack_b, &argv[1], argc - 1);
 	if (is_valid)
-	{
-		ft_putendl_fd("OK", 2);
-		return (1);
-	}
-	ft_putendl_fd("KO", 2);
-	return (1);
+		return (put_msg("OK", 1));
+	return (put_msg("KO", 1));
 }

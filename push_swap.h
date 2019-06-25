@@ -45,4 +45,10 @@ int		tab_is_valid(char **tab, int len);
 
 int 	*ft_quicksort(int *arr, size_t len);
 
+/*
+**	ft_intlstflatten.c
+*/
+
+int		*ft_intlstflatten(t_list **alst, int n);
+
 #endif
