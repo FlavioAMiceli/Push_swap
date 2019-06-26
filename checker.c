@@ -14,28 +14,18 @@
 
 static int		do_instruction(char *op, t_list **stack_a, t_list **stack_b)
 {
-	if (ft_strcmp(op, "sa") == 0)
-		return (swap(stack_a));
-	else if (ft_strcmp(op, "sb") == 0)
-		return (swap(stack_b));
-	else if (ft_strcmp(op, "ss") == 0)
-		return (ft_min(swap(stack_a), swap(stack_b)));
-	else if (ft_strcmp(op, "pa") == 0)
-		return (push(stack_b, stack_a));
-	else if (ft_strcmp(op, "pb") == 0)
-		return (push(stack_a, stack_b));
-	else if (ft_strcmp(op, "ra") == 0)
-		return (rotate(stack_a));
-	else if (ft_strcmp(op, "rb") == 0)
-		return (rotate(stack_b));
-	else if (ft_strcmp(op, "rr") == 0)
-		return (ft_min(rotate(stack_a), rotate(stack_b)));
-	else if (ft_strcmp(op, "rra") == 0)
-		return (reverse_rotate(stack_a));
-	else if (ft_strcmp(op, "rrb") == 0)
-		return (reverse_rotate(stack_b));
-	else if (ft_strcmp(op, "rrr") == 0)
-		return (ft_min(reverse_rotate(stack_a), reverse_rotate(stack_b)));
+	return ((ft_strcmp(op, "sa") == 0 && swap(stack_a))
+		|| (ft_strcmp(op, "sb") == 0 && swap(stack_b))
+		|| (ft_strcmp(op, "ss") == 0 && (ft_min(swap(stack_a), swap(stack_b))))
+		|| (ft_strcmp(op, "pa") == 0 && push(stack_b, stack_a))
+		|| (ft_strcmp(op, "pb") == 0 && push(stack_a, stack_b))
+		|| (ft_strcmp(op, "ra") == 0 && rot(stack_a))
+		|| (ft_strcmp(op, "rb") == 0 && rot(stack_b))
+		|| (ft_strcmp(op, "rr") == 0 && (ft_min(rot(stack_a), rot(stack_b))))
+		|| (ft_strcmp(op, "rra") == 0 && rev_rot(stack_a))
+		|| (ft_strcmp(op, "rrb") == 0 && rev_rot(stack_b))
+		|| (ft_strcmp(op, "rrr") == 0 &&
+		ft_min(rev_rot(stack_a), rev_rot(stack_b))));
 	return (FALSE);
 }
 

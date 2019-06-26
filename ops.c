@@ -34,7 +34,7 @@ int push(t_list **src, t_list **dst)
 	return (TRUE);
 }
 
-int rotate(t_list **stack)
+int rot(t_list **stack)
 {
 	t_list	*node;
 
@@ -43,7 +43,7 @@ int rotate(t_list **stack)
 	return (TRUE);
 }
 
-int reverse_rotate(t_list **stack)
+int rev_rot(t_list **stack)
 {
 	t_list	*new_end;
 	t_list	*node;
