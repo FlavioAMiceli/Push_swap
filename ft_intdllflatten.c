@@ -24,7 +24,7 @@ int	*ft_intdllflatten(t_dll **alst, int n)
 	{
 		node = ft_dlldequeue(alst);
 		arr[i] = *((int *)(node->content));
-		ft_dlldelone(&node, ft_dllnodedel);
+		ft_dlldelone(&node, ft_nodedel);
 		i++;
 	}
 	return (arr);

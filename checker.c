@@ -43,7 +43,7 @@ static int		is_sorted(\
 		i++;
 	}
 	ft_quicksort(sorted, n);
-	sorted_stack = ft_intdllflatten(&(stack_a->head), n);
+	sorted_stack = ft_intdllflatten(&((*stack_a)->head), n);
 	if (*stack_b != NULL
 		|| ft_memcmp(sorted, sorted_stack, n * sizeof(int)) != 0)
 		return (FALSE);
