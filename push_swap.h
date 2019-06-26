@@ -18,6 +18,20 @@
 
 # define NUM_ON_STACK *((int *)(node->content))
 
+typedef struct		s_chk_stack
+{
+	struct s_list	*head;
+	struct s_list	*tail;
+	int				len;
+}					t_chk_stack;
+
+typedef struct		s_stack
+{
+	struct s_dll	*head;
+	struct s_dll	*tail;
+	int				len;
+}					t_stack;
+
 /*
 **	ops.c
 */

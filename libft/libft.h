@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/11 11:56:34 by fmiceli       #+#    #+#                 */
-/*   Updated: 2019/02/02 16:29:06 by fmiceli       ########   odam.nl         */
+/*   Updated: 2019/06/20 18:41:27 by fmiceli       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_dll
+{
+	void			*content;
+	size_t			content_size;
+	struct s_dll	*next;
+	struct s_dll	*previous;
+}					t_dll;
 
 typedef struct		s_magicmask
 {
@@ -62,7 +70,7 @@ void				ft_foreach(int *tab, int len, void (*f)(int));
 
 void				ft_memdel(void **ap);
 void				ft_strdel(char **as);
-void 				ft_nodedel(void *p, size_t n);
+void				ft_nodedel(void *p, size_t n);
 
 int					ft_isupper(int c);
 int					ft_islower(int c);
@@ -147,5 +155,13 @@ void				ft_lstappend(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
+
+t_dll				*ft_dllnew(void const *content, size_t content_size);
+t_dll				*ft_dlldequeue(t_dll **alst);
+t_dll				*ft_dllunlink(t_dll *node);
+void				ft_dlladd(t_dll **alst, t_dll *new);
+void				ft_dllappend(t_dll **alst, t_dll *new);
+void				ft_dlldelone(t_dll **alst, void (*del)(void *, size_t));
+void				ft_dlldel(t_dll **alst, void (*del)(void *, size_t));
 
 #endif
