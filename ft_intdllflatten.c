@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_intlstflatten.c                                 :+:    :+:            */
+/*   ft_intdllflatten.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
@@ -12,9 +12,9 @@
 
 #include "push_swap.h"
 
-int	*ft_intlstflatten(t_list **alst, int n)
+int	*ft_intdllflatten(t_dll **alst, int n)
 {
-	t_list	*node;
+	t_dll	*node;
 	int		*arr;
 	int		i;
 
@@ -22,9 +22,9 @@ int	*ft_intlstflatten(t_list **alst, int n)
 	i = 0;
 	while (i < n)
 	{
-		node = ft_lstdequeue(alst);
+		node = ft_dlldequeue(alst);
 		arr[i] = *((int *)(node->content));
-		ft_lstdelone(&node, ft_nodedel);
+		ft_dlldelone(&node, ft_dllnodedel);
 		i++;
 	}
 	return (arr);

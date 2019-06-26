@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-t_list	*set_stack(t_list **addr_stack, char **tab, int len)
+t_stack	*set_stack(t_stack **astack, char **tab, int len)
 {
 	int	i;
 	int	*num;
@@ -22,8 +22,8 @@ t_list	*set_stack(t_list **addr_stack, char **tab, int len)
 	{
 		num = (int *)malloc(sizeof(int));
 		*num = ft_atoi(tab[i]);
-		ft_lstadd(addr_stack, ft_lstnew(num, sizeof(int)));
+		ft_dlladd(&(*astack)->head, ft_dllnew(num, sizeof(int)));
 		i--;
 	}
-	return (*addr_stack);
+	return (*astack);
 }

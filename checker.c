@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static int		do_instruction(char *op, t_list **stack_a, t_list **stack_b)
+static int		do_instruction(char *op, t_stack **stack_a, t_stack **stack_b)
 {
 	return ((ft_strcmp(op, "sa") == 0 && swap(stack_a))
 		|| (ft_strcmp(op, "sb") == 0 && swap(stack_b))
@@ -29,7 +29,8 @@ static int		do_instruction(char *op, t_list **stack_a, t_list **stack_b)
 	return (FALSE);
 }
 
-static int		is_sorted(t_list **stack_a, t_list **stack_b, char **tab, int n)
+static int		is_sorted(\
+	t_stack **stack_a, t_stack **stack_b, char **tab, int n)
 {
 	int		*sorted_stack;
 	int		sorted[n];
@@ -42,7 +43,7 @@ static int		is_sorted(t_list **stack_a, t_list **stack_b, char **tab, int n)
 		i++;
 	}
 	ft_quicksort(sorted, n);
-	sorted_stack = ft_intlstflatten(stack_a, n);
+	sorted_stack = ft_intdllflatten(&(stack_a->head), n);
 	if (*stack_b != NULL
 		|| ft_memcmp(sorted, sorted_stack, n * sizeof(int)) != 0)
 		return (FALSE);
@@ -57,11 +58,11 @@ static	int		put_msg(char *str, int fd)
 
 int				main(int argc, char **argv)
 {
-	t_list	*stack_a;
-	t_list	*stack_b;
-	char	*line;
-	int		is_valid;
-	int		ret;
+	t_stack		*stack_a;
+	t_stack		*stack_b;
+	char		*line;
+	int			is_valid;
+	int			ret;
 
 	if (argc < 2 || tab_is_valid(&argv[1], argc - 1) == FALSE)
 		return (put_msg("Error", 2));

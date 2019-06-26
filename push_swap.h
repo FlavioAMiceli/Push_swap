@@ -18,13 +18,6 @@
 
 # define NUM_ON_STACK *((int *)(node->content))
 
-typedef struct		s_chk_stack
-{
-	struct s_list	*head;
-	struct s_list	*tail;
-	int				len;
-}					t_chk_stack;
-
 typedef struct		s_stack
 {
 	struct s_dll	*head;
@@ -36,16 +29,16 @@ typedef struct		s_stack
 **	ops.c
 */
 
-int 	push(t_list **src, t_list **dst);
-int 	swap(t_list **stack);
-int 	rot(t_list **stack);
-int 	rev_rot(t_list **stack);
+int 	push(t_stack **src, t_stack **dst);
+int 	swap(t_stack **stack);
+int 	rot(t_stack **stack);
+int 	rev_rot(t_stack **stack);
 
 /*
 **	set_stack.c
 */
 
-t_list	*set_stack(t_list **addr_stack, char **tab, int len);
+t_stack	*set_stack(t_stack **astack, char **tab, int len);
 
 /*
 **	tab_is_valid.c
@@ -63,6 +56,6 @@ int 	*ft_quicksort(int *arr, size_t len);
 **	ft_intlstflatten.c
 */
 
-int		*ft_intlstflatten(t_list **alst, int n);
+int		*ft_intdllflatten(t_dll **alst, int n);
 
 #endif
