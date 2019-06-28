@@ -20,8 +20,10 @@
 
 typedef struct		s_stack
 {
-	struct s_dll	*head;
-	struct s_dll	*tail;
+	int				*stack;
+	int				*start;
+	int				*end;
+	int				size;
 	int				len;
 }					t_stack;
 
@@ -35,10 +37,20 @@ int 	rot(t_stack **stack);
 int 	rev_rot(t_stack **stack);
 
 /*
-**	set_stack.c
+**	stack_pointer.c
 */
 
-t_stack	*set_stack(t_stack **astack, char **tab, int len);
+void 	inc_start(t_stack **stack);
+void 	dec_start(t_stack **stack);
+void 	inc_end(t_stack **stack);
+void 	dec_end(t_stack **stack);
+int		*shift_stack(t_stack **stack);
+
+/*
+**	init_stacks.c
+*/
+
+void 	init_stacks(t_stack **addr_a, t_stack **addr_b, char **tab, int len);
 
 /*
 **	tab_is_valid.c
@@ -51,11 +63,5 @@ int		tab_is_valid(char **tab, int len);
 */
 
 int 	*ft_quicksort(int *arr, size_t len);
-
-/*
-**	ft_intlstflatten.c
-*/
-
-int		*ft_intdllflatten(t_dll **alst, int n);
 
 #endif

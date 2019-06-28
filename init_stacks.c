@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   set_stack.c                                        :+:    :+:            */
+/*   init_stacks.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
@@ -12,18 +12,31 @@
 
 #include "push_swap.h"
 
-t_stack	*set_stack(t_stack **astack, char **tab, int len)
+static int	*set_stack(char **tab, int len)
 {
+	int	*stack;
 	int	i;
-	int	*num;
 
-	i = len - 1;
-	while (i >= 0)
+	stack = (int *)malloc(sizeof(int) * len);
+	i = 0;
+	while (i < len)
 	{
-		num = (int *)malloc(sizeof(int));
-		*num = ft_atoi(tab[i]);
-		ft_dlladd(&(*astack)->head, ft_dllnew(num, sizeof(int)));
-		i--;
+		stack[i] = ft_atoi(tab[i]);
+		i++;
 	}
-	return (*astack);
+	return (stack);
+}
+
+void 		init_stacks(t_stack **addr_a, t_stack **addr_b, char **tab, int len)
+{
+	(*addr_a)->size = len;
+	(*addr_a)->len = len;
+	(*addr_a)->stack = set_stack(tab, len);
+	(*addr_a)->start = (*addr_a)->stack;
+	(*addr_a)->end = (*addr_a)->stack + len - 1;
+	(*addr_b)->size = len;
+	(*addr_b)->len = 0;
+	(*addr_b)->stack = (int *)malloc(sizeof(int) * len);
+	(*addr_b)->start = (*addr_b)->stack;
+	(*addr_b)->end = (*addr_b)->stack;
 }
