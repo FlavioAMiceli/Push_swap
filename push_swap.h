@@ -17,6 +17,10 @@
 # include "./libft/libft.h"
 
 # define NUM_ON_STACK *((int *)(node->content))
+# define S_START (*s)->start
+# define S_SIZE (*s)->size
+# define S_END (*s)->end
+# define S_STACK (*s)->stack
 
 typedef struct		s_stack
 {
@@ -37,20 +41,21 @@ int 	rot(t_stack **stack);
 int 	rev_rot(t_stack **stack);
 
 /*
-**	stack_pointer.c
+**	stack_pointer_ops.c
 */
 
-void 	inc_start(t_stack **stack);
-void 	dec_start(t_stack **stack);
-void 	inc_end(t_stack **stack);
-void 	dec_end(t_stack **stack);
-int		*shift_stack(t_stack **stack);
+void 	inc_start(t_stack **s);
+void 	dec_start(t_stack **s);
+void 	inc_end(t_stack **s);
+void 	dec_end(t_stack **s);
+void 	shift_stack(t_stack **s);
 
 /*
-**	init_stacks.c
+**	stack_management.c
 */
 
 void 	init_stacks(t_stack **addr_a, t_stack **addr_b, char **tab, int len);
+void 	del_stacks(t_stack **addr_a, t_stack **addr_b);
 
 /*
 **	tab_is_valid.c

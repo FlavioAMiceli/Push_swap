@@ -16,9 +16,9 @@ int swap(t_stack **stack)
 {
 	if ((*stack)->len < 2)
 		return (FALSE);
-	(*stack)->stack[0] ^= (*stack)->stack[1];
-	(*stack)->stack[1] ^= (*stack)->stack[0];
-	(*stack)->stack[0] ^= (*stack)->stack[1];
+	(*stack)->start[0] ^= (*stack)->start[1];
+	(*stack)->start[1] ^= (*stack)->start[0];
+	(*stack)->start[0] ^= (*stack)->start[1];
 	return (TRUE);
 }
 
@@ -26,10 +26,10 @@ int push(t_stack **src, t_stack **dst)
 {
 	if ((*src)->len == 0 || (*dst)->len == (*dst)->size)
 		return (FALSE);
-	inc_end(dst);
+	dec_start(dst);
+	*((*dst)->start) = *((*src)->start);
 	(*dst)->len++;
-	(*dst)->end = (*src)->end;
-	dec_end(src);
+	inc_start(src);
 	(*src)->len--;
 	return (TRUE);
 }

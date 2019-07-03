@@ -32,7 +32,6 @@ static int		do_instruction(char *op, t_stack **stack_a, t_stack **stack_b)
 static int		is_sorted(\
 	t_stack **stack_a, t_stack **stack_b, char **tab, int n)
 {
-	int		*sorted_stack;
 	int		sorted[n];
 	int		i;
 
@@ -43,15 +42,14 @@ static int		is_sorted(\
 		i++;
 	}
 	ft_quicksort(sorted, n);
-	sorted_stack = shift_stack(stack_a);
-	del_stacks(stack_a, stack_b);
+	shift_stack(stack_a);
 	if ((*stack_b)->len != 0
-	|| ft_memcmp(sorted, sorted_stack, n * sizeof(int)) != 0)
+	|| ft_memcmp(sorted, (*stack_a)->start, n * sizeof(int)) != 0)
 	{
-		free(sorted_stack);
+		del_stacks(stack_a, stack_b);
 		return (FALSE);
 	}
-	free(sorted_stack);
+	del_stacks(stack_a, stack_b);
 	return (TRUE);
 }
 

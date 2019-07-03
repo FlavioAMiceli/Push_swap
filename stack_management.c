@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init_stacks.c                                      :+:    :+:            */
+/*   stack_management.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
@@ -27,8 +27,18 @@ static int	*set_stack(char **tab, int len)
 	return (stack);
 }
 
+void 		del_stacks(t_stack **addr_a, t_stack **addr_b)
+{
+	free((*addr_a)->stack);
+	free((*addr_b)->stack);
+	free(*addr_a);
+	free(*addr_b);
+}
+
 void 		init_stacks(t_stack **addr_a, t_stack **addr_b, char **tab, int len)
 {
+	*addr_a = (t_stack *)malloc(sizeof(t_stack));
+	*addr_b = (t_stack *)malloc(sizeof(t_stack));
 	(*addr_a)->size = len;
 	(*addr_a)->len = len;
 	(*addr_a)->stack = set_stack(tab, len);

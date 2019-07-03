@@ -14,14 +14,14 @@
 
 int	main(int argc, char **argv)
 {
-	t_list	*stack_a;
-	t_list	*stack_b;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
 
 	if (argc < 2 || tab_is_valid(&argv[1], argc - 1) == FALSE)
 	{
 		ft_putendl_fd("Error", 2);
 		return (1);
 	}
-	stack_a = set_stack(&stack_a, &argv[1], argc - 1);
-	(void)stack_b;
+	init_stacks(&stack_a, &stack_b, &argv[1], argc - 1);
+	return (0);
 }

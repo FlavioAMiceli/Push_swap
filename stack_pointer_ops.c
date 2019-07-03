@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   stack_pointer.c                                    :+:    :+:            */
+/*   stack_pointer_ops.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
@@ -12,38 +12,42 @@
 
 #include "push_swap.h"
 
-void inc_start(t_stack **stack)
+void inc_start(t_stack **s)
 {
-	(*stack)->start = (*stack)->start - (*stack)->stack < (*stack)->size \
-	? (*stack)->start++
-	: (*stack)->stack;
+	S_START = S_START - S_STACK < S_SIZE ? S_START + 1 : S_STACK;
 }
 
-void dec_start(t_stack **stack)
+void dec_start(t_stack **s)
 {
-	(*stack)->start = (*stack)->start > (*stack)->stack \
-	? (*stack)->start--
-	: (*stack)->stack + (*stack)->size - 1;
+	S_START = S_START > S_STACK	? S_START - 1 : (S_STACK + S_SIZE) - 1;
 }
 
-void inc_end(t_stack **stack)
+void inc_end(t_stack **s)
 {
-	(*stack)->end = (*stack)->end - (*stack)->stack < (*stack)->size \
-	? (*stack)->end++
-	: (*stack)->stack;
+	S_END = S_END - S_STACK < S_SIZE ? S_END + 1 : S_STACK;
+
 }
 
-void dec_end(t_stack **stack)
+void dec_end(t_stack **s)
 {
-	(*stack)->end = (*stack)->end > (*stack)->stack \
-	? (*stack)->end--
-	: (*stack)->stack + (*stack)->size - 1;
+	S_END = S_END > S_STACK ? S_END - 1 : (S_STACK + S_SIZE) - 1;
 }
 
-int	*shift_stack(t_stack **stack)
+void shift_stack(t_stack **s)
 {
+	int	len_a;
+	int len_b;
 	int	*arr;
 
-	arr = (int *)malloc(sizeof(int) * (*stack)->size);
-	arr = ft_memcpy(arr, (*stack)->start, sizeof(int) * )
+	if (S_STACK == S_START)
+		return ;
+	arr = (int *)malloc(sizeof(int) * S_SIZE);
+	len_a = S_START - S_STACK + 1;
+	len_b = S_SIZE - len_a + 1;
+	arr = ft_memcpy(arr, S_START, sizeof(int) * len_b);
+	(void)ft_memcpy(arr + len_b, S_STACK, sizeof(int) * len_a);
+	free(S_STACK);
+	S_STACK = arr;
+	S_START = arr;
+	S_END = arr + S_SIZE;
 }
