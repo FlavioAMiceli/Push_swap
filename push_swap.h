@@ -35,38 +35,40 @@ typedef struct		s_stack
 **	ops.c
 */
 
-int 	push(t_stack **src, t_stack **dst);
-int 	swap(t_stack **stack);
-int 	rot(t_stack **stack);
-int 	rev_rot(t_stack **stack);
+int					push(t_stack **src, t_stack **dst);
+int					swap(t_stack **stack);
+int					rot(t_stack **stack);
+int					rev_rot(t_stack **stack);
 
 /*
 **	stack_pointer_ops.c
 */
 
-void 	inc_start(t_stack **s);
-void 	dec_start(t_stack **s);
-void 	inc_end(t_stack **s);
-void 	dec_end(t_stack **s);
-void 	shift_stack(t_stack **s);
+void				inc_start(t_stack **s);
+void				dec_start(t_stack **s);
+void				inc_end(t_stack **s);
+void				dec_end(t_stack **s);
+void				shift_stack(t_stack **s);
 
 /*
 **	stack_management.c
 */
 
-void 	init_stacks(t_stack **addr_a, t_stack **addr_b, char **tab, int len);
-void 	del_stacks(t_stack **addr_a, t_stack **addr_b);
+void				init_stacks(\
+	t_stack **addr_a, t_stack **addr_b, char **tab, int len);
+void				del_stacks(\
+	t_stack **addr_a, t_stack **addr_b);
 
 /*
 **	tab_is_valid.c
 */
 
-int		tab_is_valid(char **tab, int len);
+int					tab_is_valid(char **tab, int len);
 
 /*
 **	ft_quicksort.c
 */
 
-int 	*ft_quicksort(int *arr, size_t len);
+int					*ft_quicksort(int *arr, size_t len);
 
 #endif

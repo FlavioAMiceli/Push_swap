@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int swap(t_stack **stack)
+int	swap(t_stack **stack)
 {
 	if ((*stack)->len < 2)
 		return (FALSE);
@@ -22,7 +22,7 @@ int swap(t_stack **stack)
 	return (TRUE);
 }
 
-int push(t_stack **src, t_stack **dst)
+int	push(t_stack **src, t_stack **dst)
 {
 	if ((*src)->len == 0 || (*dst)->len == (*dst)->size)
 		return (FALSE);
@@ -34,7 +34,7 @@ int push(t_stack **src, t_stack **dst)
 	return (TRUE);
 }
 
-int rot(t_stack **stack)
+int	rot(t_stack **stack)
 {
 	if ((*stack)->len == 0)
 		return (FALSE);
@@ -46,7 +46,7 @@ int rot(t_stack **stack)
 	return (TRUE);
 }
 
-int rev_rot(t_stack **stack)
+int	rev_rot(t_stack **stack)
 {
 	if ((*stack)->len == 0)
 		return (FALSE);

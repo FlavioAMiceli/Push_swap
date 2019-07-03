@@ -42,7 +42,7 @@
 **	return the position of the new pivot.
 */
 
-static void ft_swap(int	*a, int *b)
+static void	ft_swap(int *a, int *b)
 {
 	*a ^= *b;
 	*b ^= *a;
@@ -97,7 +97,7 @@ static int	*hoare_partition(int *arr, int low, int high)
 **	Sort smallest partition first to minimise memory usage.
 */
 
-static int	*qs(int	*arr, int low, int high)
+static int	*qs(int *arr, int low, int high)
 {
 	int	pivot_index;
 
@@ -120,7 +120,7 @@ static int	*qs(int	*arr, int low, int high)
 	return (arr);
 }
 
-int 		*ft_quicksort(int *arr, size_t len)
+int			*ft_quicksort(int *arr, size_t len)
 {
 	return (qs(arr, 0, len - 1));
 }

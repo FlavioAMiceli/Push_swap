@@ -27,7 +27,7 @@ static int	*set_stack(char **tab, int len)
 	return (stack);
 }
 
-void 		del_stacks(t_stack **addr_a, t_stack **addr_b)
+void		del_stacks(t_stack **addr_a, t_stack **addr_b)
 {
 	free((*addr_a)->stack);
 	free((*addr_b)->stack);
@@ -35,7 +35,7 @@ void 		del_stacks(t_stack **addr_a, t_stack **addr_b)
 	free(*addr_b);
 }
 
-void 		init_stacks(t_stack **addr_a, t_stack **addr_b, char **tab, int len)
+void		init_stacks(t_stack **addr_a, t_stack **addr_b, char **tab, int len)
 {
 	*addr_a = (t_stack *)malloc(sizeof(t_stack));
 	*addr_b = (t_stack *)malloc(sizeof(t_stack));
