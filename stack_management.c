@@ -43,7 +43,7 @@ void 		init_stacks(t_stack **addr_a, t_stack **addr_b, char **tab, int len)
 	(*addr_a)->len = len;
 	(*addr_a)->stack = set_stack(tab, len);
 	(*addr_a)->start = (*addr_a)->stack;
-	(*addr_a)->end = (*addr_a)->stack + len - 1;
+	(*addr_a)->end = (*addr_a)->stack + (len - 1);
 	(*addr_b)->size = len;
 	(*addr_b)->len = 0;
 	(*addr_b)->stack = (int *)malloc(sizeof(int) * len);
