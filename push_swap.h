@@ -66,6 +66,12 @@ void				del_stacks(\
 int					tab_is_valid(char **tab, int len);
 
 /*
+**	set_tab.c
+*/
+
+int					*set_tab(int *sorted_tab, char **tab, int n);
+
+/*
 **	ft_quicksort.c
 */
 

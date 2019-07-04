@@ -33,15 +33,9 @@ static int		is_sorted(\
 	t_stack **stack_a, t_stack **stack_b, char **tab, int n)
 {
 	int		sorted[n];
-	int		i;
 
-	i = 0;
-	while (i < n)
-	{
-		sorted[i] = ft_atoi(tab[i]);
-		i++;
-	}
-	ft_quicksort(sorted, n);
+	(void)set_tab(sorted, tab, n);
+	(void)ft_quicksort(sorted, n);
 	shift_stack(stack_a);
 	if ((*stack_b)->len != 0
 	|| ft_memcmp(sorted, (*stack_a)->start, n * sizeof(int)) != 0)

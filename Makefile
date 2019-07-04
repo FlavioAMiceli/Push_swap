@@ -12,7 +12,7 @@
 
 NAME=push_swap
 SRCS=stack_management.c tab_is_valid.c ops.c stack_pointer_ops.c \
-ft_quicksort.c
+ft_quicksort.c set_tab.c
 NAME_C=checker
 NAME_PS=$(NAME)
 SRCS_C=checker.c
