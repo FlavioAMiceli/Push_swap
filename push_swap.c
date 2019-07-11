@@ -12,41 +12,8 @@
 
 #include "push_swap.h"
 
-static	void sift(\
-	t_stack **a, t_stack **b, int low, int hi, int *sorted, t_list **ops)
-{
-	int	i;
-
-	i = 0;
-	while (i < hi - low)
-	{
-		if ((*a)->start[0] < sorted[(low + hi) / 2])
-		{
-			if ((*a)->start[1] < (*a)->start[0])
-			{
-				swap(a);
-				ft_lstadd(ops, ft_lstnew("sa", 3));
-				push(a, b);
-				ft_lstadd(ops, ft_lstnew("pb", 3));
-			}
-			push(a, b);
-			ft_lstadd(ops, ft_lstnew("pb", 3));
-		}
-		else
-		{
-			if ((*a)->start[1] > (*a)->start[0])
-			{
-				swap(a);
-				ft_lstadd(ops, ft_lstnew("sa", 3));
-				rot(a);
-				ft_lstadd(ops, ft_lstnew("ra", 3));
-			}
-			rot(a);
-			ft_lstadd(ops, ft_lstnew("ra", 3));
-		}
-		i--;
-	}
-}
+// More error checks. Empty input, letters as input,
+// size of input int out of bound for int.
 
 static int		is_sorted(\
 	t_stack **stack_a, t_stack **stack_b, int *sorted, int n)
@@ -62,24 +29,24 @@ static int		is_sorted(\
 	return (TRUE);
 }
 
+static void ps_merge(t_stack **a, t_stack **b, int n, int i)
+{
+	int	n_parts;
+
+	n_parts = get_n_parts(n, i);
+
+}
+
 static void push_swap(t_stack **a, t_stack **b, int *sorted, int n)
 {
-	t_list	*ops;
-	int		hi;
+	int	i;
 
-	ops = NULL;
-	hi = n - 1;
+	i = 1;
+	// while (i * 2 < 2_log(n))
 	while (!is_sorted(a, b, sorted, n))
 	{
-		sift(a, b, 0, hi, sorted, &ops);
-		sift(a, b, hi / 2, hi, sorted, &ops);
-		shift_stack(a);
-		for (int i = 0; i < n; i++)
-		{
-			ft_putnbr((*a)->stack[i]);
-			ft_putchar('\n');
-		}
-		ft_putchar('\n');
+		ps_merge(a, b, n, i);
+		i += 2;
 	}
 }
 
@@ -100,18 +67,3 @@ int			main(int argc, char **argv)
 	push_swap(&stack_a, &stack_b, sorted_tab, argc - 1);
 	return (0);
 }
-
-/*
-**	1. Pick pivot.
-**	2. Remember n and m numbers before and after pivot.
-**	3. For n, if num < pivot && num < num + 1 push,
-**		else if num > num + 1 swap and push,
-**		else rotate.
-**	4. Push pivot
-**	5. For m, if num < pivot && num < num + 1 push,
-**		else if num > num + 1 swap and push,
-**		else rotate.
-**	6. Reverse rotate other stack.
-**	7. Repeat?
-**	8. Done?
-*/

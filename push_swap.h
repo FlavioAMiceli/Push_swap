@@ -16,6 +16,10 @@
 
 # include "./libft/libft.h"
 
+/*
+**	stack_pointer_ops.c
+*/
+
 # define NUM_ON_STACK *((int *)(node->content))
 # define S_START (*s)->start
 # define S_SIZE (*s)->size
@@ -76,5 +80,12 @@ int					*set_tab(int *sorted_tab, char **tab, int n);
 */
 
 int					*ft_quicksort(int *arr, size_t len);
+
+/*
+**	math.c
+*/
+
+int					ceil_log(int exp, int base);
+int					get_n_parts(int n, int i);
 
 #endif
