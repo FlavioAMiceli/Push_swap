@@ -15,37 +15,86 @@
 // More error checks. Empty input, letters as input,
 // size of input int out of bound for int.
 
-static int		is_sorted(\
-	t_stack **stack_a, t_stack **stack_b, int *sorted, int n)
+// static int		is_sorted(\
+// 	t_stack **stack_a, t_stack **stack_b, int *sorted, int n)
+// {
+// 	shift_stack(stack_a);
+// 	if ((*stack_b)->len != 0
+// 	|| ft_memcmp(sorted, (*stack_a)->start, n * sizeof(int)) != 0)
+// 	{
+// 		del_stacks(stack_a, stack_b);
+// 		return (FALSE);
+// 	}
+// 	del_stacks(stack_a, stack_b);
+// 	return (TRUE);
+// }
+
+static void merge_asc(t_stack **a, t_stack **b, int i)
 {
-	shift_stack(stack_a);
-	if ((*stack_b)->len != 0
-	|| ft_memcmp(sorted, (*stack_a)->start, n * sizeof(int)) != 0)
-	{
-		del_stacks(stack_a, stack_b);
-		return (FALSE);
-	}
-	del_stacks(stack_a, stack_b);
-	return (TRUE);
+	int	len_top;
+	int len_bottom;
+
+	
 }
 
-static void ps_merge(t_stack **a, t_stack **b, int n, int i)
+static void merge_to_a(t_stack **a, t_stack **b, int i)
 {
 	int	n_parts;
+	int	len_part;
+	int	part;
 
-	n_parts = get_n_parts(n, i);
-
+	n_parts = get_n_parts(N_INTS, i);
+	ft_putstr("i:       "); ft_putnbr(i); ft_putchar('\n');
+	ft_putstr("n:       "); ft_putnbr(N_INTS); ft_putchar('\n');
+	ft_putstr("n_parts: "); ft_putnbr(n_parts); ft_putchar('\n');
+	part = 0;
+	while (part < n_parts / 2)
+	{
+		merge_desc(b, a, i);
+		part++;
+	}
+	while (part < n_parts)
+	{
+		merge_asc(b, a, i);
+		part++;
+	}
 }
 
-static void push_swap(t_stack **a, t_stack **b, int *sorted, int n)
+static void ps_merge(t_stack **a, t_stack **b, int i)
+{
+	int	n_parts;
+	int	part;
+
+	n_parts = get_n_parts(N_INTS, i);
+	ft_putstr("i:       "); ft_putnbr(i); ft_putchar('\n');
+	ft_putstr("n:       "); ft_putnbr(N_INTS); ft_putchar('\n');
+	ft_putstr("n_parts: "); ft_putnbr(n_parts); ft_putchar('\n');
+	part = 0;
+	while (part < n_parts / 2)
+	{
+		merge_asc(a, b, i);
+		part++;
+	}
+	while (part < n_parts)
+	{
+		merge_desc(a, b, i);
+		part++;
+	}
+	if (i * 2 < ceil_log(2, N_INTS))
+		merge_to_a(a, b, i + 1);
+	else
+		move_to_a(a, b);
+}
+
+static void push_swap(t_stack **a, t_stack **b, int *sorted)
 {
 	int	i;
 
 	i = 1;
-	// while (i * 2 < 2_log(n))
-	while (!is_sorted(a, b, sorted, n))
+	while (i * 2 < ceil_log(2, N_INTS))
+	// while (!is_sorted(a, b, sorted, n))
 	{
-		ps_merge(a, b, n, i);
+		ps_merge(a, b, i);
 		i += 2;
 	}
 }
@@ -64,6 +113,6 @@ int			main(int argc, char **argv)
 	init_stacks(&stack_a, &stack_b, &argv[1], argc - 1);
 	(void)set_tab(sorted_tab, &argv[1], argc - 1);
 	(void)ft_quicksort(sorted_tab, argc - 1);
-	push_swap(&stack_a, &stack_b, sorted_tab, argc - 1);
+	push_swap(&stack_a, &stack_b, sorted_tab);
 	return (0);
 }

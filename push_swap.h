@@ -26,6 +26,12 @@
 # define S_END (*s)->end
 # define S_STACK (*s)->stack
 
+/*
+**	push_swap.c
+*/
+
+# define N_INTS (*a)->size
+
 typedef struct		s_stack
 {
 	int				*stack;
