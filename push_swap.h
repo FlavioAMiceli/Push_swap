@@ -41,6 +41,12 @@ typedef struct		s_stack
 	int				len;
 }					t_stack;
 
+typedef struct		s_lengths
+{
+	int				top;
+	int				bottom;
+}					t_lengths;
+
 /*
 **	ops.c
 */
@@ -93,5 +99,12 @@ int					*ft_quicksort(int *arr, size_t len);
 
 int					ceil_log(int exp, int base);
 int					get_n_parts(int n, int i);
+int 				get_part_len(int n, int n_parts, int p_i);
+
+/*
+**	merge.c
+*/
+
+void 				merge_asc(t_stack **src, t_stack **dst, int to_a);
 
 #endif
