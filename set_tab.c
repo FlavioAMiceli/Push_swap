@@ -12,15 +12,18 @@
 
 # include "push_swap.h"
 
-int	*set_tab(int *sorted_tab, char **tab, int n)
+/*
+**	Takes the strings from input tab and turns them into an int array.
+*/
+int	*set_tab(int *int_tab, char **tab, int n)
 {
 	int		i;
 
 	i = 0;
 	while (i < n)
 	{
-		sorted_tab[i] = ft_atoi(tab[i]);
+		int_tab[i] = ft_atoi(tab[i]);
 		i++;
 	}
-	return (sorted_tab);
+	return (int_tab);
 }

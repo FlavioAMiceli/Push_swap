@@ -11,8 +11,8 @@
 #******************************************************************************#
 
 NAME=push_swap
-SRCS=stack_management.c tab_is_valid.c ops.c stack_pointer_ops.c \
-ft_quicksort.c set_tab.c math.c merge.c
+SRCS=stack_management.c tab_is_valid.c stack_ops.c stack_pointer_ops.c \
+ft_quicksort.c set_tab.c math.c
 NAME_C=checker
 NAME_PS=$(NAME)
 SRCS_C=checker.c

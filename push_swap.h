@@ -98,8 +98,6 @@ int					*ft_quicksort(int *arr, size_t len);
 */
 
 int					ceil_log(int exp, int base);
-int					get_n_parts(int n, int i);
-int 				get_part_len(int n, int n_parts, int p_i);
 
 /*
 **	merge.c

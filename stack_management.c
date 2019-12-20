@@ -12,6 +12,9 @@
 
 #include "push_swap.h"
 
+/*
+**	Converts strings in tab to an int array.
+*/
 static int	*set_stack(char **tab, int len)
 {
 	int	*stack;
@@ -27,6 +30,9 @@ static int	*set_stack(char **tab, int len)
 	return (stack);
 }
 
+/*
+**	Frees both t_stacks.
+*/
 void		del_stacks(t_stack **addr_a, t_stack **addr_b)
 {
 	free((*addr_a)->stack);
@@ -35,6 +41,11 @@ void		del_stacks(t_stack **addr_a, t_stack **addr_b)
 	free(*addr_b);
 }
 
+/*
+**	Initializes both the a and b stack.
+**	Puts all ints from the tab to stack a.
+**	Sets all atrributes to correct values.
+*/
 void		init_stacks(t_stack **addr_a, t_stack **addr_b, char **tab, int len)
 {
 	*addr_a = (t_stack *)malloc(sizeof(t_stack));

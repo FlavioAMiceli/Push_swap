@@ -29,70 +29,9 @@
 // 	return (TRUE);
 // }
 
-static void	merge_to_a(t_stack **a, t_stack **b, int i)
-{
-	t_lengths	len_parts;
-	int			n_parts;
-	int			part;
-
-	n_parts = get_n_parts(N_INTS, i);
-	// ft_putstr("i:       "); ft_putnbr(i); ft_putchar('\n');
-	// ft_putstr("n:       "); ft_putnbr(N_INTS); ft_putchar('\n');
-	// ft_putstr("n_parts: "); ft_putnbr(n_parts); ft_putchar('\n');
-	part = 0;
-	while (part < n_parts / 2)
-	{
-		get_part_len(N_INTS, n_parts, part, &len_parts);
-		merge_desc(b, a, TRUE, &len_parts);
-		part++;
-	}
-	while (part < n_parts)
-	{
-		get_part_len(N_INTS, n_parts, part, &len_parts);
-		merge_asc(b, a, TRUE, &len_parts);
-		part++;
-	}
-}
-
-static void	ps_merge(t_stack **a, t_stack **b, int i)
-{
-	int	n_parts;
-	int	part;
-
-	n_parts = get_n_parts(N_INTS, i);
-	ft_putstr("i:       "); ft_putnbr(i); ft_putchar('\n');
-	ft_putstr("n:       "); ft_putnbr(N_INTS); ft_putchar('\n');
-	ft_putstr("n_parts: "); ft_putnbr(n_parts); ft_putchar('\n');
-	part = 0;
-	while (part < n_parts / 2)
-	{
-		get_part_len(N_INTS, n_parts, part, &len_parts);
-		merge_asc(a, b, FALSE, &len_parts);
-		part++;
-	}
-	while (part < n_parts)
-	{
-		get_part_len(N_INTS, n_parts, part, &len_parts);
-		merge_desc(a, b, FALSE, &len_parts);
-		part++;
-	}
-	if (i * 2 < ceil_log(2, N_INTS))
-		merge_to_a(a, b, i + 1);
-	else
-		move_to_a(a, b);
-}
-
 static void	push_swap(t_stack **a, t_stack **b, int *sorted)
 {
-	int	i;
 
-	i = 1;
-	while (i * 2 < ceil_log(2, N_INTS))
-	// while (!is_sorted(a, b, sorted, n))
-	{
-		ps_merge(a, b, i);
-		i += 2;
-	}
 }
 
 int			main(int argc, char **argv)
