@@ -29,25 +29,71 @@
 // 	return (TRUE);
 // }
 
-static void	push_swap(t_stack **a, t_stack **b, int *sorted)
+static int		get_pivot(int low, int high, int *sorted)
 {
-
+	return (sorted[low + ((low + high) / 2)]);
 }
 
-int			main(int argc, char **argv)
+static t_list	*partition_to_b(
+	t_stacks **stacks, int pivot, int lo, int hi)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-	int		sorted_tab[argc - 1];
+	n = (hi - lo) / 2;
+	while (n)
+	{
+		if ((*stacks)->a->head > pivot)
+		{
+			push((*stacks)->a, (*stacks)->b);
+			ft_lstadd(*ops, ft_lstnew("pb", 3));
+			n--;
+		}
+		else
+		{
+			rot((*stack)->a);
+			ft_lstadd(*ops, ft_lstnew("ra", 3));
+		}
+	}
+	lo += (lo + hi) / 2;
+	pivot = get_pivot(lo, hi, sorted);
+	ft_lstappend(&ops, partition_to_a(stacks, pivot, lo, hi));
+	return (ops);
+}
+
+static void		push_swap(t_stacks **stacks, int *sorted)
+{
+	t_list	*ops;
+	int		pivot;
+	int		lo;
+	int		hi;
+	int		i;
+
+	lo = 0;
+	while (is_sorted(
+		(*stacks)->a, (*stacks)->b, sorted, (*stacks)->a->len) == FALSE)
+	{
+		i = 0;
+		hi = (*stacks)->a->size - 1;
+		pivot = get_pivot(lo, hi, sorted);
+		ft_lstappend(&ops, partition_to_b(stacks, pivot, lo, hi));
+		hi = lo + ((hi - lo) / 2);
+		pivot = get_pivot(lo, hi, sorted);
+		ft_lstappend(&ops, partition_to_a(stacks, pivot, lo, hi));
+		lo = hi;
+	}
+}
+
+int				main(int argc, char **argv)
+{
+	t_stacks	*stacks;
+	int			sorted_tab[argc - 1];
 
 	if (argc < 2 || tab_is_valid(&argv[1], argc - 1) == FALSE)
 	{
 		ft_putendl_fd("Error", 2);
 		return (1);
 	}
-	init_stacks(&stack_a, &stack_b, &argv[1], argc - 1);
+	init_stacks(&(stacks->a), &(stacks->b), &argv[1], argc - 1);
 	(void)set_tab(sorted_tab, &argv[1], argc - 1);
 	(void)ft_quicksort(sorted_tab, argc - 1);
-	push_swap(&stack_a, &stack_b, sorted_tab);
+	push_swap(&stacks, sorted_tab);
 	return (0);
 }
