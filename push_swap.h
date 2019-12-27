@@ -25,7 +25,13 @@
 # define S_SIZE (*s)->size
 # define S_END (*s)->end
 # define S_STACK (*s)->stack
-
+# define BASE_CASE_LEN 1
+# define A_HEAD (*a)->start
+# define A_SIZE (*a)->size
+# define A_LEN (*a)->len
+# define B_HEAD (*b)->start
+# define B_SIZE (*b)->size
+# define B_LEN (*b)->len
 /*
 **	push_swap.c
 */
@@ -40,12 +46,6 @@ typedef struct		s_stack
 	int				size;
 	int				len;
 }					t_stack;
-
-typedef struct		s_stacks
-{
-	t_stack			*a;
-	t_stack			*b;
-}					t_stacks;
 
 typedef struct		s_lengths
 {

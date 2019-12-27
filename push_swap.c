@@ -29,71 +29,109 @@
 // 	return (TRUE);
 // }
 
-static int		get_pivot(int low, int high, int *sorted)
+static int		get_pivot(int lo, int hi, int *sorted)
 {
 	return (sorted[low + ((low + high) / 2)]);
 }
 
-static t_list	*partition_to_b(
-	t_stacks **stacks, int pivot, int lo, int hi)
+static void		to_b(t_stack **a, t_stack **b, int pivot, int lo, int hi)
 {
 	n = (hi - lo) / 2;
 	while (n)
 	{
-		if ((*stacks)->a->head > pivot)
+		if (A_HEAD > pivot)
 		{
-			push((*stacks)->a, (*stacks)->b);
-			ft_lstadd(*ops, ft_lstnew("pb", 3));
-			n--;
+			push(a, b);
+			ft_putendl("pb");
+			n--
 		}
 		else
 		{
-			rot((*stack)->a);
-			ft_lstadd(*ops, ft_lstnew("ra", 3));
+			rot(a);
+			ft_putendl("ra");
 		}
 	}
-	lo += (lo + hi) / 2;
-	pivot = get_pivot(lo, hi, sorted);
-	ft_lstappend(&ops, partition_to_a(stacks, pivot, lo, hi));
-	return (ops);
 }
 
-static void		push_swap(t_stacks **stacks, int *sorted)
+static void		to_a(t_stack **a, t_stack **b, int pivot, int lo, int hi)
 {
-	t_list	*ops;
-	int		pivot;
-	int		lo;
-	int		hi;
-	int		i;
-
-	lo = 0;
-	while (is_sorted(
-		(*stacks)->a, (*stacks)->b, sorted, (*stacks)->a->len) == FALSE)
+	n = (hi - lo) / 2;
+	while (n)
 	{
-		i = 0;
-		hi = (*stacks)->a->size - 1;
+		if (B_HEAD > pivot)
+		{
+			push(b, a);
+			ft_putendl("pa");
+			n--
+		}
+		else
+		{
+			rot(b);
+			ft_putendl("rb");
+		}
+	}
+}
+
+static void		push_swap(t_stack **a, t_stack **b, int *sorted)
+{
+	lo = 0;
+	hi = A_SIZE - 1;
+	while (A_LEN > BASE_CASE_LEN)
+	{
 		pivot = get_pivot(lo, hi, sorted);
-		ft_lstappend(&ops, partition_to_b(stacks, pivot, lo, hi));
+		to_b(a, b, pivot, lo, hi);
 		hi = lo + ((hi - lo) / 2);
-		pivot = get_pivot(lo, hi, sorted);
-		ft_lstappend(&ops, partition_to_a(stacks, pivot, lo, hi));
-		lo = hi;
+		// ADD HI TO LINKED LIST, USE LINKED LIST FOR LO AND HI BOUNDS IN NEXT WHILE LOOP?
+	}
+	// RUN BASECASE ONCE OR TWICE, THEN PUSH TO A TILL BC REACHED AGAIN. REPEAT.
+	while (B_LEN > BASE_CASE_LEN) //MAYBE WHILE LL IS NOT NULL or 1 LONG?
+	{
+		// IF BASECASE? RUN THAT INSTEAD?
+		to_a(a, b, pivot, lo, hi);
+	}
+}
+
+// TODO
+// size of input int out of bound for int.
+
+static void 	put_stack(t_stack **s)
+{
+	int	i;
+
+	i = 0;
+	while (&(S_START[i]) <= &(S_STACK[S_SIZE - 1]))
+	{
+		ft_putnbr(S_START[i]);
+		i++;
+	}
+	i = 0;
+	while (&(S_STACK[i] < S_START)
+	{
+		ft_putnbr(S_STACK[i]);
+		i++;
 	}
 }
 
 int				main(int argc, char **argv)
 {
-	t_stacks	*stacks;
-	int			sorted_tab[argc - 1];
+	t_stack	*a;
+	t_stack *b;
+	int		sorted_tab[argc - 1];
 
 	if (argc < 2 || tab_is_valid(&argv[1], argc - 1) == FALSE)
 	{
 		ft_putendl_fd("Error", 2);
 		return (1);
 	}
-	init_stacks(&(stacks->a), &(stacks->b), &argv[1], argc - 1);
+	init_stacks(&a, &b, &argv[1], argc - 1);
 	(void)set_tab(sorted_tab, &argv[1], argc - 1);
 	(void)ft_quicksort(sorted_tab, argc - 1);
-	push_swap(&stacks, sorted_tab);
+	if (no_duplicates(sorted_tab) == FALSE)
+	{
+		ft_putendl_fd("Error", 2);
+		return (1);
+	}
+	push_swap(&a, &b, sorted_tab);
+	put_stack(&a);
 	return (0);
 }
