@@ -105,4 +105,14 @@ int					ceil_log(int exp, int base);
 int					stack_get(t_stack **s, int i);
 void				stack_set(t_stack **s, int value, int i);
 
+/*
+**	heuristic_search_prep.c
+*/
+int					basecase_heuristic(
+	t_stack **src, t_stack **dst, int to_b, size_t n);
+
+/*
+**	heuristic_search.c
+*/
+char				*heuristic_search(t_stack **a, t_stack **b, t_size n)
 #endif
