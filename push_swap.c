@@ -34,43 +34,43 @@ static int		get_pivot(int lo, int hi, int *sorted)
 	return (sorted[low + ((low + high) / 2)]);
 }
 
-static void		to_b(t_stack **a, t_stack **b, int pivot, int lo, int hi)
-{
-	n = (hi - lo) / 2;
-	while (n)
-	{
-		if (A_HEAD > pivot)
-		{
-			push(a, b);
-			ft_putendl("pb");
-			n--
-		}
-		else
-		{
-			rot(a);
-			ft_putendl("ra");
-		}
-	}
-}
-
-static void		to_a(t_stack **a, t_stack **b, int pivot, int lo, int hi)
-{
-	n = (hi - lo) / 2;
-	while (n)
-	{
-		if (B_HEAD > pivot)
-		{
-			push(b, a);
-			ft_putendl("pa");
-			n--
-		}
-		else
-		{
-			rot(b);
-			ft_putendl("rb");
-		}
-	}
-}
+// static void		to_b(t_stack **a, t_stack **b, int pivot, int lo, int hi)
+// {
+// 	n = (hi - lo) / 2;
+// 	while (n)
+// 	{
+// 		if (A_HEAD > pivot)
+// 		{
+// 			push(a, b);
+// 			ft_putendl("pb");
+// 			n--
+// 		}
+// 		else
+// 		{
+// 			rot(a);
+// 			ft_putendl("ra");
+// 		}
+// 	}
+// }
+//
+// static void		to_a(t_stack **a, t_stack **b, int pivot, int lo, int hi)
+// {
+// 	n = (hi - lo) / 2;
+// 	while (n)
+// 	{
+// 		if (B_HEAD > pivot)
+// 		{
+// 			push(b, a);
+// 			ft_putendl("pa");
+// 			n--
+// 		}
+// 		else
+// 		{
+// 			rot(b);
+// 			ft_putendl("rb");
+// 		}
+// 	}
+// }
 
 static void		push_swap(t_stack **a, t_stack **b, int *sorted)
 {

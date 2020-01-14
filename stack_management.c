@@ -15,7 +15,7 @@
 /*
 **	Converts strings in tab to an int array.
 */
-static int	*set_stack(char **tab, int len)
+static int	*tab_to_stack(char **tab, int len)
 {
 	int	*stack;
 	int	i;
@@ -46,18 +46,30 @@ void		del_stacks(t_stack **addr_a, t_stack **addr_b)
 **	Puts all ints from the tab to stack a.
 **	Sets all atrributes to correct values.
 */
-void		init_stacks(t_stack **addr_a, t_stack **addr_b, char **tab, int len)
+void		init_stacks(
+	t_stack **addr_a, t_stack **addr_b, char **tab, int len)
 {
-	*addr_a = (t_stack *)malloc(sizeof(t_stack));
-	*addr_b = (t_stack *)malloc(sizeof(t_stack));
-	(*addr_a)->size = len;
-	(*addr_a)->len = len;
-	(*addr_a)->stack = set_stack(tab, len);
+	init_stacks_no_tab(addr_a, addr_b, len, sizeof(int));
+	(*addr_a)->stack = (int *)malloc(sizeof(int) * len);
+	(*addr_a)->stack = tab_to_stack((*addr_a)->stack, tab, len);
 	(*addr_a)->start = (*addr_a)->stack;
 	(*addr_a)->end = (*addr_a)->stack + (len - 1);
-	(*addr_b)->size = len;
-	(*addr_b)->len = 0;
 	(*addr_b)->stack = (int *)malloc(sizeof(int) * len);
 	(*addr_b)->start = (*addr_b)->stack;
 	(*addr_b)->end = (*addr_b)->stack;
+}
+
+/*
+**	Like init_stacks_tab,
+**	but stack itself aswell as start and end remain untouched.
+*/
+void		init_stacks_no_tab(
+	t_stack **addr_a, t_stack **addr_b, size_t len, size_t size_type)
+{
+	*addr_a = (t_stack *)malloc(sizeof(t_stack));
+	*addr_b = (t_stack *)malloc(sizeof(t_stack));
+	(*addr_a)->size = len * size_type;
+	(*addr_a)->len = len;
+	(*addr_b)->size = len * size_type;
+	(*addr_b)->len = 0;
 }

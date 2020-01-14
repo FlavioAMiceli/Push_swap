@@ -32,6 +32,9 @@ void	dec_end(t_stack **s)
 	S_END = S_END > S_STACK ? S_END - 1 : (S_STACK + S_SIZE) - 1;
 }
 
+/*
+**	Used to align start of stack with index 0 of array?
+*/
 void	shift_stack(t_stack **s)
 {
 	int	len_a;
