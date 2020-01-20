@@ -36,28 +36,28 @@ int		get_legal_moves(t_node *current)
 void	do_moves(t_node **new_nodes, t_node *current, int move_stock)
 {
 	if (move_stock & SA)
-		node_insert(new_nodes, do_sa(current));
+		new_nodes = node_insert(new_nodes, do_sa(current));
 	if (move_stock & SB)
-		node_insert(new_nodes, do_sb(current));
+		new_nodes = node_insert(new_nodes, do_sb(current));
 	if (move_stock & SS_RRR)
 	{
-		node_insert(new_nodes, do_ss(current));
-		node_insert(new_nodes, do_rrr(current));
+		new_nodes = node_insert(new_nodes, do_ss(current));
+		new_nodes = node_insert(new_nodes, do_rrr(current));
 	}
 	if (move_stock & PA_RRB)
 	{
-		node_insert(new_nodes, do_pa(current));
-		node_insert(new_nodes, do_rrb(current));
+		new_nodes = node_insert(new_nodes, do_pa(current));
+		new_nodes = node_insert(new_nodes, do_rrb(current));
 	}
 	if (move_stock & PB_RRA)
 	{
-		node_insert(new_nodes, do_pb(current));
-		node_insert(new_nodes, do_rra(current));
+		new_nodes = node_insert(new_nodes, do_pb(current));
+		new_nodes = node_insert(new_nodes, do_rra(current));
 	}
 	if (move_stock & RA)
-		node_insert(new_nodes, do_ra(current));
+		new_nodes = node_insert(new_nodes, do_ra(current));
 	if (move_stock & RB)
-		node_insert(new_nodes, do_rb(current));
+		new_nodes = node_insert(new_nodes, do_rb(current));
 	if (move_stock & RR)
-		node_insert(new_nodes, do_rr(current));
+		new_nodes = node_insert(new_nodes, do_rr(current));
 }
