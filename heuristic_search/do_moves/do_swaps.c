@@ -21,8 +21,8 @@ t_node	*do_sa(t_node *current)
 	new = node_stackdup(new, current);
 	swap(&(new->stack_a));
 	new->n_ops++;
-	new->fitness = get_fitness(new->stack_a, new->stack_b, new->n_ops);
-	new->ops = ft_strjoin(new->ops, "sa\n");
+	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
+	new->ops = ft_strjoin(current->ops, "sa\n");
 	new->next = NULL;
 	return (new);
 }
@@ -35,8 +35,8 @@ t_node	*do_sb(t_node *current)
 	new = node_stackdup(new, current);
 	swap(&(new->stack_b));
 	new->n_ops++;
-	new->fitness = get_fitness(new->stack_a, new->stack_b, new->n_ops);
-	new->ops = ft_strjoin(new->ops, "sb\n");
+	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
+	new->ops = ft_strjoin(current->ops, "sb\n");
 	new->next = NULL;
 	return (new);
 }
@@ -50,8 +50,8 @@ t_node	*do_ss(t_node *current)
 	swap(&(new->stack_a));
 	swap(&(new->stack_b));
 	new->n_ops++;
-	new->fitness = get_fitness(new->stack_a, new->stack_b, new->n_ops);
-	new->ops = ft_strjoin(new->ops, "ss\n");
+	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
+	new->ops = ft_strjoin(current->ops, "ss\n");
 	new->next = NULL;
 	return (new);
 }

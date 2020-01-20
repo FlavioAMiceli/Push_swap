@@ -21,8 +21,8 @@ t_node	*do_ra(t_node *current)
 	new = node_stackdup(new, current);
 	rot(&(new->stack_a));
 	new->n_ops++;
-	new->fitness = get_fitness(new->stack_a, new->stack_b, new->n_ops);
-	new->ops = ft_strjoin(new->ops, "ra\n");
+	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
+	new->ops = ft_strjoin(current->ops, "ra\n");
 	new->next = NULL;
 	return (new);
 }
@@ -35,8 +35,8 @@ t_node	*do_rb(t_node *current)
 	new = node_stackdup(new, current);
 	rot(&(new->stack_b));
 	new->n_ops++;
-	new->fitness = get_fitness(new->stack_a, new->stack_b, new->n_ops);
-	new->ops = ft_strjoin(new->ops, "rb\n");
+	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
+	new->ops = ft_strjoin(current->ops, "rb\n");
 	new->next = NULL;
 	return (new);
 }
@@ -50,8 +50,8 @@ t_node	*do_rr(t_node *current)
 	rot(&(new->stack_a));
 	rot(&(new->stack_b));
 	new->n_ops++;
-	new->fitness = get_fitness(new->stack_a, new->stack_b, new->n_ops);
-	new->ops = ft_strjoin(new->ops, "rr\n");
+	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
+	new->ops = ft_strjoin(current->ops, "rr\n");
 	new->next = NULL;
 	return (new);
 }

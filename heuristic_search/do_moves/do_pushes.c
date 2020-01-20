@@ -21,8 +21,8 @@ t_node	*do_pa(t_node *current)
 	new = node_stackdup(new, current);
 	push(&(new->stack_b, &(new->stack_a));
 	new->n_ops++;
-	new->fitness = get_fitness(new->stack_a, new->stack_b, new->n_ops);
-	new->ops = ft_strjoin(new->ops, "pa\n");
+	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
+	new->ops = ft_strjoin(current->ops, "pa\n");
 	new->next = NULL;
 	return (new);
 }
@@ -35,8 +35,8 @@ t_node	*do_pb(t_node *current)
 	new = node_stackdup(new, current);
 	push(&(new->stack_a, &(new->stack_b));
 	new->n_ops++;
-	new->fitness = get_fitness(new->stack_a, new->stack_b, new->n_ops);
-	new->ops = ft_strjoin(new->ops, "pb\n");
+	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
+	new->ops = ft_strjoin(current->ops, "pb\n");
 	new->next = NULL;
 	return (new);
 }

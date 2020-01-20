@@ -37,13 +37,13 @@ $(LIBFT) :
 	@make -C ./libft/
 
 clean :
-	@rm -f *~
-	@rm -f \#*.c\#
+	@find . -type f -name "*~" -delete
+	@find . -type f -name "\#*.c\#" -delete
 	@make clean -C ./libft/
 
 fclean : clean
 	@rm -f $(NAME_C) $(NAME_PS)
-	@rm -f *.o
+	@find . -type f -name "*.o" -delete
 	@make fclean -C ./libft/
 
 re : fclean all
