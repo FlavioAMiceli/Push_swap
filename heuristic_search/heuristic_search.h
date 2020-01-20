@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   heuristic_node.h                                   :+:    :+:            */
+/*   heuristic_search.h                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
@@ -17,7 +17,6 @@
 /*
 **	For legal move stocks
 */
-// PB and RRA are always available together. Aswell as (PA RRB), (SS RRR)
 enum				e_moves
 {
 	SA = 1,
@@ -35,9 +34,24 @@ typedef struct		s_node
 	t_stack			*s_a;
 	t_stack			*s_b;
 	char			*ops;
-	unsigned int	fitness;
 	unsigned int	n_ops;
+	unsigned int	fitness;
 	struct s_node	*next;
 }					t_node;
+
+/*
+**	do_moves/do_*.c
+*/
+t_node	*do_sa(t_node *current);
+t_node	*do_sb(t_node *current);
+t_node	*do_ss(t_node *current);
+t_node	*do_rrr(t_node *current);
+t_node	*do_pa(t_node *current);
+t_node	*do_rrb(t_node *current);
+t_node	*do_pb(t_node *current);
+t_node	*do_rra(t_node *current);
+t_node	*do_ra(t_node *current);
+t_node	*do_rb(t_node *current);
+t_node	*do_rr(t_node *current);
 
 #endif
