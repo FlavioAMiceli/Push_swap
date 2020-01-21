@@ -38,7 +38,10 @@ t_node	**node_delhead(t_node **nodes)
 
 	current = *nodes;
 	next = current->next;
-	nodes = &next;
+	if (!next)
+		nodes = NULL;
+	else
+		nodes = &next;
 	del_stacks(&(current->stack_a), &(current->stack_b));
 	free(ops);
 	free(current);
@@ -60,13 +63,65 @@ void	node_delall(t_node **nodes)
 }
 t_node	**node_queue_init(t_node **nodes, t_stack **a, t_stack **b, t_size n)
 {
-	// CODE
+	t_node	*head;
+
+	head = (t_node*)malloc(sizeof(t_node));
+	head->s_a = *a;
+	head->s_b = *b;
+	head->ops = (char*)ft_memalloc(sizeof(char));
+	head->n_ops = 0;
+	head->fitness = node_evaluate(*a, *b, n_ops);
+	head->next = NULL;
+	nodes = &head;
+	return (nodes);
 }
 t_node	**node_insert(t_node **new_nodes, t_node *node)
 {
-	// CODE
+	t_node	*current;
+	t_node	*previous;
+
+	if (new_nodes == NULL || *new_nodes == NULL)
+	{
+		new_nodes = &node;
+		return (new_nodes);
+	}
+	current = *new_nodes;
+	if (node->fitness < current->fitness)
+	{
+		node->next = current;
+		new_nodes = &node;
+		return (new_nodes);
+	}
+	while (node->fitness > current->fitness)
+	{
+		previous = current;
+		current = previous->next;
+	}
+	previous->next = node;
+	node->next = current;
+	return (new_nodes);
 }
-t_node	**insert_new_nodes(t_node **nodes, t_node **new_nodes)
+
+t_node	**insert_new_nodes(t_node **nodes, t_node *new_nodes)
 {
-	// CODE
+	t_node	*current_old;
+
+	if (!nodes || *nodes == NULL)
+	{
+		nodes = &new_nodes;
+		return (nodes);
+	}
+	// while (new_nodes)
+	// {
+	// 	current_old = *nodes;
+	// 	if (new_nodes->fitness < current_old->fitness)
+	// 	{
+	// 		nodes = &new_nodes;
+	// 		while (new_nodes->fitness < current_old->fitness)
+	// 			new_nodes = new_nodes->next;
+	// 		current_old->next = new_nodes;
+	// 	}
+	// 	while (new_nodes->fitness > current_old->fitness)
+	// }
+	return (nodes);
 }

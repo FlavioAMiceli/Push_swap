@@ -80,16 +80,21 @@ int				basecase_heuristic(
 	if (to_b)
 	{
 		if(!init_stacks(*src, a, b, n))
-		del_stacks(a, b);
-		return (FALSE);
+		{
+			del_stacks(a, b);
+			return (FALSE);
+		}
 	}
 	else
 	{
 		if(!init_stacks(*src, b, a, n))
-		del_stacks(a, b);
-		return (FALSE);
+		{
+			del_stacks(a, b);
+			return (FALSE);
+		}
 	}
 	ops = heuristic_search(a, b, n);
 	ft_putstr(ops);
+	free(ops);
 	return (TRUE);
 }
