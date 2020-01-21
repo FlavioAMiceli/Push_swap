@@ -12,7 +12,7 @@
 
 #include "heuristic_search.h"
 
-t_stack	*node_stackdup_aux(t_stack *dst, t_stack *src)
+static t_stack	*node_stackdup_aux(t_stack *dst, t_stack *src)
 {
 	dst->stack = (int*)malloc(src->size);
 	dst->stack = ft_memdup(src->stack, src->size);
@@ -23,7 +23,7 @@ t_stack	*node_stackdup_aux(t_stack *dst, t_stack *src)
 	return (dst);
 }
 
-t_node	*node_stackdup(t_node *new, t_node *current)
+t_node			*node_stackdup(t_node *new, t_node *current)
 {
 	new->stack_a = (t_stack*)malloc(sizeof(t_stack));
 	new->stack_a = node_stackdup_aux(new->stack_a, current->stack_a);
@@ -31,6 +31,7 @@ t_node	*node_stackdup(t_node *new, t_node *current)
 	new->stack_b = node_stackdup_aux(new->stack_b, current->stack_b);
 	return (new);
 }
+
 t_node	**node_delhead(t_node **nodes)
 {
 	t_node *next;
@@ -102,7 +103,7 @@ t_node	**node_insert(t_node **new_nodes, t_node *node)
 	return (new_nodes);
 }
 
-t_node	**insert_new_nodes(t_node **nodes, t_node *new_nodes)
+t_node	**merge_new_nodes(t_node **nodes, t_node *new_nodes)
 {
 	t_node	*current_old;
 

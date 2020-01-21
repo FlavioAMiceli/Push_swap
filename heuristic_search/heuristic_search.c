@@ -29,7 +29,7 @@ static void expand_best_node(t_node **nodes)
 	move_stock = get_legal_moves(*nodes);
 	do_moves(new_nodes, *nodes, move_stock);
 	nodes = node_delhead(nodes);
-	nodes = insert_new_nodes(nodes, new_nodes);
+	nodes = merge_new_nodes(nodes, new_nodes);
 	return (nodes);
 }
 

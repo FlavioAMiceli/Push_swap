@@ -16,7 +16,7 @@
 ** Set chars from 1 to n in (*a)->stack in the same order as numbers appear
 ** in src->stack
 */
-static t_stack *set_a_stack(t_stack *s, t_stack **a, size_t n, int bound)
+static t_stack *set_src_stack(t_stack *s, t_stack **src, size_t n, int bound)
 {
 	int		i;
 	int		j;
@@ -24,7 +24,7 @@ static t_stack *set_a_stack(t_stack *s, t_stack **a, size_t n, int bound)
 
 	if (bound)
 	{
-		(*a)->stack[0] = 0;
+		(*src)->stack[0] = 0;
 		i = 1;
 	}
 	else
@@ -39,10 +39,10 @@ static t_stack *set_a_stack(t_stack *s, t_stack **a, size_t n, int bound)
 				smaller++;
 			j++;
 		}
-		(*a)->stack[i] = smaller + 1;
+		(*src)->stack[i] = smaller + 1;
 		i++;
 	}
-	return ((*a)->stack);
+	return ((*src)->stack);
 }
 
 /*
@@ -51,22 +51,22 @@ static t_stack *set_a_stack(t_stack *s, t_stack **a, size_t n, int bound)
 **	This 0 will be used to tell wether rotations are legal or not.
 */
 static int		init_stacks(
-	t_stack **src, t_stack **a, t_stack **b, size_t n)
+	t_stack **s, t_stack **src, t_stack **dst, size_t n)
 {
-	(*src)->len > n ? bound = TRUE : FALSE;
+	(*s)->len > n ? bound = TRUE : FALSE;
 	init_stacks_no_tab(a, b, n + bound, sizeof(char));
 	if (!(a && b))
 		return (FALSE);
-	(*b)->stack = (char*)ft_memalloc(sizeof(char) * (bound ? n + 1 : n));
-	(*a)->stack = (char*)malloc(sizeof(char) * (bound ? n + 1 : n));
-	if (!((*a)->stack && (*b)->stack))
+	(*dst)->stack = (char*)ft_memalloc(sizeof(char) * (bound ? n + 1 : n));
+	(*src)->stack = (char*)malloc(sizeof(char) * (bound ? n + 1 : n));
+	if (!((*src)->stack && (*dst)->stack))
 		return (FALSE);
-	(*addr_a)->start = (*addr_a)->stack;
-	(*addr_a)->end = (*addr_a)->stack + (n - (1 + bound));
-	(*addr_a)->len -= bound;
-	(*a)->stack = set_a_stack(src, a, (bound ? n + 1 : n), bound);
-	(*addr_b)->start = (*addr_b)->stack;
-	(*addr_b)->end = (*addr_b)->stack;
+	(*src)->start = (*src)->stack;
+	(*src)->end = (*src)->stack + (n - (1 + bound));
+	(*src)->len -= bound;
+	(*src)->stack = set_src_stack(s, src, (bound ? n + 1 : n), bound);
+	(*dst)->start = (*dst)->stack;
+	(*dst)->end = (*dst)->stack;
 	return (TRUE);
 }
 

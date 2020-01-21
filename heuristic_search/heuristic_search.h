@@ -67,6 +67,6 @@ void			node_delall(t_node **nodes);
 t_node			**node_queue_init(
 					t_node **nodes, t_stack **a, t_stack **b, t_size n);
 t_node			**node_insert(t_node **new_nodes, t_node *node);
-t_node			**insert_new_nodes(t_node **nodes, t_node **new_nodes);
+t_node			**merge_new_nodes(t_node **nodes, t_node **new_nodes);
 
 #endif
