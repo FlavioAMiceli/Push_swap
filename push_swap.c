@@ -12,110 +12,81 @@
 
 #include "push_swap.h"
 
-// More error checks. Empty input, letters as input,
-// size of input int out of bound for int.
-
-// static int		is_sorted(\
-// 	t_stack **stack_a, t_stack **stack_b, int *sorted, int n)
-// {
-// 	shift_stack(stack_a);
-// 	if ((*stack_b)->len != 0
-// 	|| ft_memcmp(sorted, (*stack_a)->start, n * sizeof(int)) != 0)
-// 	{
-// 		del_stacks(stack_a, stack_b);
-// 		return (FALSE);
-// 	}
-// 	del_stacks(stack_a, stack_b);
-// 	return (TRUE);
-// }
-
-static int		get_pivot(int lo, int hi, int *sorted)
-{
-	return (sorted[low + ((low + high) / 2)]);
-}
-
-// static void		to_b(t_stack **a, t_stack **b, int pivot, int lo, int hi)
-// {
-// 	n = (hi - lo) / 2;
-// 	while (n)
-// 	{
-// 		if (A_HEAD > pivot)
-// 		{
-// 			push(a, b);
-// 			ft_putendl("pb");
-// 			n--
-// 		}
-// 		else
-// 		{
-// 			rot(a);
-// 			ft_putendl("ra");
-// 		}
-// 	}
-// }
-//
-// static void		to_a(t_stack **a, t_stack **b, int pivot, int lo, int hi)
-// {
-// 	n = (hi - lo) / 2;
-// 	while (n)
-// 	{
-// 		if (B_HEAD > pivot)
-// 		{
-// 			push(b, a);
-// 			ft_putendl("pa");
-// 			n--
-// 		}
-// 		else
-// 		{
-// 			rot(b);
-// 			ft_putendl("rb");
-// 		}
-// 	}
-// }
-
-static void		push_swap(t_stack **a, t_stack **b, int *sorted)
-{
-	lo = 0;
-	hi = A_SIZE - 1;
-	while (A_LEN > BASE_CASE_LEN)
-	{
-		pivot = get_pivot(lo, hi, sorted);
-		to_b(a, b, pivot, lo, hi);
-		hi = lo + ((hi - lo) / 2);
-		// ADD HI TO LINKED LIST, USE LINKED LIST FOR LO AND HI BOUNDS IN NEXT WHILE LOOP?
-	}
-	// RUN BASECASE ONCE OR TWICE, THEN PUSH TO A TILL BC REACHED AGAIN. REPEAT.
-	while (B_LEN > BASE_CASE_LEN) //MAYBE WHILE LL IS NOT NULL or 1 LONG?
-	{
-		// IF BASECASE? RUN THAT INSTEAD?
-		to_a(a, b, pivot, lo, hi);
-	}
-}
-
-// TODO
-// size of input int out of bound for int.
-
-static void 	put_stack(t_stack **s)
+static	void sift(\
+	t_stack **a, t_stack **b, int low, int hi, int *sorted, t_list **ops)
 {
 	int	i;
 
 	i = 0;
-	while (&(S_START[i]) <= &(S_STACK[S_SIZE - 1]))
+	while (i < hi - low)
 	{
-		ft_putnbr(S_START[i]);
-		i++;
-	}
-	i = 0;
-	while (&(S_STACK[i] < S_START)
-	{
-		ft_putnbr(S_STACK[i]);
-		i++;
+		if ((*a)->start[0] < sorted[(low + hi) / 2])
+		{
+			if ((*a)->start[1] < (*a)->start[0])
+			{
+				swap(a);
+				ft_lstadd(ops, ft_lstnew("sa", 3));
+				push(a, b);
+				ft_lstadd(ops, ft_lstnew("pb", 3));
+			}
+			push(a, b);
+			ft_lstadd(ops, ft_lstnew("pb", 3));
+		}
+		else
+		{
+			if ((*a)->start[1] > (*a)->start[0])
+			{
+				swap(a);
+				ft_lstadd(ops, ft_lstnew("sa", 3));
+				rot(a);
+				ft_lstadd(ops, ft_lstnew("ra", 3));
+			}
+			rot(a);
+			ft_lstadd(ops, ft_lstnew("ra", 3));
+		}
+		i--;
 	}
 }
 
-int				main(int argc, char **argv)
+static int		is_sorted(\
+	t_stack **stack_a, t_stack **stack_b, int *sorted, int n)
 {
-	t_stack	*a;
-	t_stack *b;
+	shift_stack(stack_a);
+	if ((*stack_b)->len != 0
+	|| ft_memcmp(sorted, (*stack_a)->start, n * sizeof(int)) != 0)
+	{
+		del_stacks(stack_a, stack_b);
+		return (FALSE);
+	}
+	del_stacks(stack_a, stack_b);
+	return (TRUE);
+}
+
+static void push_swap(t_stack **a, t_stack **b, int *sorted, int n)
+{
+	t_list	*ops;
+	int		hi;
+
+	ops = NULL;
+	hi = n - 1;
+	while (!is_sorted(a, b, sorted, n))
+	{
+		sift(a, b, 0, hi, sorted, &ops);
+		sift(a, b, hi / 2, hi, sorted, &ops);
+		shift_stack(a);
+		for (int i = 0; i < n; i++)
+		{
+			ft_putnbr((*a)->stack[i]);
+			ft_putchar('\n');
+		}
+		ft_putchar('\n');
+	}
+}
+
+int			main(int argc, char **argv)
+{
+	t_stack	*stack_a;
+	t_stack	*stack_b;
 	int		sorted_tab[argc - 1];
 
 	if (argc < 2 || tab_is_valid(&argv[1], argc - 1) == FALSE)
@@ -123,15 +94,24 @@ int				main(int argc, char **argv)
 		ft_putendl_fd("Error", 2);
 		return (1);
 	}
-	init_stacks(&a, &b, &argv[1], argc - 1);
+	init_stacks(&stack_a, &stack_b, &argv[1], argc - 1);
 	(void)set_tab(sorted_tab, &argv[1], argc - 1);
 	(void)ft_quicksort(sorted_tab, argc - 1);
-	if (no_duplicates(sorted_tab) == FALSE)
-	{
-		ft_putendl_fd("Error", 2);
-		return (1);
-	}
-	push_swap(&a, &b, sorted_tab);
-	put_stack(&a);
+	push_swap(&stack_a, &stack_b, sorted_tab, argc - 1);
 	return (0);
 }
+
+/*
+**	1. Pick pivot.
+**	2. Remember n and m numbers before and after pivot.
+**	3. For n, if num < pivot && num < num + 1 push,
+**		else if num > num + 1 swap and push,
+**		else rotate.
+**	4. Push pivot
+**	5. For m, if num < pivot && num < num + 1 push,
+**		else if num > num + 1 swap and push,
+**		else rotate.
+**	6. Reverse rotate other stack.
+**	7. Repeat?
+**	8. Done?
+*/
