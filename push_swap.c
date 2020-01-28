@@ -12,48 +12,48 @@
 
 #include "push_swap.h"
 
-static	void sift(\
-	t_stack **a, t_stack **b, int low, int hi, int *sorted, t_list **ops)
-{
-	int	i;
-
-	i = 0;
-	while (i < hi - low)
-	{
-		if ((*a)->start[0] < sorted[(low + hi) / 2])
-		{
-			if ((*a)->start[1] < (*a)->start[0])
-			{
-				swap(a);
-				ft_lstadd(ops, ft_lstnew("sa", 3));
-				push(a, b);
-				ft_lstadd(ops, ft_lstnew("pb", 3));
-			}
-			push(a, b);
-			ft_lstadd(ops, ft_lstnew("pb", 3));
-		}
-		else
-		{
-			if ((*a)->start[1] > (*a)->start[0])
-			{
-				swap(a);
-				ft_lstadd(ops, ft_lstnew("sa", 3));
-				rot(a);
-				ft_lstadd(ops, ft_lstnew("ra", 3));
-			}
-			rot(a);
-			ft_lstadd(ops, ft_lstnew("ra", 3));
-		}
-		i--;
-	}
-}
+// static	void sift(\
+// 	t_stack **a, t_stack **b, int low, int hi, int *sorted, t_list **ops)
+// {
+// 	int	i;
+//
+// 	i = 0;
+// 	while (i < hi - low)
+// 	{
+// 		if ((*a)->start[0] < sorted[(low + hi) / 2])
+// 		{
+// 			if ((*a)->start[1] < (*a)->start[0])
+// 			{
+// 				swap(a);
+// 				ft_lstadd(ops, ft_lstnew("sa", 3));
+// 				push(a, b);
+// 				ft_lstadd(ops, ft_lstnew("pb", 3));
+// 			}
+// 			push(a, b);
+// 			ft_lstadd(ops, ft_lstnew("pb", 3));
+// 		}
+// 		else
+// 		{
+// 			if ((*a)->start[1] > (*a)->start[0])
+// 			{
+// 				swap(a);
+// 				ft_lstadd(ops, ft_lstnew("sa", 3));
+// 				rot(a);
+// 				ft_lstadd(ops, ft_lstnew("ra", 3));
+// 			}
+// 			rot(a);
+// 			ft_lstadd(ops, ft_lstnew("ra", 3));
+// 		}
+// 		i--;
+// 	}
+// }
 
 static int		is_sorted(\
 	t_stack **stack_a, t_stack **stack_b, int *sorted, int n)
 {
 	shift_stack(stack_a);
 	if ((*stack_b)->len != 0
-	|| ft_memcmp(sorted, (*stack_a)->start, n * sizeof(int)) != 0)
+	|| ft_memcmp(sorted, (*stack_a)->stack, n * sizeof(int)) != 0)
 	{
 		del_stacks(stack_a, stack_b);
 		return (FALSE);

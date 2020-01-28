@@ -11,27 +11,42 @@
 #******************************************************************************#
 
 NAME=push_swap
-SRCS=stack_management.c tab_is_valid.c stack_ops.c stack_pointer_ops.c \
-ft_quicksort.c set_tab.c math.c
 NAME_C=checker
-NAME_PS=$(NAME)
-SRCS_C=checker.c
-SRCS_PS=push_swap.c
-OBJS=$(SRCS:.c=.o)
-OBJS_C=$(SRCS_C:.c=.o)
-OBJS_PS=$(SRCS_PS:.c=.o)
-HEADER=push_swap.h
+
+SRCS= \
+	ft_quicksort.c \
+	math.c \
+	set_tab.c \
+	tab_is_valid.c \
+	stack_management.c \
+	stack_ops.c \
+	stack_pointer_ops.c \
+	stack_wrapper_functions.c
+SRCS_C= \
+	checker.c
+SRCS_PS= \
+	push_swap.c \
+	./heuristic_search/node/node.c \
+	./heuristic_search/do_moves/do_pushes.c \
+	./heuristic_search/do_moves/do_revrots.c \
+	./heuristic_search/do_moves/do_rotations.c \
+	./heuristic_search/do_moves/do_swaps.c \
+	./heuristic_search/do_moves/moves.c \
+	./heuristic_search/heuristic_search.c \
+	./heuristic_search/heuristic_search_prep.c
+
+HEADERS= \
+	./push_swap.h \
+	./heuristic_search.h
 LIBFT=./libft/libft.a
 VPATH=/libft
 FLAGS= -Wall -Wextra -Werror
 
-all : $(NAME_C) $(NAME_PS) clean
+all : $(NAME_C) $(NAME) clean
 
 $(NAME) : $(LIBFT)
-	@gcc -o $(NAME_PS) $(SRCS) $(SRCS_PS) $(FLAGS) -I $(HEADER) $(LIBFT)
-
-$(NAME_C) : $(LIBFT)
-	@gcc -o $(NAME_C) $(SRCS) $(SRCS_C) $(FLAGS) -I $(HEADER) $(LIBFT)
+	@gcc -o $(NAME_C) $(SRCS) $(SRCS_C) $(FLAGS) -I $(HEADERS) $(LIBFT)
+	@gcc -o $(NAME) $(SRCS) $(SRCS_PS) $(FLAGS) -I $(HEADERS) $(LIBFT)
 
 $(LIBFT) :
 	@make -C ./libft/
@@ -42,7 +57,7 @@ clean :
 	@make clean -C ./libft/
 
 fclean : clean
-	@rm -f $(NAME_C) $(NAME_PS)
+	@rm -f $(NAME) $(NAME_PS)
 	@find . -type f -name "*.o" -delete
 	@make fclean -C ./libft/
 
