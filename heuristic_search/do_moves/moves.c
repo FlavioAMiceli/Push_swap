@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-#include "heuristic_search.h"
+#include "../heuristic_search.h"
 
 int		get_legal_moves(t_node *current)
 {

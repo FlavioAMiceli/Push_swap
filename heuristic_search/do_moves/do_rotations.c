@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-#include "heuristic_search.h"
+#include "../heuristic_search.h"
 
 t_node	*do_ra(t_node *current)
 {

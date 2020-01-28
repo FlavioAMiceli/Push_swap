@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "heuristic_search.h"
+#include "../heuristic_search.h"
 
 static t_stack	*node_stackdup_aux(t_stack *dst, t_stack *src)
 {

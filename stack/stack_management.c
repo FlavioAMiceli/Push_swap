@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
 /*
 **	Converts strings in tab to an int array.
@@ -51,7 +51,7 @@ void		init_stacks(
 {
 	init_stacks_no_tab(addr_a, addr_b, len, sizeof(int));
 	(*addr_a)->stack = (int *)malloc(sizeof(int) * len);
-	(*addr_a)->stack = tab_to_stack((*addr_a)->stack, tab, len);
+	(*addr_a)->stack = tab_to_stack(tab, len);
 	(*addr_a)->start = (*addr_a)->stack;
 	(*addr_a)->end = (*addr_a)->stack + (len - 1);
 	(*addr_b)->stack = (int *)malloc(sizeof(int) * len);

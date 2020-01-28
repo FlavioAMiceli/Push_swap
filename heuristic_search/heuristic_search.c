@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
 #include "heuristic_search.h"
 
 static int	is_solved(t_node *node, int n)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "heuristic_search.h"
 
 /*
 ** Set chars from 1 to n in (*a)->stack in the same order as numbers appear

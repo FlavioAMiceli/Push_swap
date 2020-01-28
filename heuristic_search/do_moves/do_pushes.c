@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-#include "heuristic_search.h"
+#include "../heuristic_search.h"
 
 t_node	*do_pa(t_node *current)
 {
@@ -19,7 +18,7 @@ t_node	*do_pa(t_node *current)
 
 	new = (t_node*)malloc(sizeof(t_node));
 	new = node_stackdup(new, current);
-	push(&(new->stack_b, &(new->stack_a));
+	push(&(new->stack_b), &(new->stack_a));
 	new->n_ops++;
 	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "pa\n");
@@ -33,7 +32,7 @@ t_node	*do_pb(t_node *current)
 
 	new = (t_node*)malloc(sizeof(t_node));
 	new = node_stackdup(new, current);
-	push(&(new->stack_a, &(new->stack_b));
+	push(&(new->stack_a), &(new->stack_b));
 	new->n_ops++;
 	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "pb\n");
