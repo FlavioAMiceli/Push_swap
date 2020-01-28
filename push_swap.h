@@ -24,7 +24,7 @@
 # define S_SIZE (*s)->size
 # define S_END (*s)->end
 # define S_STACK (*s)->stack
-# define BASE_CASE_LEN 1
+# define BASE_CASE_LEN 6
 # define A_HEAD (*a)->start
 # define A_SIZE (*a)->size
 # define A_LEN (*a)->len
@@ -114,5 +114,6 @@ int					basecase_heuristic(
 /*
 **	heuristic_search.c
 */
-char				*heuristic_search(t_stack **a, t_stack **b, t_size n)
+char				*heuristic_search(t_stack **a, t_stack **b, size_t n);
+
 #endif

@@ -62,25 +62,31 @@ static int		is_sorted(\
 	return (TRUE);
 }
 
+// static void push_swap(t_stack **a, t_stack **b, int *sorted, int n)
+// {
+// 	t_list	*ops;
+// 	int		hi;
+//
+// 	ops = NULL;
+// 	hi = n - 1;
+// 	while (!is_sorted(a, b, sorted, n))
+// 	{
+// 		sift(a, b, 0, hi, sorted, &ops);
+// 		sift(a, b, hi / 2, hi, sorted, &ops);
+// 		shift_stack(a);
+// 		for (int i = 0; i < n; i++)
+// 		{
+// 			ft_putnbr((*a)->stack[i]);
+// 			ft_putchar('\n');
+// 		}
+// 		ft_putchar('\n');
+// 	}
+// }
+
 static void push_swap(t_stack **a, t_stack **b, int *sorted, int n)
 {
-	t_list	*ops;
-	int		hi;
-
-	ops = NULL;
-	hi = n - 1;
-	while (!is_sorted(a, b, sorted, n))
-	{
-		sift(a, b, 0, hi, sorted, &ops);
-		sift(a, b, hi / 2, hi, sorted, &ops);
-		shift_stack(a);
-		for (int i = 0; i < n; i++)
-		{
-			ft_putnbr((*a)->stack[i]);
-			ft_putchar('\n');
-		}
-		ft_putchar('\n');
-	}
+	if (n <= BASE_CASE_LEN)
+		basecase_heuristic(a, b, TRUE, n);
 }
 
 int			main(int argc, char **argv)

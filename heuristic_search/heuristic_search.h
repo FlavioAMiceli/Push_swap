@@ -14,6 +14,8 @@
 
 # define HEURISTIC_NODE_H
 
+# include "../push_swap.h"
+
 /*
 **	For legal move stocks
 */
@@ -22,7 +24,7 @@ enum				e_moves
 	SA = 1,
 	SB = 2,
 	SS_RRR = 4,
-	PA_RRB = 8,,
+	PA_RRB = 8,
 	PB_RRA = 16,
 	RA = 32,
 	RB = 64,
@@ -65,7 +67,7 @@ unsigned int	node_evaluate(
 					t_stack *stack_a, t_stack *stack_b, unsigned int n_ops);
 void			node_delall(t_node **nodes);
 t_node			**node_queue_init(
-					t_node **nodes, t_stack **a, t_stack **b, t_size n);
+					t_node **nodes, t_stack **a, t_stack **b, size_t n);
 t_node			**node_insert(t_node **new_nodes, t_node *node);
 t_node			**merge_new_nodes(t_node **nodes, t_node **new_nodes);
 

@@ -18,10 +18,10 @@ SRCS= \
 	math.c \
 	set_tab.c \
 	tab_is_valid.c \
-	stack_management.c \
-	stack_ops.c \
-	stack_pointer_ops.c \
-	stack_wrapper_functions.c
+	./stack/stack_management.c \
+	./stack/stack_ops.c \
+	./stack/stack_pointer_ops.c \
+	./stack/stack_wrapper_functions.c
 SRCS_C= \
 	checker.c
 SRCS_PS= \
@@ -35,18 +35,26 @@ SRCS_PS= \
 	./heuristic_search/heuristic_search.c \
 	./heuristic_search/heuristic_search_prep.c
 
+OBJ = $(SRCS:.c=.o)
+OBJ_C= $(SRCS_C:.c=.o)
+OBJ_PS= $(SRCS_PS:.c=.o)
+
 HEADERS= \
 	./push_swap.h \
-	./heuristic_search.h
+	./libft/libft.h \
+	./heuristic_search/heuristic_search.h
+
 LIBFT=./libft/libft.a
-VPATH=/libft
 FLAGS= -Wall -Wextra -Werror
 
-all : $(NAME_C) $(NAME) clean
+all : $(LIBFT) $(NAME_C) $(NAME) clean
 
-$(NAME) : $(LIBFT)
-	@gcc -o $(NAME_C) $(SRCS) $(SRCS_C) $(FLAGS) -I $(HEADERS) $(LIBFT)
-	@gcc -o $(NAME) $(SRCS) $(SRCS_PS) $(FLAGS) -I $(HEADERS) $(LIBFT)
+%.o: %.c $(HEADERS)
+	@gcc -o $@ -c $< $(FLAGS) -I $(HEADERS)
+
+$(NAME) : $(OBJ) $(OBJ_C) $(OBJ_PS) $(LIBFT)
+	@gcc -o $(NAME_C) $(SRCS) $(SRCS_C) -I $(HEADERS) $(LIBFT) $(FLAGS)
+	@gcc -o $(NAME) $(SRCS) $(SRCS_PS) -I $(HEADERS) $(LIBFT) $(FLAGS)
 
 $(LIBFT) :
 	@make -C ./libft/
