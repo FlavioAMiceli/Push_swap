@@ -18,9 +18,9 @@ t_node	*do_ra(t_node *current)
 
 	new = (t_node*)malloc(sizeof(t_node));
 	new = node_stackdup(new, current);
-	rot(&(new->stack_a));
+	rot(&(new->s_a));
 	new->n_ops++;
-	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
+	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "ra\n");
 	new->next = NULL;
 	return (new);
@@ -32,9 +32,9 @@ t_node	*do_rb(t_node *current)
 
 	new = (t_node*)malloc(sizeof(t_node));
 	new = node_stackdup(new, current);
-	rot(&(new->stack_b));
+	rot(&(new->s_b));
 	new->n_ops++;
-	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
+	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "rb\n");
 	new->next = NULL;
 	return (new);
@@ -46,10 +46,10 @@ t_node	*do_rr(t_node *current)
 
 	new = (t_node*)malloc(sizeof(t_node));
 	new = node_stackdup(new, current);
-	rot(&(new->stack_a));
-	rot(&(new->stack_b));
+	rot(&(new->s_a));
+	rot(&(new->s_b));
 	new->n_ops++;
-	new->fitness = node_evaluate(new->stack_a, new->stack_b, new->n_ops);
+	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "rr\n");
 	new->next = NULL;
 	return (new);

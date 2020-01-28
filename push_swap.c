@@ -87,6 +87,12 @@ static void push_swap(t_stack **a, t_stack **b, int *sorted, int n)
 {
 	if (n <= BASE_CASE_LEN)
 		basecase_heuristic(a, b, TRUE, n);
+	else
+		ft_putstr("N TOO LARGE, ONLY BASECASE!");
+	if (is_sorted(a, b, sorted, n))
+		ft_putstr("Succes!");
+	else
+		ft_putstr("Boo!");
 }
 
 int			main(int argc, char **argv)

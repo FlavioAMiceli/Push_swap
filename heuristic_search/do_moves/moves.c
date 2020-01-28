@@ -17,15 +17,15 @@ int		get_legal_moves(t_node *current)
 	int	moves;
 
 	moves = 0x0;
-	if (current->stack_a->len > 0 && *(current->stack_a->end) != 0)
+	if (current->s_a->len > 0 && *(current->s_a->end) != 0)
 	{
-		moves |= current->stack_a->len > 1 ? SA | PB_RRA : PB_RRA;
-		moves |= *(current->stack_a->start) != 0 ? RA : 0x0;
+		moves |= current->s_a->len > 1 ? SA | PB_RRA : PB_RRA;
+		moves |= *(current->s_a->start) != 0 ? RA : 0x0;
 	}
-	if (current->stack_b->len > 0 && *(current->stack_b->end) != 0)
+	if (current->s_b->len > 0 && *(current->s_b->end) != 0)
 	{
-		moves |= current->stack_b->len > 1 ? SB | PA_RRB : PA_RRB;
-		moves |= *(current->stack_b->start) != 0 ? RB : 0x0;
+		moves |= current->s_b->len > 1 ? SB | PA_RRB : PA_RRB;
+		moves |= *(current->s_b->start) != 0 ? RB : 0x0;
 	}
 	moves |= moves & SA && moves & SB ? SS_RRR : 0x0;
 	moves |= moves & RA && moves & RB ? RR : 0x0;

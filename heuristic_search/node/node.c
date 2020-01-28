@@ -15,7 +15,7 @@
 static t_stack	*node_stackdup_aux(t_stack *dst, t_stack *src)
 {
 	dst->stack = (int*)malloc(src->size);
-	dst->stack = ft_memdup(src->stack, src->size);
+	dst->stack = (int*)ft_memdup((char*)src->stack, src->size);
 	dst->start = dst->stack + (src->start - src->stack);
 	dst->end = dst->stack + (src->end - src->stack);
 	dst->size = src->size;
@@ -25,14 +25,14 @@ static t_stack	*node_stackdup_aux(t_stack *dst, t_stack *src)
 
 t_node			*node_stackdup(t_node *new, t_node *current)
 {
-	new->stack_a = (t_stack*)malloc(sizeof(t_stack));
-	new->stack_a = node_stackdup_aux(new->stack_a, current->stack_a);
-	new->stack_b = (t_stack*)malloc(sizeof(t_stack));
-	new->stack_b = node_stackdup_aux(new->stack_b, current->stack_b);
+	new->s_a = (t_stack*)malloc(sizeof(t_stack));
+	new->s_a = node_stackdup_aux(new->s_a, current->s_a);
+	new->s_b = (t_stack*)malloc(sizeof(t_stack));
+	new->s_b = node_stackdup_aux(new->s_b, current->s_b);
 	return (new);
 }
 
-t_node	**node_delhead(t_node **nodes)
+t_node			**node_delhead(t_node **nodes)
 {
 	t_node *next;
 	t_node *current;
@@ -43,10 +43,10 @@ t_node	**node_delhead(t_node **nodes)
 		nodes = NULL;
 	else
 		nodes = &next;
-	del_stacks(&(current->stack_a), &(current->stack_b));
-	free(ops);
+	del_stacks(&(current->s_a), &(current->s_b));
+	free(current->ops);
 	free(current);
-	return (&next);
+	return (nodes);
 }
 unsigned int	node_evaluate(
 	t_stack *stack_a, t_stack *stack_b, unsigned int n_ops)
@@ -62,7 +62,7 @@ void	node_delall(t_node **nodes)
 		node_delhead(nodes);
 	nodes = NULL;
 }
-t_node	**node_queue_init(t_node **nodes, t_stack **a, t_stack **b, t_size n)
+t_node			*node_queue_init(t_node **nodes, t_stack **a, t_stack **b)
 {
 	t_node	*head;
 
@@ -71,12 +71,12 @@ t_node	**node_queue_init(t_node **nodes, t_stack **a, t_stack **b, t_size n)
 	head->s_b = *b;
 	head->ops = (char*)ft_memalloc(sizeof(char));
 	head->n_ops = 0;
-	head->fitness = node_evaluate(*a, *b, n_ops);
+	head->fitness = node_evaluate(*a, *b, 0);
 	head->next = NULL;
 	nodes = &head;
-	return (nodes);
+	return (*nodes);
 }
-t_node	**node_insert(t_node **new_nodes, t_node *node)
+t_node			**node_insert(t_node **new_nodes, t_node *node)
 {
 	t_node	*current;
 	t_node	*previous;
@@ -103,13 +103,13 @@ t_node	**node_insert(t_node **new_nodes, t_node *node)
 	return (new_nodes);
 }
 
-t_node	**merge_new_nodes(t_node **nodes, t_node *new_nodes)
+t_node			**merge_new_nodes(t_node **nodes, t_node **new_nodes)
 {
-	t_node	*current_old;
+	// t_node	*current_old;
 
 	if (!nodes || *nodes == NULL)
 	{
-		nodes = &new_nodes;
+		nodes = new_nodes;
 		return (nodes);
 	}
 	// while (new_nodes)
