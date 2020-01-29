@@ -103,6 +103,31 @@ t_node			**node_insert(t_node **new_nodes, t_node *node)
 	return (new_nodes);
 }
 
+static	t_node	**merge_helper(
+	t_node **new_current, t_node **old_current, t_node **sorted)
+{
+	t_node	*old;
+	t_node	*new;
+
+	old = *old_current;
+	new = *new_current;
+	if (new->fitness < old->fitness)
+	{
+		while (new->next && new->fitness <= old->fitness)
+			new = new->next;
+		sorted = &new;
+		new_current = &(new->next);
+	}
+	else
+	{
+		while (old->next && old->fitness <= new->fitness)
+			old = old->next;
+		sorted = &old;
+		old_current = &(old->next);
+	}
+	return (sorted);
+}
+
 t_node			**merge_new_nodes(t_node **nodes, t_node **new_nodes)
 {
 	t_node	*old;
@@ -119,29 +144,16 @@ t_node			**merge_new_nodes(t_node **nodes, t_node **new_nodes)
 	old = *nodes;
 	// set the head of nodes and find the first natural series.
 	if (new->fitness < old->fitness)
-	{
 		nodes = new_nodes;
-		sorted = new;
-		while (sorted->next && sorted->fitness <= old->fitness)
-			sorted = sorted->next;
-	}
-	else
-	{
-		sorted = old;
-		while (sorted->next && sorted->fitness <= new->fitness)
-			sorted = sorted->next;
-	}
+	sorted = merge_helper(&new, &old, &sorted);
 	// find next natural series. Will alternate between new and old.
 	while (new && old)
 	{
-		if (new->fitness < old->fitness)
-		{
-
-		}
-		else
-		{
-
-		}
+		sorted->next =
+			new->fitness < old->fitness ? new->fitness : old->fitness;
+		sorted = merge_helper(&new, &old, &sorted);
 	}
+	// add last natural series to back of sorted list.
+	sorted->next = old ? old : new;
 	return (nodes);
 }
