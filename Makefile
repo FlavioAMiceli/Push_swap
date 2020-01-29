@@ -53,7 +53,7 @@ VPATH= \
 	./heuristic_search/node \
 	./heuristic_search/do_moves \
 
-all : $(NAME_C) $(NAME) $(LIBFT)
+all : $(NAME_C) $(NAME)
 
 %.o : %.c
 	@gcc -c $< -I $(HEADERS) $(FLAGS)
@@ -62,7 +62,7 @@ $(NAME) : $(OBJ) $(OBJ_PS) $(LIBFT)
 	@gcc -o $(NAME) $(OBJ) $(OBJ_PS) $(LIBFT) $(FLAGS)
 
 $(NAME_C) : $(OBJ) $(OBJ_C) $(LIBFT)
-	gcc -o $(NAME_C) $(OBJ) $(OBJ_C) $(LIBFT) $(FLAGS)
+	@gcc -o $(NAME_C) $(OBJ) $(OBJ_C) $(LIBFT) $(FLAGS)
 
 $(LIBFT) :
 	@make -C ./libft/
@@ -71,11 +71,11 @@ clean :
 	@find . -type f -name "*~" -delete
 	@find . -type f -name "*.gch" -delete
 	@find . -type f -name "\#*.c\#" -delete
-	@make clean -C ./libft/
+	@find . -type f -name "*.o" -delete
+	@make fclean -C ./libft/
 
 fclean : clean
 	@rm -f $(NAME) $(NAME_PS)
-	@find . -type f -name "*.o" -delete
 	@make fclean -C ./libft/
 
 re : fclean all

@@ -16,10 +16,10 @@
 ** Set chars from 1 to n in (*a)->stack in the same order as numbers appear
 ** in src->stack
 */
-static t_stack *set_src_stack(t_stack *s, t_stack **src, size_t n, int bound)
+static int 	*set_src_stack(t_stack *s, t_stack **src, size_t n, int bound)
 {
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 	char	smaller;
 
 	if (bound)
@@ -50,15 +50,17 @@ static t_stack *set_src_stack(t_stack *s, t_stack **src, size_t n, int bound)
 **	will be set at the start of the partition.
 **	This 0 will be used to tell wether rotations are legal or not.
 */
-static int		init_stacks(
-	t_stack **s, t_stack **src, t_stack **dst, size_t n)
+static int	init_stacks_heuristic(
+	t_stack *s, t_stack **src, t_stack **dst, size_t n)
 {
-	(*s)->len > n ? bound = TRUE : FALSE;
-	init_stacks_no_tab(a, b, n + bound, sizeof(char));
-	if (!(a && b))
+	int	bound;
+
+	bound = (size_t)s->len > n ? TRUE : FALSE;
+	init_stacks_no_tab(src, dst, n + bound, sizeof(int));
+	if (!(src && dst))
 		return (FALSE);
-	(*dst)->stack = (char*)ft_memalloc(sizeof(char) * (bound ? n + 1 : n));
-	(*src)->stack = (char*)malloc(sizeof(char) * (bound ? n + 1 : n));
+	(*dst)->stack = (int*)ft_memalloc(sizeof(int) * (bound ? n + 1 : n));
+	(*src)->stack = (int*)malloc(sizeof(int) * (bound ? n + 1 : n));
 	if (!((*src)->stack && (*dst)->stack))
 		return (FALSE);
 	(*src)->start = (*src)->stack;
@@ -70,30 +72,31 @@ static int		init_stacks(
 	return (TRUE);
 }
 
-int				basecase_heuristic(
-	t_stack **src, t_stack **dst, int to_b, size_t n)
+int			basecase_heuristic(
+	t_stack **src, int to_b, size_t n)
 {
-	t_stack	**a;
-	t_stack	**b;
+	t_stack	*a;
+	t_stack	*b;
 	char	*ops;
 
 	if (to_b)
 	{
-		if(!init_stacks(*src, a, b, n))
+		if(!init_stacks_heuristic(*src, &a, &b, n))
 		{
-			del_stacks(a, b);
+			del_stacks(&a, &b);
 			return (FALSE);
 		}
 	}
 	else
 	{
-		if(!init_stacks(*src, b, a, n))
+		if(!init_stacks_heuristic(*src, &b, &a, n))
 		{
-			del_stacks(a, b);
+			del_stacks(&a, &b);
 			return (FALSE);
 		}
 	}
-	ops = heuristic_search(a, b, n);
+	ops = heuristic_search(&a, &b, n);
+	ft_putendl("Exit HS"); // REMOFENJKN
 	ft_putstr(ops);
 	free(ops);
 	return (TRUE);

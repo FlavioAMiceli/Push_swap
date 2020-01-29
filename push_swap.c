@@ -85,8 +85,11 @@ static int		is_sorted(\
 
 static void push_swap(t_stack **a, t_stack **b, int *sorted, int n)
 {
+	int	to_b;
+
+	to_b = TRUE;
 	if (n <= BASE_CASE_LEN)
-		basecase_heuristic(a, b, TRUE, n);
+		basecase_heuristic(to_b ? a : b, TRUE, n);
 	else
 		ft_putstr("N TOO LARGE, ONLY BASECASE!");
 	if (is_sorted(a, b, sorted, n))

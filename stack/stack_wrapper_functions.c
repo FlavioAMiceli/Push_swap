@@ -15,7 +15,7 @@
 /*
 **	Returns value at index i in stack.
 */
-int		stack_get(t_stack **s, int i)
+int		stack_get(t_stack *s, int i)
 {
 	// TODO
 	// TEST EVERYTHING!
@@ -23,21 +23,21 @@ int		stack_get(t_stack **s, int i)
 	// Than it's also wrong in shift_stack in stack_pointer_ops!
 	int	start_n;
 
-	start_n = S_SIZE - (S_START - S_STACK);
+	start_n = s->size - (s->start - s->stack);
 	if (i > start_n)
-		return (S_STACK[i - (start_n - 1)]);
-	return (S_START[i]);
+		return (s->stack[i - (start_n - 1)]);
+	return (s->start[i]);
 }
 
 /*
 **	Sets value at index i in stack.
 */
-void	stack_set(t_stack **s, int value, int i)
+void	stack_set(t_stack *s, int value, int i)
 {
 	int	start_n;
 
-	start_n = S_SIZE - (S_START - S_STACK);
+	start_n = s->size - (s->start - s->stack);
 	if (i > start_n)
-		S_STACK[i - (start_n - 1)] = value;
-	S_START[i] = value;
+		s->stack[i - (start_n - 1)] = value;
+	s->start[i] = value;
 }

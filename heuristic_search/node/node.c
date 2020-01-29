@@ -105,24 +105,43 @@ t_node			**node_insert(t_node **new_nodes, t_node *node)
 
 t_node			**merge_new_nodes(t_node **nodes, t_node **new_nodes)
 {
-	// t_node	*current_old;
+	t_node	*old;
+	t_node	*new;
+	t_node	*sorted;
 
-	if (!nodes || *nodes == NULL)
+	// nodes is empty, new_nodes are all existing states.
+	if (!nodes || !(*nodes))
 	{
 		nodes = new_nodes;
 		return (nodes);
 	}
-	// while (new_nodes)
-	// {
-	// 	current_old = *nodes;
-	// 	if (new_nodes->fitness < current_old->fitness)
-	// 	{
-	// 		nodes = &new_nodes;
-	// 		while (new_nodes->fitness < current_old->fitness)
-	// 			new_nodes = new_nodes->next;
-	// 		current_old->next = new_nodes;
-	// 	}
-	// 	while (new_nodes->fitness > current_old->fitness)
-	// }
+	new = *new_nodes;
+	old = *nodes;
+	// set the head of nodes and find the first natural series.
+	if (new->fitness < old->fitness)
+	{
+		nodes = new_nodes;
+		sorted = new;
+		while (sorted->next && sorted->fitness <= old->fitness)
+			sorted = sorted->next;
+	}
+	else
+	{
+		sorted = old;
+		while (sorted->next && sorted->fitness <= new->fitness)
+			sorted = sorted->next;
+	}
+	// find next natural series. Will alternate between new and old.
+	while (new && old)
+	{
+		if (new->fitness < old->fitness)
+		{
+
+		}
+		else
+		{
+
+		}
+	}
 	return (nodes);
 }
