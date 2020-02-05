@@ -65,7 +65,7 @@ static int	init_stacks_heuristic(
 		return (FALSE);
 	(*src)->start = (*src)->stack;
 	(*src)->end = (*src)->stack + (n - (1 + bound));
-	(*src)->len -= bound;
+	(*dst)->len = 0;
 	(*src)->stack = set_src_stack(s, src, (bound ? n + 1 : n), bound);
 	(*dst)->start = (*dst)->stack;
 	(*dst)->end = (*dst)->stack;
@@ -96,7 +96,7 @@ int			basecase_heuristic(
 		}
 	}
 	ops = heuristic_search(&a, &b, n);
-	ft_putendl("Exit HS"); // REMOFENJKN
+	ft_putendl("Exit HS, STILL NEED TO PROGRAM SORT OF PARTITION ON REAL STACK"); // REMOFENJKN
 	ft_putstr(ops);
 	free(ops);
 	return (TRUE);

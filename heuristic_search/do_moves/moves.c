@@ -11,52 +11,75 @@
 /* ************************************************************************** */
 
 #include "../heuristic_search.h"
+#include <stdio.h> // remove me!
 
+/*
+**	Checks which moves are legal and non-trivial.
+**
+**	Pushing is allowed when length is greater than 1 and the top entry != 0.
+**
+**	Swapping is allowed when pushing is allowed and the entry at index 1 != 0.
+**
+**	Rotating is allowed when swapping is allowed, so we use the same flag.
+**
+**	Reverse rotating is allowed when pushing is allowed and;
+**	length is greater than 1 or (length is 1 AND len_a + len_b < size / sizeof()
+**
+**	Double ops are allowed whenever an operator is allowed on both stacks.
+*/
 int		get_legal_moves(t_node *current)
 {
 	int	moves;
+	int	a_len;
+	int b_len;
 
 	moves = 0x0;
-	if (current->s_a->len > 0 && *(current->s_a->end) != 0)
+	a_len = current->s_a->len;
+	b_len = current->s_b->len;
+	if (a_len > 0 && stack_get(current->s_a, 0) != 0)
 	{
-		moves |= current->s_a->len > 1 ? SA | PB_RRA : PB_RRA;
-		moves |= *(current->s_a->start) != 0 ? RA : 0x0;
+		moves |= a_len > 1 && stack_get(current->s_a, 1) ? SA_RA | PB : PB;
+	 	moves |= a_len > 1 ||
+			(a_len == 1 && a_len + b_len == current->s_a->size / sizeof(int)) ?
+			RRA : 0x0;
 	}
-	if (current->s_b->len > 0 && *(current->s_b->end) != 0)
+	if (b_len > 0 && stack_get(current->s_b, 0) != 0)
 	{
-		moves |= current->s_b->len > 1 ? SB | PA_RRB : PA_RRB;
-		moves |= *(current->s_b->start) != 0 ? RB : 0x0;
+		moves |= b_len > 1 && stack_get(current->s_b, 1) ? SB_RB | PA : PA;
+	 	moves |= b_len > 1 ||
+			(b_len == 1 && a_len + b_len == current->s_a->size / sizeof(int)) ?
+			RRB : 0x0;
 	}
-	moves |= moves & SA && moves & SB ? SS_RRR : 0x0;
-	moves |= moves & RA && moves & RB ? RR : 0x0;
+	moves |= moves & SA_RA && moves & SB_RB ? SS_RR : 0x0;
+	moves |= moves & RRA && moves & RRB ? RRR : 0x0;
 	return (moves);
 }
 
 void	do_moves(t_node **new_nodes, t_node *current, int move_stock)
 {
-	if (move_stock & SA)
+	if (move_stock & SA_RA)
+	{
 		new_nodes = node_insert(new_nodes, do_sa(current));
-	if (move_stock & SB)
+		new_nodes = node_insert(new_nodes, do_ra(current));
+	}
+	if (move_stock & SB_RB)
+	{
 		new_nodes = node_insert(new_nodes, do_sb(current));
-	if (move_stock & SS_RRR)
+		new_nodes = node_insert(new_nodes, do_rb(current));
+	}
+	if (move_stock & SS_RR)
 	{
 		new_nodes = node_insert(new_nodes, do_ss(current));
-		new_nodes = node_insert(new_nodes, do_rrr(current));
-	}
-	if (move_stock & PA_RRB)
-	{
-		new_nodes = node_insert(new_nodes, do_pa(current));
-		new_nodes = node_insert(new_nodes, do_rrb(current));
-	}
-	if (move_stock & PB_RRA)
-	{
-		new_nodes = node_insert(new_nodes, do_pb(current));
-		new_nodes = node_insert(new_nodes, do_rra(current));
-	}
-	if (move_stock & RA)
-		new_nodes = node_insert(new_nodes, do_ra(current));
-	if (move_stock & RB)
-		new_nodes = node_insert(new_nodes, do_rb(current));
-	if (move_stock & RR)
 		new_nodes = node_insert(new_nodes, do_rr(current));
+	}
+	if (move_stock & PB)
+		new_nodes = node_insert(new_nodes, do_pb(current));
+	if (move_stock & PA)
+		new_nodes = node_insert(new_nodes, do_pa(current));
+	if (move_stock & RRB)
+		new_nodes = node_insert(new_nodes, do_rrb(current));
+	if (move_stock & RRA)
+		new_nodes = node_insert(new_nodes, do_rra(current));
+	if (move_stock & RRR)
+		new_nodes = node_insert(new_nodes, do_rrr(current));
 }

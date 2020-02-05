@@ -21,14 +21,14 @@
 */
 enum				e_moves
 {
-	SA = 1,
-	SB = 2,
-	SS_RRR = 4,
-	PA_RRB = 8,
-	PB_RRA = 16,
-	RA = 32,
-	RB = 64,
-	RR = 128,
+	PB = 1,
+	PA = 2,
+	SA_RA = 4,
+	SB_RB = 8,
+	RRA = 16,
+	RRB = 32,
+	SS_RR = 64,
+	RRR = 256,
 };
 
 typedef struct		s_node

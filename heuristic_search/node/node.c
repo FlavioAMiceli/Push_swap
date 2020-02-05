@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../heuristic_search.h"
+#include <stdio.h> // remove me!
 
 static t_stack	*node_stackdup_aux(t_stack *dst, t_stack *src)
 {
@@ -39,13 +40,16 @@ t_node			**node_delhead(t_node **nodes)
 
 	current = *nodes;
 	next = current->next;
+	printf("delhead: %p, %p\n", nodes, *nodes);
 	if (!next)
 		nodes = NULL;
 	else
 		nodes = &next;
+	printf("delhead: %p, %p\n", nodes, *nodes);
 	del_stacks(&(current->s_a), &(current->s_b));
 	free(current->ops);
 	free(current);
+	printf("delhead: %p, %p\n", nodes, *nodes);
 	return (nodes);
 }
 unsigned int	node_evaluate(
@@ -58,7 +62,7 @@ unsigned int	node_evaluate(
 }
 void	node_delall(t_node **nodes)
 {
-	while (*nodes)
+	while (nodes && *nodes)
 		node_delhead(nodes);
 	nodes = NULL;
 }
@@ -93,17 +97,19 @@ t_node			**node_insert(t_node **new_nodes, t_node *node)
 		new_nodes = &node;
 		return (new_nodes);
 	}
-	while (node->fitness > current->fitness)
+	previous = current;
+	current = current->next;
+	while (current && node->fitness > current->fitness)
 	{
 		previous = current;
-		current = previous->next;
+		current = current->next;
 	}
 	previous->next = node;
 	node->next = current;
 	return (new_nodes);
 }
 
-static	t_node	**merge_helper(
+static	t_node	*link_next_natural_run(
 	t_node **new_current, t_node **old_current, t_node **sorted)
 {
 	t_node	*old;
@@ -125,7 +131,7 @@ static	t_node	**merge_helper(
 		sorted = &old;
 		old_current = &(old->next);
 	}
-	return (sorted);
+	return (*sorted);
 }
 
 t_node			**merge_new_nodes(t_node **nodes, t_node **new_nodes)
@@ -134,7 +140,6 @@ t_node			**merge_new_nodes(t_node **nodes, t_node **new_nodes)
 	t_node	*new;
 	t_node	*sorted;
 
-	// nodes is empty, new_nodes are all existing states.
 	if (!nodes || !(*nodes))
 	{
 		nodes = new_nodes;
@@ -142,18 +147,14 @@ t_node			**merge_new_nodes(t_node **nodes, t_node **new_nodes)
 	}
 	new = *new_nodes;
 	old = *nodes;
-	// set the head of nodes and find the first natural series.
 	if (new->fitness < old->fitness)
 		nodes = new_nodes;
-	sorted = merge_helper(&new, &old, &sorted);
-	// find next natural series. Will alternate between new and old.
+	sorted = link_next_natural_run(&new, &old, &sorted);
 	while (new && old)
 	{
-		sorted->next =
-			new->fitness < old->fitness ? new->fitness : old->fitness;
-		sorted = merge_helper(&new, &old, &sorted);
+		sorted->next = new->fitness < old->fitness ? new : old;
+		sorted = link_next_natural_run(&new, &old, &sorted);
 	}
-	// add last natural series to back of sorted list.
 	sorted->next = old ? old : new;
 	return (nodes);
 }
