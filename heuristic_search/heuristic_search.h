@@ -28,7 +28,7 @@ enum				e_moves
 	RRA = 16,
 	RRB = 32,
 	SS_RR = 64,
-	RRR = 256,
+	RRR = 128,
 };
 
 typedef struct		s_node
@@ -44,7 +44,7 @@ typedef struct		s_node
 /*
 **	do_moves/do_*.c
 */
-int				get_legal_moves(t_node *current);
+int				get_legal_moves(t_node *current, int size_type);
 void			do_moves(t_node **new_nodes, t_node *current, int move_stock);
 t_node			*do_sa(t_node *current);
 t_node			*do_sb(t_node *current);
