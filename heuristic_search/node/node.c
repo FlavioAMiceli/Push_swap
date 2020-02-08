@@ -81,6 +81,34 @@ t_node			*node_queue_init(t_node **nodes, t_stack **a, t_stack **b)
 	return (*nodes);
 }
 
+void	node_insert(t_node **new_nodes, t_node *node)
+{
+	t_node	*current;
+	t_node	*previous;
+
+	if (new_nodes == NULL || *new_nodes == NULL)
+	{
+		*new_nodes = node;
+		return ;
+	}
+	current = *new_nodes;
+	if (node->fitness < current->fitness)
+	{
+		node->next = current;
+		*new_nodes = node;
+		return ;
+	}
+	previous = current;
+	current = current->next;
+	while (current && (node->fitness > current->fitness))
+	{
+		previous = current;
+		current = current->next;
+	}
+	previous->next = node;
+	node->next = current;
+}
+
 static	int		list_len(t_node *node)
 {
 	// REMOVE ME!
@@ -94,58 +122,6 @@ static	int		list_len(t_node *node)
 	}
 	return (i);
 }
-
-void	node_insert(t_node **new_nodes, t_node *node)
-{
-	t_node	*current;
-	t_node	*previous;
-
-	printf("\nNew_nodes first node: %p\nNode to be insterted: %p\n", *new_nodes, node);
-	printf("node_insert extra node len: %d\n", list_len(node));
-	printf("node_insert existing nodes: %d\n", list_len(*new_nodes));
-	if (new_nodes == NULL || *new_nodes == NULL)
-	{
-		*new_nodes = node;
-		printf("1 Return node insert existing nodes: %d\n\n", list_len(*new_nodes));
-		return ;
-	}
-	current = *new_nodes;
-	if (node->fitness < current->fitness)
-	{
-		node->next = current;
-		*new_nodes = node;
-		printf("2 Return node insert existing nodes: %d\n\n", list_len(*new_nodes));
-		return ;
-	}
-	previous = current;
-	current = current->next;
-	printf("Previous: %p\nCurrent: %p\n", previous, current);
-	while (current && (node->fitness > current->fitness))
-	{
-		printf("node->fitness: %d, current->fitness: %d\n", node->fitness, current->fitness);
-		previous = current;
-		current = current->next;
-	}
-	printf("Previous: %p\nNode: %p\n", previous, node); // WHY ARE THSESE THE SAME ADRESS????
-	previous->next = node;
-	node->next = current;
-	printf("3 Return node insert existing nodes: %d\n\n", list_len(*new_nodes));
-	return ;
-}
-
-// static	int		list_len(t_node *node)
-// {
-// 	// REMOVE ME!
-// 	int i;
-//
-// 	i = 0;
-// 	while (node)
-// 	{
-// 		i++;
-// 		node = node->next;
-// 	}
-// 	return (i);
-// }
 
 static	t_node	*link_next_natural_run(
 	t_node **new_current, t_node **old_current, t_node **sorted)
@@ -178,16 +154,16 @@ t_node			**merge_new_nodes(t_node **nodes, t_node **new_nodes)
 	t_node	*new;
 	t_node	*sorted;
 
-	// printf("merge_new_nodes\n");
+	printf("merge_new_nodes\n");
 	if (!nodes || !(*nodes))
 	{
-		// printf("merge_new_nodes?\n");
+		printf("merge_new_nodes?\n");
 		nodes = new_nodes;
 		return (nodes);
 	}
-	// printf("merge_new_nodes, after empty old check.\n");
-	// printf("old len: %d\n", list_len(*nodes));
-	// printf("new len: %d\n", list_len(*new_nodes));
+	printf("merge_new_nodes, after empty old check.\n");
+	printf("old len: %d\n", list_len(*nodes));
+	printf("new len: %d\n", list_len(*new_nodes));
 	new = *new_nodes;
 	old = *nodes;
 	if (new->fitness < old->fitness)

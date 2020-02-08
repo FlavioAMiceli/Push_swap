@@ -18,11 +18,7 @@ t_node	*do_ra(t_node *current)
 	t_node	*new;
 
 	new = (t_node*)malloc(sizeof(t_node));
-	printf("do_ra current         : %p\n", current);
-	printf("do_ra new after malloc: %p\n", new);
 	new = node_stackdup(new, current);
-	printf("do_ra current p-stackd: %p\n", current);
-	printf("do_ra new after stackd: %p\n", new);
 	if (!new ||
 		!rot(&(new->s_a)))
 	{

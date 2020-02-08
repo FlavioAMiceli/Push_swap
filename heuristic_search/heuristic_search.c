@@ -32,20 +32,6 @@ static int		is_solved(t_node *node, int n)
 	return (TRUE);
 }
 
-static	int		list_len(t_node *node)
-{
-	// REMOVE ME!
-	int i;
-
-	i = 0;
-	while (node)
-	{
-		i++;
-		node = node->next;
-	}
-	return (i);
-}
-
 static t_node	*expand_best_node(t_node **nodes, int size_type)
 {
 	t_node	*new_nodes;
@@ -75,14 +61,8 @@ static t_node	*expand_best_node(t_node **nodes, int size_type)
 	// printf("Before node_delhead: %p, %p\n", nodes, *nodes);
 	nodes = node_delhead(nodes);
 	printf("After node_delhead: %p %p\n", nodes, &new_nodes);
-	if (nodes)
-		printf("old len: %d\n", list_len(*nodes));
-	printf("huh");
-	printf("new len: %d\n", list_len(new_nodes));
 	nodes = merge_new_nodes(nodes, &new_nodes);
-	printf("old len: %d\n", list_len(*nodes));
-	printf("new len: %d\n", list_len(new_nodes));
-	// printf("After mnn: %p, %p\n", nodes, *nodes);
+	printf("After mnn: %p, %p\n", nodes, *nodes);
 	return (*nodes);
 }
 
