@@ -70,31 +70,63 @@ int		get_legal_moves(t_node *current, int size_type)
 	return (moves);
 }
 
+static	int		list_len(t_node *node)
+{
+	// REMOVE ME!
+	int i;
+
+	i = 0;
+	while (node)
+	{
+		i++;
+		node = node->next;
+	}
+	return (i);
+}
+
 void	do_moves(t_node **new_nodes, t_node *current, int move_stock)
 {
+	printf("do_moves: %#x\n", move_stock);
 	if (move_stock & SA_RA)
 	{
-		new_nodes = node_insert(new_nodes, do_sa(current));
-		new_nodes = node_insert(new_nodes, do_ra(current));
+		printf("	do_moves: 1\n");
+		node_insert(new_nodes, do_sa(current));
+		printf("new_nodes after inserting do_sa: %p\n", *new_nodes);
+		node_insert(new_nodes, do_ra(current));
+		printf("new_nodes after inserting do_ra: %p\n", *new_nodes);
+		printf("!!!new_nodes len: %d\n", list_len(*new_nodes));
 	}
 	if (move_stock & SB_RB)
 	{
-		new_nodes = node_insert(new_nodes, do_sb(current));
-		new_nodes = node_insert(new_nodes, do_rb(current));
+		printf("	do_moves: 2\n");
+		node_insert(new_nodes, do_sb(current));
+		node_insert(new_nodes, do_rb(current));
 	}
 	if (move_stock & SS_RR)
 	{
-		new_nodes = node_insert(new_nodes, do_ss(current));
-		new_nodes = node_insert(new_nodes, do_rr(current));
+		printf("	do_moves: 3\n");
+		node_insert(new_nodes, do_ss(current));
+		node_insert(new_nodes, do_rr(current));
 	}
-	if (move_stock & PA)
-		new_nodes = node_insert(new_nodes, do_pa(current));
-	if (move_stock & PB)
-		new_nodes = node_insert(new_nodes, do_pb(current));
-	if (move_stock & RRB)
-		new_nodes = node_insert(new_nodes, do_rrb(current));
-	if (move_stock & RRA)
-		new_nodes = node_insert(new_nodes, do_rra(current));
-	if (move_stock & RRR)
-		new_nodes = node_insert(new_nodes, do_rrr(current));
+	if (move_stock & PA) {
+		printf("	do_moves: 4\n");
+		node_insert(new_nodes, do_pa(current));
+	}
+	if (move_stock & PB) {
+		printf("	do_moves: 5\n");
+		node_insert(new_nodes, do_pb(current));
+	}
+	if (move_stock & RRB) {
+		printf("	do_moves: 6\n");
+		node_insert(new_nodes, do_rrb(current));
+	}
+	if (move_stock & RRA) {
+		printf("	do_moves: 7\n");
+		node_insert(new_nodes, do_rra(current));
+	}
+	if (move_stock & RRR) {
+		printf("	do_moves: 8\n");
+		node_insert(new_nodes, do_rrr(current));
+	}
+	printf("After do_moves new len: %d\n", list_len(*new_nodes));
 }

@@ -18,7 +18,12 @@ t_node	*do_pa(t_node *current)
 
 	new = (t_node*)malloc(sizeof(t_node));
 	new = node_stackdup(new, current);
-	push(&(new->s_b), &(new->s_a));
+	if (!new ||
+		!push(&(new->s_b), &(new->s_a)))
+	{
+		ft_putstr_fd("Error in do_pa\n", 2);
+		exit(0);
+	}
 	new->n_ops++;
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "pa\n");
@@ -32,7 +37,12 @@ t_node	*do_pb(t_node *current)
 
 	new = (t_node*)malloc(sizeof(t_node));
 	new = node_stackdup(new, current);
-	push(&(new->s_a), &(new->s_b));
+	if (!new ||
+		!push(&(new->s_a), &(new->s_b)))
+	{
+		ft_putstr_fd("Error in do_pb\n", 2);
+		exit(0);
+	}
 	new->n_ops++;
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "pb\n");
