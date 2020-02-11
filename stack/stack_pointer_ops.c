@@ -45,7 +45,7 @@ void	shift_stack(t_stack **s)
 		return ;
 	arr = (int *)malloc(sizeof(int) * S_SIZE);
 	len_a = S_START - S_STACK;
-	len_b = S_SIZE - len_a;
+	len_b = (S_SIZE / sizeof(int)) - len_a;
 	arr = ft_memcpy(arr, S_START, sizeof(int) * len_b);
 	(void)ft_memcpy(arr + len_b, S_STACK, sizeof(int) * len_a);
 	free(S_STACK);

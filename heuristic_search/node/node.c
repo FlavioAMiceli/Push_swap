@@ -15,12 +15,17 @@
 
 static t_stack	*node_stackdup_aux(t_stack *dst, t_stack *src)
 {
+	// printf("Enter node_stackdup_aux\n");
 	dst->stack = (int*)malloc(src->size);
+	// printf("src: %p\n", src);
+	// printf("src->size: %d\n", src->size);
 	dst->stack = (int*)ft_memdup((char*)src->stack, src->size);
+	// printf("dst->stack: %p\n", dst->stack);
 	dst->start = dst->stack + (src->start - src->stack);
 	dst->end = dst->stack + (src->end - src->stack);
 	dst->size = src->size;
 	dst->len = src->len;
+	// printf("Exit node_stackdup_aux\n");
 	return (dst);
 }
 
@@ -33,7 +38,7 @@ t_node			*node_stackdup(t_node *new, t_node *current)
 	return (new);
 }
 
-t_node			**node_delhead(t_node **nodes)
+void			node_delhead(t_node **nodes)
 {
 	t_node *next;
 	t_node *current;
@@ -41,13 +46,12 @@ t_node			**node_delhead(t_node **nodes)
 	current = *nodes;
 	next = current->next;
 	if (!next)
-		nodes = NULL;
+		*nodes = NULL;
 	else
-		nodes = &next;
+		*nodes = next;
 	del_stacks(&(current->s_a), &(current->s_b));
 	free(current->ops);
 	free(current);
-	return (nodes);
 }
 
 unsigned int	node_evaluate(
@@ -77,7 +81,7 @@ t_node			*node_queue_init(t_node **nodes, t_stack **a, t_stack **b)
 	head->n_ops = 0;
 	head->fitness = node_evaluate(*a, *b, 0);
 	head->next = NULL;
-	nodes = &head;
+	*nodes = head;
 	return (*nodes);
 }
 
@@ -86,7 +90,7 @@ void	node_insert(t_node **new_nodes, t_node *node)
 	t_node	*current;
 	t_node	*previous;
 
-	if (new_nodes == NULL || *new_nodes == NULL)
+	if (*new_nodes == NULL)
 	{
 		*new_nodes = node;
 		return ;
@@ -109,19 +113,70 @@ void	node_insert(t_node **new_nodes, t_node *node)
 	node->next = current;
 }
 
-static	int		list_len(t_node *node)
-{
-	// REMOVE ME!
-	int i;
+// static	int		list_len(t_node *node)
+// {
+// 	// REMOVE ME!
+// 	int i;
+//
+// 	i = 0;
+// 	while (node)
+// 	{
+// 		i++;
+// 		node = node->next;
+// 	}
+// 	return (i);
+// }
 
-	i = 0;
-	while (node)
-	{
-		i++;
-		node = node->next;
-	}
-	return (i);
-}
+// static	t_node	*link_next_natural_run(
+// 	t_node **new_current, t_node **old_current, t_node **sorted)
+// {
+// 	t_node	*old;
+// 	t_node	*new;
+//
+// 	old = *old_current;
+// 	new = *new_current;
+// 	if (new->fitness < old->fitness)
+// 	{
+// 		while (new->next && new->fitness <= old->fitness)
+// 			new = new->next;
+// 		*sorted = new;
+// 		(*sorted)->next = NULL;
+// 		*new_current = new->next;
+// 	}
+// 	else
+// 	{
+// 		while (old->next && old->fitness <= new->fitness)
+// 			old = old->next;
+// 		*sorted = old;
+// 		(*sorted)->next = NULL;
+// 		*old_current = old->next;
+// 	}
+// 	return (*sorted);
+// }
+//
+// void			merge_new_nodes(t_node **nodes, t_node **new_nodes)
+// {
+// 	t_node	*old;
+// 	t_node	*new;
+// 	t_node	*last_sorted;
+//
+// 	if (!nodes || !(*nodes))
+// 	{
+// 		nodes = new_nodes;
+// 		return ;
+// 	}
+// 	new = *new_nodes;
+// 	old = *nodes;
+// 	// if (new->fitness < old->fitness)
+// 	// 	nodes = new_nodes;
+// 	last_sorted = link_next_natural_run(&new, &old, &last_sorted);
+// 	while (new && old)
+// 	{
+// 		last_sorted->next = new->fitness < old->fitness ? new : old;
+// 		last_sorted = link_next_natural_run(&new, &old, &last_sorted);
+// 	}
+// 	return (nodes);
+// }
 
 static	t_node	*link_next_natural_run(
 	t_node **new_current, t_node **old_current, t_node **sorted)
@@ -135,45 +190,41 @@ static	t_node	*link_next_natural_run(
 	{
 		while (new->next && new->fitness <= old->fitness)
 			new = new->next;
-		sorted = &new;
-		new_current = &(new->next);
+		*sorted = new;
+		(*sorted)->next = NULL;
+		*new_current = new->next;
 	}
 	else
 	{
 		while (old->next && old->fitness <= new->fitness)
 			old = old->next;
-		sorted = &old;
-		old_current = &(old->next);
+		*sorted = old;
+		(*sorted)->next = NULL;
+		*old_current = old->next;
 	}
 	return (*sorted);
 }
 
-t_node			**merge_new_nodes(t_node **nodes, t_node **new_nodes)
+void			merge_new_nodes(t_node **nodes, t_node **new_nodes)
 {
 	t_node	*old;
 	t_node	*new;
-	t_node	*sorted;
+	t_node	*last_sorted;
 
-	printf("merge_new_nodes\n");
-	if (!nodes || !(*nodes))
+	ft_putendl("THIS FUNCTION SHIT");
+	if (!(*nodes))
 	{
-		printf("merge_new_nodes?\n");
-		nodes = new_nodes;
-		return (nodes);
+		*nodes = *new_nodes;
+		return ;
 	}
-	printf("merge_new_nodes, after empty old check.\n");
-	printf("old len: %d\n", list_len(*nodes));
-	printf("new len: %d\n", list_len(*new_nodes));
 	new = *new_nodes;
 	old = *nodes;
 	if (new->fitness < old->fitness)
-		nodes = new_nodes;
-	sorted = link_next_natural_run(&new, &old, &sorted);
+		*nodes = *new_nodes;
+	last_sorted = link_next_natural_run(&new, &old, &last_sorted);
 	while (new && old)
 	{
-		sorted->next = new->fitness < old->fitness ? new : old;
-		sorted = link_next_natural_run(&new, &old, &sorted);
+		last_sorted->next = new->fitness < old->fitness ? new : old;
+		last_sorted = link_next_natural_run(&new, &old, &last_sorted);
 	}
-	sorted->next = old ? old : new;
-	return (nodes);
 }
