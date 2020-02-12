@@ -63,14 +63,14 @@ static t_node	*expand_best_node(t_node **nodes, int size_type)
 	// 	printf("%d ", stack_get((*nodes)->s_b, i));
 	// printf("Enter ebn.\n");
 	move_stock = get_legal_moves(*nodes, size_type);
-	// printf("move_stock: %d\n", move_stock);
+	printf("move_stock: %d\n", move_stock);
 	new_nodes = NULL;
 	// printf("Before do_moves: %p, %p\n", nodes, *nodes);
-	printf("Current nodes:\n");
-	for (t_node *node = *nodes; node != NULL; node = node->next)
-		printf("	%p :\n%s\n", node, node->ops);
+	// printf("Current nodes:\n");
+	// for (t_node *node = *nodes; node != NULL; node = node->next)
+	// 	printf("	%p :\n%s\n", node, node->ops);
 	do_moves(&new_nodes, *nodes, move_stock);
-	// printf("Current new nodes:\n");
+	printf("Current new nodes:\n");
 	// for (t_node *new = new_nodes; new != NULL; new = new->next)
 		// printf("	%p :\n%s\n", new, new->ops);
 	// printf("Before node_delhead: %p, %p\n", nodes, *nodes);

@@ -17,6 +17,7 @@ t_node	*do_sa(t_node *current)
 	t_node	*new;
 
 	new = (t_node*)malloc(sizeof(t_node));
+	ft_putendl("do_sa");
 	new = node_stackdup(new, current);
 	if (!new ||
 		!swap(&(new->s_a)))
@@ -36,6 +37,7 @@ t_node	*do_sb(t_node *current)
 	t_node	*new;
 
 	new = (t_node*)malloc(sizeof(t_node));
+	ft_putendl("do_sb");
 	new = node_stackdup(new, current);
 	if (!new ||
 		!swap(&(new->s_b)))
@@ -55,6 +57,7 @@ t_node	*do_ss(t_node *current)
 	t_node	*new;
 
 	new = (t_node*)malloc(sizeof(t_node));
+	ft_putendl("do_ss");
 	new = node_stackdup(new, current);
 	if (!new ||
 		!swap(&(new->s_a)) ||

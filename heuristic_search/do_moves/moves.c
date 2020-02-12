@@ -74,7 +74,9 @@ void	do_moves(t_node **new_nodes, t_node *current, int move_stock)
 {
 	if (move_stock & SA_RA)
 	{
+		ft_putendl("Here");
 		node_insert(new_nodes, do_sa(current));
+		ft_putendl("Here2");
 		node_insert(new_nodes, do_ra(current));
 	}
 	if (move_stock & SB_RB)
