@@ -13,6 +13,33 @@
 #include "../heuristic_search.h"
 #include <stdio.h> // remove me!
 
+static	int remove_trivial_ops(int last_op, int moves)
+{
+	if (last_op & PB)
+		moves &= ~(PA);
+	if (last_op & PA)
+		moves &= ~(PB);
+	if (last_op & A_OPS)
+	{
+		if (last_op & SA)
+			moves &= ~(SA);
+		if (last_op & RA)
+			moves &= ~(RRA);
+		if (last_op & RRA)
+			moves &= ~(RA);
+	}
+	if (last_op & B_OPS)
+	{
+		if (last_op & SB)
+			moves &= ~(SB);
+		if (last_op & RB)
+			moves &= ~(RRB);
+		if (last_op & RRB)
+			moves &= ~(RB);
+	}
+	return (moves);
+}
+
 /*
 **	Helper function to get_legal_moves. See glm comment.
 */
@@ -25,13 +52,13 @@ static	int glm_single_stack_ops(
 	if (stack_is_a)
 	{
 		if (stack_get(s, 0) != 0)
-			moves |= len > 1 && stack_get(s, 1) != 0 ? SA_RA | PB : PB;
+			moves |= len > 1 && stack_get(s, 1) != 0 ? SA | RA | PB : PB;
 		moves |= has_bound == FALSE || stack_get(s, len) != 0 ? RRA : 0x0;
 	}
 	else
 	{
 		if (stack_get(s, 0) != 0)
-			moves |= len > 1 && stack_get(s, 1) != 0 ? SB_RB | PA : PA;
+			moves |= len > 1 && stack_get(s, 1) != 0 ? SB | RB | PA : PA;
 		moves |= has_bound == FALSE || stack_get(s, len) != 0 ? RRB : 0x0;
 	}
 	return (moves);
@@ -65,38 +92,35 @@ int		get_legal_moves(t_node *current, int size_type)
 		moves |= glm_single_stack_ops(current->s_a, a_len, has_bound, TRUE);
 	if (b_len > 0)
 		moves |= glm_single_stack_ops(current->s_b, b_len, has_bound, FALSE);
-	moves |= (moves & SA_RA) && (moves & SB_RB) ? SS_RR : 0x0;
+	moves = remove_trivial_ops(current->last_op, moves);
+	moves |= (moves & SA) && (moves & SB) ? SS : 0x0;
+	moves |= (moves & RA) && (moves & RB) ? RR : 0x0;
 	moves |= (moves & RRA) && (moves & RRB) ? RRR : 0x0;
 	return (moves);
 }
 
 void	do_moves(t_node **new_nodes, t_node *current, int move_stock)
 {
-	if (move_stock & SA_RA)
-	{
-		ft_putendl("Here");
+	if (move_stock & SA)
 		node_insert(new_nodes, do_sa(current));
-		ft_putendl("Here2");
+	if (move_stock & RA)
 		node_insert(new_nodes, do_ra(current));
-	}
-	if (move_stock & SB_RB)
-	{
+	if (move_stock & SB)
 		node_insert(new_nodes, do_sb(current));
+	if (move_stock & RB)
 		node_insert(new_nodes, do_rb(current));
-	}
-	if (move_stock & SS_RR)
-	{
-		node_insert(new_nodes, do_ss(current));
-		node_insert(new_nodes, do_rr(current));
-	}
 	if (move_stock & PA)
 		node_insert(new_nodes, do_pa(current));
 	if (move_stock & PB)
 		node_insert(new_nodes, do_pb(current));
-	if (move_stock & RRB)
-		node_insert(new_nodes, do_rrb(current));
 	if (move_stock & RRA)
 		node_insert(new_nodes, do_rra(current));
+	if (move_stock & RRB)
+		node_insert(new_nodes, do_rrb(current));
+	if (move_stock & SS)
+		node_insert(new_nodes, do_ss(current));
+	if (move_stock & RR)
+		node_insert(new_nodes, do_rr(current));
 	if (move_stock & RRR)
 		node_insert(new_nodes, do_rrr(current));
 }

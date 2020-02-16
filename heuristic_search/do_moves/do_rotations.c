@@ -30,6 +30,7 @@ t_node	*do_ra(t_node *current)
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "ra\n");
 	new->next = NULL;
+	new->last_op = RA | (current->last_op & B_OPS);
 	return (new);
 }
 
@@ -50,6 +51,7 @@ t_node	*do_rb(t_node *current)
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "rb\n");
 	new->next = NULL;
+	new->last_op = RB | (current->last_op & A_OPS);
 	return (new);
 }
 
@@ -71,5 +73,6 @@ t_node	*do_rr(t_node *current)
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "rr\n");
 	new->next = NULL;
+	new->last_op = RA | RB;
 	return (new);
 }

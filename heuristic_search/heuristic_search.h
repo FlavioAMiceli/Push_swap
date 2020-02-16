@@ -16,6 +16,9 @@
 
 # include "../push_swap.h"
 
+# define B_OPS (SB | RB | RRB)
+# define A_OPS (SA | RA | RRA)
+
 /*
 **	For legal move stocks
 */
@@ -23,22 +26,28 @@ enum				e_moves
 {
 	PB = 1,
 	PA = 2,
-	SA_RA = 4,
-	SB_RB = 8,
-	RRA = 16,
-	RRB = 32,
-	SS_RR = 64,
-	RRR = 128,
+	SA = 4,
+	RA = 8,
+	SB = 16,
+	RB = 32,
+	RRA = 64,
+	RRB = 128,
+	SS = 256,
+	RR = 512,
+	RRR = 1024,
 };
+
+
 
 typedef struct		s_node
 {
 	t_stack			*s_a;
 	t_stack			*s_b;
 	char			*ops;
+	struct s_node	*next;
 	unsigned int	n_ops;
 	unsigned int	fitness;
-	struct s_node	*next;
+	unsigned char	last_op;
 }					t_node;
 
 /*

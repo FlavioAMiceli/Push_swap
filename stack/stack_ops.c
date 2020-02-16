@@ -27,7 +27,7 @@ int	push(t_stack **src, t_stack **dst)
 	if ((*src)->len == 0 || (*dst)->len == (*dst)->size)
 		return (FALSE);
 	dec_start(dst);
-	*((*dst)->start) = *((*src)->start);
+	stack_set(*dst, stack_get(*src, 0), 0);
 	(*dst)->len++;
 	inc_start(src);
 	(*src)->len--;

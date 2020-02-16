@@ -70,7 +70,7 @@ static t_node	*expand_best_node(t_node **nodes, int size_type)
 	// for (t_node *node = *nodes; node != NULL; node = node->next)
 	// 	printf("	%p :\n%s\n", node, node->ops);
 	do_moves(&new_nodes, *nodes, move_stock);
-	printf("Current new nodes:\n");
+	// printf("Current new nodes:\n");
 	// for (t_node *new = new_nodes; new != NULL; new = new->next)
 		// printf("	%p :\n%s\n", new, new->ops);
 	// printf("Before node_delhead: %p, %p\n", nodes, *nodes);

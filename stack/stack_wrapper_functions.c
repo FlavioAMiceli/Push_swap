@@ -23,7 +23,7 @@ int		stack_get(t_stack *s, int i)
 	// Than it's also wrong in shift_stack in stack_pointer_ops!
 	int	start_n;
 
-	start_n = (s->size / sizeof(int)) - (s->start - s->stack);
+	start_n = s->start - s->stack;
 	return (s->stack[(i + start_n) % (s->size / sizeof(int))]);
 }
 
@@ -34,6 +34,6 @@ void	stack_set(t_stack *s, int value, int i)
 {
 	int	start_n;
 
-	start_n = (s->size / sizeof(int)) - (s->start - s->stack);
+	start_n = s->start - s->stack;
 	s->stack[(i + start_n) % (s->size / sizeof(int))] = value;
 }

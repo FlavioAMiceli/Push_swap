@@ -14,22 +14,26 @@
 
 void	inc_start(t_stack **s)
 {
-	S_START = S_START - S_STACK < S_SIZE ? S_START + 1 : S_STACK;
+	S_START = S_START - S_STACK < (int)(S_SIZE / sizeof(int)) ?
+	S_START + 1 : S_STACK;
 }
 
 void	dec_start(t_stack **s)
 {
-	S_START = S_START > S_STACK ? S_START - 1 : (S_STACK + S_SIZE) - 1;
+	S_START = S_START > S_STACK ?
+	S_START - 1 : (S_STACK + (int)(S_SIZE / sizeof(int))) - 1;
 }
 
 void	inc_end(t_stack **s)
 {
-	S_END = S_END - S_STACK + 1 < S_SIZE ? S_END + 1 : S_STACK;
+	S_END = S_END - S_STACK + 1 < (int)(S_SIZE / sizeof(int)) ?
+	S_END + 1 : S_STACK;
 }
 
 void	dec_end(t_stack **s)
 {
-	S_END = S_END > S_STACK ? S_END - 1 : (S_STACK + S_SIZE) - 1;
+	S_END = S_END > S_STACK ?
+	S_END - 1 : (S_STACK + (int)(S_SIZE / sizeof(int))) - 1;
 }
 
 /*

@@ -29,6 +29,7 @@ t_node	*do_pa(t_node *current)
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "pa\n");
 	new->next = NULL;
+	new->last_op = PA;
 	return (new);
 }
 
@@ -49,5 +50,6 @@ t_node	*do_pb(t_node *current)
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "pb\n");
 	new->next = NULL;
+	new->last_op = PB;
 	return (new);
 }

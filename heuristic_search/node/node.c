@@ -20,9 +20,9 @@ static t_stack	*node_stackdup_aux(t_stack *dst, t_stack *src)
 	// printf("src: %p\n", src);
 	// printf("src->size: %d\n", src->size);
 	printf("src->stack: %p\n", src->stack);
-	for (int i = 0; i < (int)(src->size / sizeof(int)); i++)
+	for (int i = 0; i < src->len; i++)
 	{
-		ft_putnbr(src->stack[i]);
+		ft_putnbr(stack_get(src, i));
 		ft_putchar('\n');
 	}
 	dst->stack = (int*)ft_memdup((char*)src->stack, src->size);
@@ -37,10 +37,13 @@ static t_stack	*node_stackdup_aux(t_stack *dst, t_stack *src)
 
 t_node			*node_stackdup(t_node *new, t_node *current)
 {
+	ft_putendl("Old ops:");
+	ft_putstr(current->ops);
 	new->s_a = (t_stack*)malloc(sizeof(t_stack));
 	new->s_a = node_stackdup_aux(new->s_a, current->s_a);
 	new->s_b = (t_stack*)malloc(sizeof(t_stack));
 	new->s_b = node_stackdup_aux(new->s_b, current->s_b);
+	ft_putchar('\n'); // REMOVE
 	return (new);
 }
 
@@ -118,71 +121,6 @@ void	node_insert(t_node **new_nodes, t_node *node)
 	previous->next = node;
 	node->next = current;
 }
-
-// static	int		list_len(t_node *node)
-// {
-// 	// REMOVE ME!
-// 	int i;
-//
-// 	i = 0;
-// 	while (node)
-// 	{
-// 		i++;
-// 		node = node->next;
-// 	}
-// 	return (i);
-// }
-
-// static	t_node	*link_next_natural_run(
-// 	t_node **new_current, t_node **old_current, t_node **sorted)
-// {
-// 	t_node	*old;
-// 	t_node	*new;
-//
-// 	old = *old_current;
-// 	new = *new_current;
-// 	if (new->fitness < old->fitness)
-// 	{
-// 		while (new->next && new->fitness <= old->fitness)
-// 			new = new->next;
-// 		*sorted = new;
-// 		(*sorted)->next = NULL;
-// 		*new_current = new->next;
-// 	}
-// 	else
-// 	{
-// 		while (old->next && old->fitness <= new->fitness)
-// 			old = old->next;
-// 		*sorted = old;
-// 		(*sorted)->next = NULL;
-// 		*old_current = old->next;
-// 	}
-// 	return (*sorted);
-// }
-//
-// void			merge_new_nodes(t_node **nodes, t_node **new_nodes)
-// {
-// 	t_node	*old;
-// 	t_node	*new;
-// 	t_node	*last_sorted;
-//
-// 	if (!nodes || !(*nodes))
-// 	{
-// 		nodes = new_nodes;
-// 		return ;
-// 	}
-// 	new = *new_nodes;
-// 	old = *nodes;
-// 	// if (new->fitness < old->fitness)
-// 	// 	nodes = new_nodes;
-// 	last_sorted = link_next_natural_run(&new, &old, &last_sorted);
-// 	while (new && old)
-// 	{
-// 		last_sorted->next = new->fitness < old->fitness ? new : old;
-// 		last_sorted = link_next_natural_run(&new, &old, &last_sorted);
-// 	}
-// 	return (nodes);
-// }
 
 static	void	link_next_natural_run(
 	t_node **new_current, t_node **old_current)
