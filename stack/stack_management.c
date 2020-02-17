@@ -20,7 +20,9 @@ static int	*tab_to_stack(char **tab, int len)
 	int	*stack;
 	int	i;
 
-	stack = (int *)malloc(sizeof(int) * len);
+	stack = (int *)ft_memalloc(sizeof(int) * len);
+	if (stack == NULL)
+		ft_putstr_fd("Error in tab_to_stack\n", 2);
 	i = 0;
 	while (i < len)
 	{
@@ -50,11 +52,12 @@ void		init_stacks(
 	t_stack **addr_a, t_stack **addr_b, char **tab, int len)
 {
 	init_stacks_no_tab(addr_a, addr_b, len, sizeof(int));
-	(*addr_a)->stack = (int *)malloc(sizeof(int) * len);
 	(*addr_a)->stack = tab_to_stack(tab, len);
 	(*addr_a)->start = (*addr_a)->stack;
 	(*addr_a)->end = (*addr_a)->stack + (len - 1);
-	(*addr_b)->stack = (int *)malloc(sizeof(int) * len);
+	(*addr_b)->stack = (int *)ft_memalloc(sizeof(int) * len);
+	if ((*addr_b)->stack == NULL)
+		ft_putstr_fd("Error in init_stacks\n", 2);
 	(*addr_b)->start = (*addr_b)->stack;
 	(*addr_b)->end = (*addr_b)->stack;
 }
@@ -66,8 +69,10 @@ void		init_stacks(
 void		init_stacks_no_tab(
 	t_stack **addr_a, t_stack **addr_b, size_t len, size_t size_type)
 {
-	*addr_a = (t_stack *)malloc(sizeof(t_stack));
-	*addr_b = (t_stack *)malloc(sizeof(t_stack));
+	*addr_a = (t_stack *)ft_memalloc(sizeof(t_stack));
+	*addr_b = (t_stack *)ft_memalloc(sizeof(t_stack));
+	if (*addr_a == NULL || *addr_b == NULL)
+		ft_putstr_fd("Error in init_stack_no_tab\n", 2);
 	(*addr_a)->size = len * size_type;
 	(*addr_a)->len = len;
 	(*addr_b)->size = len * size_type;

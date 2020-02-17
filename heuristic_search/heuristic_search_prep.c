@@ -16,7 +16,7 @@
 ** Set chars from 1 to n in (*a)->stack in the same order as numbers appear
 ** in src->stack
 */
-static int 	*set_src_stack(t_stack *s, t_stack **src, size_t n, int bound)
+static void	set_src_stack(t_stack *s, t_stack **src, size_t n, int bound)
 {
 	size_t	i;
 	size_t	j;
@@ -42,7 +42,6 @@ static int 	*set_src_stack(t_stack *s, t_stack **src, size_t n, int bound)
 		(*src)->stack[i] = smaller + 1;
 		i++;
 	}
-	return ((*src)->stack);
 }
 
 /*
@@ -60,13 +59,12 @@ static int	init_stacks_heuristic(
 	if (!(src && dst))
 		return (FALSE);
 	(*dst)->stack = (int*)ft_memalloc(sizeof(int) * (bound ? n + 1 : n));
-	(*src)->stack = (int*)malloc(sizeof(int) * (bound ? n + 1 : n));
+	(*src)->stack = (int*)ft_memalloc(sizeof(int) * (bound ? n + 1 : n));
 	if (!((*src)->stack && (*dst)->stack))
 		return (FALSE);
 	(*src)->start = (*src)->stack;
 	(*src)->end = (*src)->stack + (n - (1 + bound));
-	(*dst)->len = 0;
-	(*src)->stack = set_src_stack(s, src, (bound ? n + 1 : n), bound);
+	set_src_stack(s, src, (bound ? n + 1 : n), bound);
 	(*dst)->start = (*dst)->stack;
 	(*dst)->end = (*dst)->stack;
 	return (TRUE);

@@ -75,7 +75,7 @@ void			node_delhead(t_node **nodes);
 unsigned int	node_evaluate(
 					t_stack *stack_a, t_stack *stack_b, unsigned int n_ops);
 void			node_delall(t_node **nodes);
-t_node			*node_queue_init(t_node **nodes, t_stack **a, t_stack **b);
+void			node_queue_init(t_node **nodes, t_stack **a, t_stack **b);
 void			node_insert(t_node **new_nodes, t_node *node);
 void			merge_new_nodes(t_node **nodes, t_node **new_nodes);
 

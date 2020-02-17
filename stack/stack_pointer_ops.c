@@ -14,26 +14,26 @@
 
 void	inc_start(t_stack **s)
 {
-	S_START = S_START - S_STACK < (int)(S_SIZE / sizeof(int)) ?
+	S_START = S_START - S_STACK < (int)(S_SIZE / sizeof(int)) - 1 ?
 	S_START + 1 : S_STACK;
 }
 
 void	dec_start(t_stack **s)
 {
 	S_START = S_START > S_STACK ?
-	S_START - 1 : (S_STACK + (int)(S_SIZE / sizeof(int))) - 1;
+	S_START - 1 : S_STACK + ((S_SIZE / sizeof(int)) - 1);
 }
 
 void	inc_end(t_stack **s)
 {
-	S_END = S_END - S_STACK + 1 < (int)(S_SIZE / sizeof(int)) ?
+	S_END = S_END - S_STACK < (int)(S_SIZE / sizeof(int)) - 1 ?
 	S_END + 1 : S_STACK;
 }
 
 void	dec_end(t_stack **s)
 {
 	S_END = S_END > S_STACK ?
-	S_END - 1 : (S_STACK + (int)(S_SIZE / sizeof(int))) - 1;
+	S_END - 1 : S_STACK + ((S_SIZE / sizeof(int)) - 1);
 }
 
 /*
@@ -47,7 +47,9 @@ void	shift_stack(t_stack **s)
 
 	if (S_STACK == S_START)
 		return ;
-	arr = (int *)malloc(sizeof(int) * S_SIZE);
+	arr = (int *)ft_memalloc(sizeof(int) * S_SIZE);
+	if (arr == NULL)
+		ft_putstr_fd("Error in shift_stack\n", 2);
 	len_a = S_START - S_STACK;
 	len_b = (S_SIZE / sizeof(int)) - len_a;
 	arr = ft_memcpy(arr, S_START, sizeof(int) * len_b);
@@ -55,5 +57,5 @@ void	shift_stack(t_stack **s)
 	free(S_STACK);
 	S_STACK = arr;
 	S_START = arr;
-	S_END = arr + S_SIZE;
+	S_END = arr + ((S_SIZE / sizeof(int))  - 1);
 }

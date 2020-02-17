@@ -11,39 +11,28 @@
 /* ************************************************************************** */
 
 #include "../heuristic_search.h"
-#include <stdio.h> // remove me!
 
-static t_stack	*node_stackdup_aux(t_stack *dst, t_stack *src)
+static void		node_stackdup_aux(t_stack *dst, t_stack *src)
 {
-	// printf("Enter node_stackdup_aux\n");
-	dst->stack = (int*)malloc(src->size);
-	// printf("src: %p\n", src);
-	// printf("src->size: %d\n", src->size);
-	printf("src->stack: %p\n", src->stack);
-	for (int i = 0; i < src->len; i++)
-	{
-		ft_putnbr(stack_get(src, i));
-		ft_putchar('\n');
-	}
 	dst->stack = (int*)ft_memdup((char*)src->stack, src->size);
-	// printf("dst->stack: %p\n", dst->stack);
+	if (dst->stack == NULL)
+		ft_putstr_fd("Error in node_stackdup_aux\n", 2);
 	dst->start = dst->stack + (src->start - src->stack);
 	dst->end = dst->stack + (src->end - src->stack);
 	dst->size = src->size;
 	dst->len = src->len;
-	// printf("Exit node_stackdup_aux\n");
-	return (dst);
 }
 
 t_node			*node_stackdup(t_node *new, t_node *current)
 {
-	ft_putendl("Old ops:");
-	ft_putstr(current->ops);
-	new->s_a = (t_stack*)malloc(sizeof(t_stack));
-	new->s_a = node_stackdup_aux(new->s_a, current->s_a);
-	new->s_b = (t_stack*)malloc(sizeof(t_stack));
-	new->s_b = node_stackdup_aux(new->s_b, current->s_b);
-	ft_putchar('\n'); // REMOVE
+	new->s_a = (t_stack*)ft_memalloc(sizeof(t_stack));
+	if (new->s_a == NULL)
+		ft_putstr_fd("Error in node_stackdup\n", 2);
+	node_stackdup_aux(new->s_a, current->s_a);
+	new->s_b = (t_stack*)ft_memalloc(sizeof(t_stack));
+	if (new->s_b == NULL)
+		ft_putstr_fd("Error in node_stackdup\n", 2);
+	node_stackdup_aux(new->s_b, current->s_b);
 	return (new);
 }
 
@@ -54,13 +43,12 @@ void			node_delhead(t_node **nodes)
 
 	current = *nodes;
 	next = current->next;
-	if (!next)
-		*nodes = NULL;
-	else
-		*nodes = next;
+	*nodes = next;
 	del_stacks(&(current->s_a), &(current->s_b));
 	free(current->ops);
+	current->ops = NULL;
 	free(current);
+	current = NULL;
 }
 
 unsigned int	node_evaluate(
@@ -79,19 +67,22 @@ void	node_delall(t_node **nodes)
 	nodes = NULL;
 }
 
-t_node			*node_queue_init(t_node **nodes, t_stack **a, t_stack **b)
+void			node_queue_init(t_node **nodes, t_stack **a, t_stack **b)
 {
 	t_node	*head;
 
-	head = (t_node*)malloc(sizeof(t_node));
+	head = (t_node*)ft_memalloc(sizeof(t_node));
+	if (head == NULL)
+		ft_putstr_fd("Error in node_queue_init\n", 2);
 	head->s_a = *a;
 	head->s_b = *b;
 	head->ops = (char*)ft_memalloc(sizeof(char));
+	if (head->ops == NULL)
+		ft_putstr_fd("Error in node_queue_init\n", 2);
 	head->n_ops = 0;
 	head->fitness = node_evaluate(*a, *b, 0);
 	head->next = NULL;
 	*nodes = head;
-	return (*nodes);
 }
 
 void	node_insert(t_node **new_nodes, t_node *node)
@@ -151,13 +142,6 @@ void			merge_new_nodes(t_node **nodes, t_node **new_nodes)
 	t_node	*old;
 	t_node	*new;
 
-	// ft_putendl("THIS FUNCTION SHIT");
-	// printf("Current nodes:\n");
-	// for (t_node *node = *nodes; node != NULL; node = node->next)
-	// 	printf("	%p :\n%s\n", node, node->ops);
-	// printf("Current new nodes:\n");
-	// for (t_node *new2 = *new_nodes; new2 != NULL; new2 = new2->next)
-	// 	printf("	%p :\n%s\n", new2, new2->ops);
 	if (!(*nodes))
 	{
 		*nodes = *new_nodes;

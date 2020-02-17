@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../heuristic_search.h"
-#include <stdio.h> // remove me!
 
 static	int remove_trivial_ops(int last_op, int moves)
 {

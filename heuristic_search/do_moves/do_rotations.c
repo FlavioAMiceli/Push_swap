@@ -11,21 +11,16 @@
 /* ************************************************************************** */
 
 #include "../heuristic_search.h"
-#include <stdio.h> //REMOBE ME
 
 t_node	*do_ra(t_node *current)
 {
 	t_node	*new;
 
-	new = (t_node*)malloc(sizeof(t_node));
-	ft_putendl("do_ra");
+	new = (t_node*)ft_memalloc(sizeof(t_node));
 	new = node_stackdup(new, current);
 	if (!new ||
 		!rot(&(new->s_a)))
-	{
 		ft_putstr_fd("Error in do_ra\n", 2);
-		exit(0);
-	}
 	new->n_ops++;
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "ra\n");
@@ -38,15 +33,11 @@ t_node	*do_rb(t_node *current)
 {
 	t_node	*new;
 
-	new = (t_node*)malloc(sizeof(t_node));
-	ft_putendl("do_rb");
+	new = (t_node*)ft_memalloc(sizeof(t_node));
 	new = node_stackdup(new, current);
 	if (!new ||
 		!rot(&(new->s_b)))
-	{
 		ft_putstr_fd("Error in do_rb\n", 2);
-		exit(0);
-	}
 	new->n_ops++;
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "rb\n");
@@ -59,16 +50,12 @@ t_node	*do_rr(t_node *current)
 {
 	t_node	*new;
 
-	new = (t_node*)malloc(sizeof(t_node));
-	ft_putendl("do_rr");
+	new = (t_node*)ft_memalloc(sizeof(t_node));
 	new = node_stackdup(new, current);
 	if (!new ||
 		!rot(&(new->s_a)) ||
 		!rot(&(new->s_b)))
-	{
 		ft_putstr_fd("Error in do_rr\n", 2);
-		exit(0);
-	}
 	new->n_ops++;
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
 	new->ops = ft_strjoin(current->ops, "rr\n");
