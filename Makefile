@@ -45,7 +45,7 @@ HEADERS= \
 	./heuristic_search/heuristic_search.h
 
 LIBFT=./libft/libft.a
-FLAGS= -Wall -Wextra -Werror -g
+FLAGS= -Wall -Wextra -Werror
 
 VPATH= \
 	./stack \
