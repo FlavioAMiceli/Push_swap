@@ -37,8 +37,6 @@ enum				e_moves
 	RRR = 1024,
 };
 
-
-
 typedef struct		s_node
 {
 	t_stack			*s_a;
