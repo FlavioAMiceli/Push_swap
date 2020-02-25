@@ -63,16 +63,18 @@ static unsigned int	min_revrots(
 	if (bound & 1)
 	{
 		i = 0;
-		while (i < stack_a->len && stack_get(stack_a, i) != 0)
+		while (stack_get(stack_a, i) != 0)
 			i++;
-		rra = i;
+		while (i + rra < stack_a->len)
+			rra++;
 	}
 	if (bound & 2)
 	{
 		i = 0;
-		while (i < stack_b->len && stack_get(stack_b, i) != 0)
+		while (stack_get(stack_b, i) != 0)
 			i++;
-		rrb = i;
+		while (i + rrb < stack_b->len)
+			rrb++;
 	}
 	return (ft_max(rra, rrb));
 }
