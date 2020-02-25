@@ -22,9 +22,9 @@ SRCS= \
 	stack_ops.c \
 	stack_pointer_ops.c \
 	stack_wrapper_functions.c
-SRCS_C= \
+SRCS_C:= \
 	checker.c
-SRCS_PS= \
+SRCS_PS:= \
 	push_swap.c \
 	node.c \
 	do_pushes.c \
@@ -35,28 +35,35 @@ SRCS_PS= \
 	heuristic_search.c \
 	heuristic_search_prep.c
 
-OBJ= $(SRCS:.c=.o)
-OBJ_C= $(SRCS_C:.c=.o)
-OBJ_PS= $(SRCS_PS:.c=.o)
+OBJ:= $(SRCS:.c=.o)
+OBJ_C:= $(SRCS_C:.c=.o)
+OBJ_PS:= $(SRCS_PS:.c=.o)
 
-HEADERS= \
-	./push_swap.h \
-	./libft/libft.h \
-	./heuristic_search/heuristic_search.h
+INCLS:= \
+	./ \
+	./libft/ \
+	./heuristic_search/
 
-LIBFT=./libft/libft.a
-FLAGS= -Wall -Wextra -Werror -g
+LIBFT:=./libft/libft.a
 
-VPATH= \
-	./stack \
-	./heuristic_search \
-	./heuristic_search/node \
-	./heuristic_search/do_moves \
+VPATH:= \
+	./stack/ \
+	./heuristic_search/ \
+	./heuristic_search/node/ \
+	./heuristic_search/do_moves/ \
+
+UNAME:= $(shell uname)
+
+ifeq ($(UNAME), Linux)
+	FLAGS:= -O3
+else
+	FLAGS:= -Wall -Wextra -Werror
+endif
 
 all : $(NAME_C) $(NAME)
 
 %.o : %.c
-	@gcc -c $< -I $(HEADERS) $(FLAGS)
+	@gcc -c $< -I $(INCLS) $(FLAGS)
 
 $(NAME) : $(OBJ) $(OBJ_PS) $(LIBFT)
 	@gcc -o $(NAME) $(OBJ) $(OBJ_PS) $(LIBFT) $(FLAGS)

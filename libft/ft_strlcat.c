@@ -20,13 +20,13 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 
 	len_src = ft_strlen(src);
 	len_dst = ft_strlen(dst);
-	n = ft_min(size - len_dst - 1, len_src);
+	n = ft_min((long)size - len_dst - 1, len_src);
 	if (n > 0)
 	{
 		ft_memcpy(&dst[len_dst], src, n);
-		dst[len_src + len_dst < (int)size ?\
-			len_src + len_dst : size - 1] = '\0';
+		dst[len_src + len_dst < (long)size ?\
+			len_src + len_dst : (long)size - 1] = '\0';
 	}
 	return (size <= (unsigned long)len_dst ?
-		size + len_src : len_src + len_dst);
+		(long)size + len_src : len_src + len_dst);
 }

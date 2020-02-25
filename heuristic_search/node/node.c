@@ -51,13 +51,41 @@ void			node_delhead(t_node **nodes)
 	current = NULL;
 }
 
+static unsigned int	min_revrots(
+	t_stack *stack_a, t_stack *stack_b, int bound)
+{
+	int rra;
+	int rrb;
+	int	i;
+
+	rra = 0;
+	rrb = 0;
+	if (bound & 1)
+	{
+		i = 0;
+		while (i < stack_a->len && stack_get(stack_a, i) != 0)
+			i++;
+		rra = i;
+	}
+	if (bound & 2)
+	{
+		i = 0;
+		while (i < stack_b->len && stack_get(stack_b, i) != 0)
+			i++;
+		rrb = i;
+	}
+	return (ft_max(rra, rrb));
+}
+
 unsigned int	node_evaluate(
 	t_stack *stack_a, t_stack *stack_b, unsigned int n_ops)
 {
-	// DE-DIJKSTRA THIS
-	(void)stack_a;
-	(void)stack_b;
-	return (n_ops);
+	unsigned int 	score;
+	int				bound;
+
+	bound = 0;
+	score = stack_b->len + min_revrots(stack_a, stack_b, bound);
+	return (n_ops + score);
 }
 
 void	node_delall(t_node **nodes)
