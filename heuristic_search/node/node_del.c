@@ -12,7 +12,7 @@
 
 #include "../heuristic_search.h"
 
-void			node_delhead(t_node **nodes)
+void	node_delhead(t_node **nodes)
 {
 	t_node *next;
 	t_node *current;

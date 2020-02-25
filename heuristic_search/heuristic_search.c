@@ -43,13 +43,10 @@ static void		expand_best_node(t_node **nodes, int size_type, int bound)
 	merge_new_nodes(nodes, &new_nodes);
 }
 
-char			*heuristic_search(t_stack **a, t_stack **b, size_t n)
+char			*heuristic_search(t_node *nodes, size_t n, int bound)
 {
-	t_node	*nodes;
 	char	*ops;
-	in 		bound;
 
-	node_queue_init(&nodes, a, b, bound);
 	while (!is_solved(nodes, n))
 		expand_best_node(&nodes, sizeof(*((*a)->stack)), bound);
 	ops = ft_strdup(nodes->ops);

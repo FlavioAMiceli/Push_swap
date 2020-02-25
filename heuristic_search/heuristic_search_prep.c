@@ -71,29 +71,29 @@ static int	init_stacks_heuristic(
 }
 
 int			basecase_heuristic(
-	t_stack **src, int to_b, size_t n)
+	t_stack **origin_a, t_stack **origin_b, size_t n_a, size_t n_b)
 {
+	t_node	*node;
 	t_stack	*a;
 	t_stack	*b;
 	char	*ops;
 
-	if (to_b)
-	{
-		if(!init_stacks_heuristic(*src, &a, &b, n))
+	bound = (size_t)origin_a->len > n_a ? A_BOUND : 0x0;
+	bound |= (size_t)origin_b->len > n_b ? B_BOUND : 0x0;
+	if(!init_stack_heuristic(origin_a, n_a, bound))
 		{
 			del_stacks(&a, &b);
 			return (FALSE);
 		}
 	}
-	else
-	{
-		if(!init_stacks_heuristic(*src, &b, &a, n))
+	if(!init_stack_heuristic(origin_b, n_b, bound))
 		{
 			del_stacks(&a, &b);
 			return (FALSE);
 		}
 	}
-	ops = heuristic_search(&a, &b, n);
+	node_queue_init(&nodes, &a, &b, bound);
+	ops = heuristic_search(&nodes, n_a + n_b, bound);
 	ft_putendl("Exit HS, STILL NEED TO PROGRAM SORT OF PARTITION ON REAL STACK"); // REMOFENJKN
 	ft_putstr(ops);
 	free(ops);

@@ -43,12 +43,9 @@ OBJ:= $(SRCS:.c=.o)
 OBJ_C:= $(SRCS_C:.c=.o)
 OBJ_PS:= $(SRCS_PS:.c=.o)
 
-INCLS:= \
-	./ \
-	./libft/ \
-	./heuristic_search/
+INCLS:= ./
 
-LIBFT:=./libft/libft.a
+LIBFT:= ./libft/libft.a
 
 VPATH:= \
 	./stack/ \
