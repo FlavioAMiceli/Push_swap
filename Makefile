@@ -27,6 +27,10 @@ SRCS_C:= \
 SRCS_PS:= \
 	push_swap.c \
 	node.c \
+	merge_new_nodes.c \
+	node_del.c \
+	node_evaluate.c \
+	node_queue_init.c \
 	do_pushes.c \
 	do_revrots.c \
 	do_rotations.c \
