@@ -58,8 +58,8 @@ static int	init_stacks_heuristic(
 	init_stacks_no_tab(src, dst, n + bound, sizeof(int));
 	if (!(src && dst))
 		return (FALSE);
-	(*dst)->stack = (int*)ft_memalloc(sizeof(int) * (bound ? n + 1 : n));
-	(*src)->stack = (int*)ft_memalloc(sizeof(int) * (bound ? n + 1 : n));
+	(*dst)->stack = (int*)malloc(sizeof(int) * (bound ? n + 1 : n));
+	(*src)->stack = (int*)malloc(sizeof(int) * (bound ? n + 1 : n));
 	if (!((*src)->stack && (*dst)->stack))
 		return (FALSE);
 	(*src)->start = (*src)->stack;
