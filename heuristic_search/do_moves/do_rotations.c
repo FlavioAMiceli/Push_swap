@@ -12,7 +12,7 @@
 
 #include "../heuristic_search.h"
 
-t_node	*do_ra(t_node *current)
+t_node	*do_ra(t_node *current, int bound)
 {
 	t_node	*new;
 
@@ -22,14 +22,14 @@ t_node	*do_ra(t_node *current)
 		!rot(&(new->s_a)))
 		ft_putstr_fd("Error in do_ra\n", 2);
 	new->n_ops++;
-	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
+	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops, bound);
 	new->ops = ft_strjoin(current->ops, "ra\n");
 	new->next = NULL;
 	new->last_op = RA | (current->last_op & B_OPS);
 	return (new);
 }
 
-t_node	*do_rb(t_node *current)
+t_node	*do_rb(t_node *current, int bound)
 {
 	t_node	*new;
 
@@ -39,14 +39,14 @@ t_node	*do_rb(t_node *current)
 		!rot(&(new->s_b)))
 		ft_putstr_fd("Error in do_rb\n", 2);
 	new->n_ops++;
-	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
+	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops, bound);
 	new->ops = ft_strjoin(current->ops, "rb\n");
 	new->next = NULL;
 	new->last_op = RB | (current->last_op & A_OPS);
 	return (new);
 }
 
-t_node	*do_rr(t_node *current)
+t_node	*do_rr(t_node *current, int bound)
 {
 	t_node	*new;
 
@@ -57,7 +57,7 @@ t_node	*do_rr(t_node *current)
 		!rot(&(new->s_b)))
 		ft_putstr_fd("Error in do_rr\n", 2);
 	new->n_ops++;
-	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops);
+	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops, bound);
 	new->ops = ft_strjoin(current->ops, "rr\n");
 	new->next = NULL;
 	new->last_op = RA | RB;

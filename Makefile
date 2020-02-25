@@ -26,11 +26,11 @@ SRCS_C:= \
 	checker.c
 SRCS_PS:= \
 	push_swap.c \
-	node.c \
 	merge_new_nodes.c \
 	node_del.c \
 	node_evaluate.c \
 	node_queue_init.c \
+	node_stackdup.c \
 	do_pushes.c \
 	do_revrots.c \
 	do_rotations.c \

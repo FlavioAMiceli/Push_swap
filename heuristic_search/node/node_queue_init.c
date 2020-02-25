@@ -12,7 +12,7 @@
 
 #include "../heuristic_search.h"
 
-void	node_queue_init(t_node **nodes, t_stack **a, t_stack **b, bound)
+void	node_queue_init(t_node **nodes, t_stack **a, t_stack **b, int bound)
 {
 	t_node	*head;
 

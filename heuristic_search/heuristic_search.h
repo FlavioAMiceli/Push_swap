@@ -56,25 +56,27 @@ typedef struct		s_node
 **	do_moves/moves.c
 */
 int				get_legal_moves(t_node *current, int size_type);
-void			do_moves(t_node **new_nodes, t_node *current, int move_stock);
+void			do_moves(
+					t_node **new_nodes, t_node *current,
+					int move_stock, int bound);
 
 /*
 **	do_moves/do_*.c
 */
-t_node			*do_pa(t_node *current);
-t_node			*do_pb(t_node *current);
+t_node			*do_pa(t_node *current, int bound);
+t_node			*do_pb(t_node *current, int bound);
 
-t_node			*do_rra(t_node *current);
-t_node			*do_rrb(t_node *current);
-t_node			*do_rrr(t_node *current);
+t_node			*do_rra(t_node *current, int bound);
+t_node			*do_rrb(t_node *current, int bound);
+t_node			*do_rrr(t_node *current, int bound);
 
-t_node			*do_ra(t_node *current);
-t_node			*do_rb(t_node *current);
-t_node			*do_rr(t_node *current);
+t_node			*do_ra(t_node *current, int bound);
+t_node			*do_rb(t_node *current, int bound);
+t_node			*do_rr(t_node *current, int bound);
 
-t_node			*do_sa(t_node *current);
-t_node			*do_sb(t_node *current);
-t_node			*do_ss(t_node *current);
+t_node			*do_sa(t_node *current, int bound);
+t_node			*do_sb(t_node *current, int bound);
+t_node			*do_ss(t_node *current, int bound);
 
 /*
 **	node/node_stackdup.c
@@ -90,7 +92,8 @@ void			node_delall(t_node **nodes);
 /*
 **	node/node_queue_init.c
 */
-void			node_queue_init(t_node **nodes, t_stack **a, t_stack **b);
+void			node_queue_init(
+					t_node **nodes, t_stack **a, t_stack **b, int bound);
 
 /*
 **	node/merge_new_nodes.c
