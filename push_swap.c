@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "./heuristic_search/heuristic_search.h"
 
 // static	void sift(\
 // 	t_stack **a, t_stack **b, int low, int hi, int *sorted, t_list **ops)
@@ -89,7 +90,7 @@ static void push_swap(t_stack **a, t_stack **b, int *sorted, int n)
 
 	to_b = TRUE;
 	if (n <= BASE_CASE_LEN)
-		basecase_heuristic(to_b ? a : b, TRUE, n);
+		basecase_heuristic(*a, *b, n, 0);
 	else
 		ft_putstr("N TOO LARGE, ONLY BASECASE!");
 	if (is_sorted(a, b, sorted, n))

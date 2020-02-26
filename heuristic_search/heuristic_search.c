@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "heuristic_search.h"
+#include <stdio.h> // remove
 
 static int		is_solved(t_node *node, int n)
 {
@@ -46,9 +47,14 @@ static void		expand_best_node(t_node **nodes, int size_type, int bound)
 char			*heuristic_search(t_node *nodes, size_t n, int bound)
 {
 	char	*ops;
+	static int	count; //remove
 
 	while (!is_solved(nodes, n))
-		expand_best_node(&nodes, sizeof(*((*a)->stack)), bound);
+	{
+		count++;
+		expand_best_node(&nodes, sizeof(nodes->s_a->stack), bound);
+	}
+	printf("Nodes expanded: %d\n", count);
 	ops = ft_strdup(nodes->ops);
 	node_delall(&nodes);
 	return (ops);

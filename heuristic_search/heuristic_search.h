@@ -39,8 +39,6 @@ enum				e_moves
 	RRR = 1024,
 };
 
-
-
 typedef struct		s_node
 {
 	t_stack			*s_a;
@@ -51,6 +49,18 @@ typedef struct		s_node
 	unsigned int	fitness;
 	unsigned char	last_op;
 }					t_node;
+
+/*
+**	heuristic_search_prep.c
+*/
+int				basecase_heuristic(
+					t_stack *origin_a, t_stack *origin_b,
+					size_t n_a, size_t n_b);
+
+/*
+**	heuristic_search.c
+*/
+char			*heuristic_search(t_node *nodes, size_t n, int bound);
 
 /*
 **	do_moves/moves.c
