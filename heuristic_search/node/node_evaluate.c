@@ -54,32 +54,32 @@ static unsigned int	get_dist_same_stack_bound(
 }
 
 static unsigned int	get_dist_same_stack_no_bound(
-	t_stack *s, t_index *ind)
+	t_stack *s, t_index *ind, int on_a)
 {
-	int	on_a;
 	int	dist;
 
-	on_a = ind->stack_flag & LOW_ON_A ? TRUE : FALSE;
-	if (ind->low > ind->high && on_a)
+	if (on_a && ind->low > ind->high)
 	{
 		dist = (((s->len - 1) - ind->low) * 2) + (ind->high * 3) + 1;
 		dist = ft_min(dist, ((s->len - 1) - ind->high) + 2);
 	}
-	else if (ind->low < ind->high && on_a)
+	else if (on_a && ind->high != ind->low + 1)
 	{
 		dist = (((s->len - 1) - ind->high) * 2) + (ind->low * 3) + 2;
 		dist = ft_min(dist, ((s->len - 1) - ind->low) + 1);
 	}
-	else if (ind->low > ind->high && !on_a)
+	else if (ind->low > ind->high)
 	{
 		dist = (((s->len - 1) - ind->low) * 1) + (ind->high * 2) + 2;
 		dist = ft_min(dist, ((s->len - 1) - ind->high) + 1);
 	}
-	else
+	else if (ind->high != ind->low + 1)
 	{
 		dist = (((s->len - 1) - ind->high) * 1) + (ind->low * 2) + 1;
 		dist = ft_min(dist, ((s->len - 1) - ind->low) + 2);
 	}
+	else
+		return (0);
 	return (dist);
 }
 
@@ -99,13 +99,13 @@ static unsigned int	get_distance(t_stack *a, t_stack *b, int bound, int c)
 	{
 		if (bound & A_BOUND)
 			return (get_dist_same_stack_bound(a, ind, stack_value_index(a, 0)));
-		return (get_dist_same_stack_no_bound(a, ind));
+		return (get_dist_same_stack_no_bound(a, ind, TRUE));
 	}
 	else if (ind->stack_flag == (LOW_ON_A | HIGH_ON_A))
 		return (get_dist_diff_stack(a, b, bound, ind));
 	if (bound & B_BOUND)
 		return (get_dist_same_stack_bound(b, ind, stack_value_index(b, 0)));
-	return (get_dist_same_stack_no_bound(b, ind));
+	return (get_dist_same_stack_no_bound(b, ind, FALSE));
 }
 
 static unsigned int	max_distance(t_stack *a, t_stack *b, int bound)
