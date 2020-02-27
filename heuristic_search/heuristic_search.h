@@ -20,6 +20,8 @@
 # define A_OPS (SA | RA | RRA)
 # define A_BOUND 1
 # define B_BOUND 2
+# define LOW_ON_A 1
+# define HIGH_ON_A 2
 
 /*
 **	For legal move stocks
@@ -49,6 +51,13 @@ typedef struct		s_node
 	unsigned int	fitness;
 	unsigned char	last_op;
 }					t_node;
+
+typedef struct		s_index
+{
+	int				low;
+	int				high;
+	int				stack_flag;
+}					t_index;
 
 /*
 **	heuristic_search_prep.c

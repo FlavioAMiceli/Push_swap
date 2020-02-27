@@ -11,61 +11,6 @@
 /* ************************************************************************** */
 
 #include "../heuristic_search.h"
-#include <stdio.h> //remove
-
-static unsigned int	min_revrots(
-	t_stack *stack_a, t_stack *stack_b, int bound)
-{
-	int rra;
-	int rrb;
-	int	i;
-
-	rra = 0;
-	rrb = 0;
-	if (bound & A_BOUND)
-	{
-		i = 0;
-		while (stack_get(stack_a, i) != 0)
-			i++;
-		while (i + rra < stack_a->len)
-			rra++;
-	}
-	if (bound & B_BOUND)
-	{
-		i = 0;
-		while (stack_get(stack_b, i) != 0)
-			i++;
-		while (i + rrb < stack_b->len)
-			rrb++;
-	}
-	return (ft_max(rra, rrb));
-}
-
-// int	*arr;
-// int	i;
-// int	n;
-// int max_d;
-// // TODO: MAKE THIS WORK CORRECTLY WITH BOUNDS.
-// // SHOULD INVOLVE CHECKING IF N == 0, AND ADJUSTING INDEX AFTER 0 HAS BEEN FOUND
-//
-// arr = (int*)malloc(stack_a->size - (bound & A_BOUND));
-// i = 0;
-// while (i < stack_b->len)
-// {
-// 	n = stack_get(stack_b, i);
-// 	arr[stack_b->len - i] = n;
-// 	i++;
-// }
-// i = 0;
-// while (i < stack_a->len)
-// {
-// 	n = stack_get(stack_a, i);
-// 	arr[i + stack_b->len] = n;
-// 	i++;
-// }
-// i = 0;
-// n = 1;
-// free(arr);
 
 static unsigned int	get_dist_if_one(t_stack *a, t_stack *b, int bound)
 {
@@ -95,33 +40,72 @@ static unsigned int	get_dist_if_one(t_stack *a, t_stack *b, int bound)
 }
 
 static unsigned int	get_dist_diff_stack(
-	t_stack *a, t_stack *b, int bound, int c)
+	t_stack *a, t_stack *b, int bound, t_index *ind)
 {
 	return (DISTANCE OF GETTING BOTH ON TOP OF SAME STACK, AND SWAP IF NOT ORDERED
 			OR GET ONE TO TOP, OTHER TO BOTTOM, PLUS THE PUSH AND REVROT, NEVER SWAP)
 }
 
 static unsigned int	get_dist_same_stack_bound(
-	t_stack *s, int s_is_a, int i, int j, int bound_index)
+	t_stack *s, t_index *ind, int bound_index)
 {
 	return (DISTANCE OF GETTING BOTH ON TOP OF TWO STACKS PLUS A SWAP IF NOT ORDERED,
 		OR ONE TOP OF B AND THE OTHER ON BOTTOM OF A PLUS A PUSH AND REVROT)
 }
 
 static unsigned int	get_dist_same_stack_no_bound(
-	t_stack *s, int s_is_a, int i, int j)
+	t_stack *s, t_index *ind)
 {
-	return (DISTANCE OF GETTING BOTH ON TOP OF TWO STACKS PLUS A SWAP IF NOT ORDERED,
-		OR ONE TOP OF B AND THE OTHER ON BOTTOM OF A PLUS A PUSH AND REVROT)
+	int	on_a;
+	int	dist;
+
+	on_a = ind->stack_flag & LOW_ON_A ? TRUE : FALSE;
+	if (ind->low > ind->high && on_a)
+	{
+		dist = (((s->len - 1) - ind->low) * 2) + (ind->high * 3) + 1;
+		dist = ft_min(dist, ((s->len - 1) - ind->high) + 2);
+	}
+	else if (ind->low < ind->high && on_a)
+	{
+		dist = (((s->len - 1) - ind->high) * 2) + (ind->low * 3) + 2;
+		dist = ft_min(dist, ((s->len - 1) - ind->low) + 1);
+	}
+	else if (ind->low > ind->high && !on_a)
+	{
+		dist = (((s->len - 1) - ind->low) * 1) + (ind->high * 2) + 2;
+		dist = ft_min(dist, ((s->len - 1) - ind->high) + 1);
+	}
+	else
+	{
+		dist = (((s->len - 1) - ind->high) * 1) + (ind->low * 2) + 1;
+		dist = ft_min(dist, ((s->len - 1) - ind->low) + 2);
+	}
+	return (dist);
 }
 
 static unsigned int	get_distance(t_stack *a, t_stack *b, int bound, int c)
 {
-	int i;
+	t_index ind;
 
 	if (c == 1)
-		return (get_distance_if_one(a, b, bound));
-	return (DISTANCE OF c TO c - 1);
+		return (get_dist_if_one(a, b, bound));
+	ind->low = stack_value_index(a, c - 1);
+	ind->high = stack_value_index(a, c);
+	ind->stack_flag = ind->low >= 0 ? LOW_ON_A : 0x0;
+	ind->stack_flag &= ind->high >= 0 ? HIGH_ON_A : 0x0;
+	ind->low = ind->low < 0 ? stack_value_index(b, c - 1) : ind->low;
+	ind->high = ind->high < 0 ? stack_value_index(b, c) : ind->high;
+	if (ind->stack_flag == (LOW_ON_A & HIGH_ON_A))
+	{
+		if (bound & A_BOUND)
+			return (get_dist_same_stack_bound(a, ind, stack_value_index(a, 0)));
+		return (get_dist_same_stack_no_bound(a, ind));
+	}
+	else if (ind->stack_flag == (LOW_ON_A | HIGH_ON_A))
+		return (get_dist_diff_stack(a, b, bound, ind));
+	if (bound & B_BOUND)
+		return (get_dist_same_stack_bound(b, ind, stack_value_index(b, 0)));
+	return (get_dist_same_stack_no_bound(b, ind));
 }
 
 static unsigned int	max_distance(t_stack *a, t_stack *b, int bound)
@@ -143,14 +127,41 @@ static unsigned int	max_distance(t_stack *a, t_stack *b, int bound)
 	return (max_d)
 }
 
+static unsigned int	min_revrots(
+	t_stack *stack_a, t_stack *stack_b, int bound)
+{
+	int rra;
+	int rrb;
+	int	i;
+
+	rra = 0;
+	rrb = 0;
+	if (bound & A_BOUND)
+	{
+		i = 0;
+		while (stack_get(stack_a, i) != 0)
+			i++;
+		while (i + rra < stack_a->len)
+			rra++;
+	}
+	if (bound & B_BOUND)
+	{
+		i = 0;
+		while (stack_get(stack_b, i) != 0)
+			i++;
+		while (i + rrb < stack_b->len)
+			rrb++;
+	}
+	return (ft_max(rra, rrb));
+}
+
 unsigned int	node_evaluate(
 	t_stack *stack_a, t_stack *stack_b, unsigned int n_ops, int bound)
 {
 	unsigned int 	score;
 
 	score = stack_b->len + min_revrots(stack_a, stack_b, bound);
-	score = ft_max(score, max_distane(stack_a, stack_b, bound));
-	printf("score : %d b-len : %d\n", score, stack_b->len);
+	score = ft_max(score, max_distance(stack_a, stack_b, bound));
 	return (n_ops + score);
 }
 
@@ -158,69 +169,6 @@ unsigned int	node_evaluate(
 //{
 //	return (i >= 0 ? i : -i);
 //}
-
-// unsigned int	node_evaluate(
-// 	t_stack *stack_a, t_stack *stack_b, unsigned int n_ops)
-// {
-// 	int	score;
-// 	int	i;
-// 	// DE-DIJKSTRA THIS
-// 	// MAKE SURE IT WORKS WHEN THERE IS A BOUND
-// 	score = n_ops;
-// 	i = 0;
-// 	while (i < stack_a->len)
-// 	{
-// 		score += ft_abs((stack_get(stack_a, i) - (1 + stack_b->len)) - i);
-// 		i++;
-// 	}
-// 	i = 0;
-// 	while (i <stack_b->len)
-// 	{
-// 		score += ft_abs((stack_get(stack_b, i) - 1) - (stack_b->len - 1 - i));
-// 		i++;
-// 	}
-// 	return (score);
-// }
-
-/*unsigned int	node_evaluate(
-	t_stack *stack_a, t_stack *stack_b, unsigned int n_ops)
-{
-	int index_one;
-	int	n;
-	int	i;
-	int *arr;
-
-	// DE-DIJKSTRA THIS
-	// MAKE SURE IT WORKS WHEN THERE IS A BOUND
-	arr = (int*)malloc(stack_a->size);
-	i = 0;
-	while (i < stack_b->len)
-	{
-		n = stack_get(stack_b, i);
-		arr[stack_b->len - i] = n;
-		if (n == 1)
-			index_one = stack_b->len - i;
-		i++;
-	}
-	i = 0;
-	while (i < stack_a->len)
-	{
-		n = stack_get(stack_a, i);
-		arr[i + stack_b->len] = n;
-		if (n == 1)
-			index_one = i + stack_b->len;
-		i++;
-	}
-	n = 0;
-	i = 0;
-	while (i < (int)(stack_a->size / sizeof(int)))
-	{
-		if (i != index_one)
-			n += ft_abs((index_one + arr[i] - 1) - i); // HOW FAR THE NUMBER AT arr[i] IS COMPARED TO WHERE IT SHOULD BE COMPARED TO index_one
-		i++;
-	}
-	return (n + n_ops);
-}*/
 
 // unsigned int	node_evaluate(
 // 	t_stack *stack_a, t_stack *stack_b, unsigned int n_ops, int bound)
