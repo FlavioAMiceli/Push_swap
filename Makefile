@@ -83,7 +83,7 @@ clean :
 	@make fclean -C ./libft/
 
 fclean : clean
-	@rm -f $(NAME) $(NAME_PS)
+	@rm -f $(NAME) $(NAME_C)
 	@make fclean -C ./libft/
 
 re : fclean all

@@ -21,7 +21,7 @@ t_node	*do_sa(t_node *current, int bound)
 	if (!new ||
 		!swap(&(new->s_a)))
 		ft_putstr_fd("Error in do_sa\n", 2);
-	new->n_ops++;
+	new->n_ops = current->n_ops + 1;
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops, bound);
 	new->ops = ft_strjoin(current->ops, "sa\n");
 	new->next = NULL;
@@ -38,7 +38,7 @@ t_node	*do_sb(t_node *current, int bound)
 	if (!new ||
 		!swap(&(new->s_b)))
 		ft_putstr_fd("Error in do_sb\n", 2);
-	new->n_ops++;
+	new->n_ops = current->n_ops + 1;
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops, bound);
 	new->ops = ft_strjoin(current->ops, "sb\n");
 	new->next = NULL;
@@ -56,7 +56,7 @@ t_node	*do_ss(t_node *current, int bound)
 		!swap(&(new->s_a)) ||
 		!swap(&(new->s_b)))
 		ft_putstr_fd("Error in do_ss\n", 2);
-	new->n_ops++;
+	new->n_ops = current->n_ops + 1;
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops, bound);
 	new->ops = ft_strjoin(current->ops, "ss\n");
 	new->next = NULL;

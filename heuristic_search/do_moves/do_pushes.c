@@ -21,7 +21,7 @@ t_node	*do_pa(t_node *current, int bound)
 	if (!new ||
 		!push(&(new->s_b), &(new->s_a)))
 		ft_putstr_fd("Error in do_pa\n", 2);
-	new->n_ops++;
+	new->n_ops = current->n_ops + 1;
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops, bound);
 	new->ops = ft_strjoin(current->ops, "pa\n");
 	new->next = NULL;
@@ -38,7 +38,7 @@ t_node	*do_pb(t_node *current, int bound)
 	if (!new ||
 		!push(&(new->s_a), &(new->s_b)))
 		ft_putstr_fd("Error in do_pb\n", 2);
-	new->n_ops++;
+	new->n_ops = current->n_ops + 1;
 	new->fitness = node_evaluate(new->s_a, new->s_b, new->n_ops, bound);
 	new->ops = ft_strjoin(current->ops, "pb\n");
 	new->next = NULL;
