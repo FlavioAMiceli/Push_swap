@@ -124,3 +124,20 @@ void	do_moves(
 	if (move_stock & RRR)
 		node_insert(new_nodes, do_rrr(current, bound));
 }
+
+// void	do_moves(
+// 	t_node **new_nodes, t_node *current, int move_stock, int bound)
+// {
+// 	(void)move_stock;
+// 	node_insert(new_nodes, do_sa(current, bound));
+// 	node_insert(new_nodes, do_ra(current, bound));
+// 	node_insert(new_nodes, do_sb(current, bound));
+// 	node_insert(new_nodes, do_rb(current, bound));
+// 	node_insert(new_nodes, do_pa(current, bound));
+// 	node_insert(new_nodes, do_pb(current, bound));
+// 	node_insert(new_nodes, do_rra(current, bound));
+// 	node_insert(new_nodes, do_rrb(current, bound));
+// 	node_insert(new_nodes, do_ss(current, bound));
+// 	node_insert(new_nodes, do_rr(current, bound));
+// 	node_insert(new_nodes, do_rrr(current, bound));
+// }
