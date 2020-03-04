@@ -32,9 +32,9 @@ int	push(t_stack **src, t_stack **dst)
 		return (FALSE);
 	dec_start(dst);
 	stack_set(*dst, stack_get(*src, 0), 0);
-	(*dst)->len++;
+	(*dst)->len += 1;
 	inc_start(src);
-	(*src)->len--;
+	(*src)->len -= 1;
 	return (TRUE);
 }
 
