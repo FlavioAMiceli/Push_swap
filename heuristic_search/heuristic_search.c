@@ -46,12 +46,27 @@ static void		expand_best_node(t_node **nodes, int size_type, int bound)
 
 char			*heuristic_search(t_node *nodes, size_t n, int bound)
 {
-	char	*ops;
+	char		*ops;
 	static int	count; //remove
 
 	while (!is_solved(nodes, n))
 	{
 		count++;
+		if (nodes->n_ops > 200)
+		{
+			ft_putstr("a: ");
+			stack_print(nodes->s_a);
+			ft_putstr("b: ");
+			stack_print(nodes->s_b);
+			ft_putstr("n_ops: ");
+			ft_putnbr(nodes->n_ops);
+			ft_putstr(" score: ");
+			ft_putnbr(nodes->fitness);
+			ft_putchar('\n');
+			ft_putchar('\n');
+		}
+		if (nodes->n_ops > 210)
+			exit(0);
 		expand_best_node(&nodes, sizeof(nodes->s_a->stack), bound);
 	}
 	printf("Nodes expanded: %d\n", count);

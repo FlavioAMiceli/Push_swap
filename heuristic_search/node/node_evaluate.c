@@ -149,19 +149,19 @@ static unsigned int	get_distance(t_stack *a, t_stack *b, int bound, int c)
 
 	if (c == 1)
 		return (get_dist_if_one(a, b, bound));
-	(&ind)->low = stack_value_index(a, c - 1);
-	(&ind)->high = stack_value_index(a, c);
-	(&ind)->stack_flag = (&ind)->low >= 0 ? LOW_ON_A : 0x0;
-	(&ind)->stack_flag &= (&ind)->high >= 0 ? HIGH_ON_A : 0x0;
-	(&ind)->low = (&ind)->low < 0 ? stack_value_index(b, c - 1) : (&ind)->low;
-	(&ind)->high = (&ind)->high < 0 ? stack_value_index(b, c) : (&ind)->high;
-	if ((&ind)->stack_flag == (LOW_ON_A & HIGH_ON_A))
+	ind.low = stack_value_index(a, c - 1);
+	ind.high = stack_value_index(a, c);
+	ind.stack_flag = ind.low >= 0 ? LOW_ON_A : 0x0;
+	ind.stack_flag &= ind.high >= 0 ? HIGH_ON_A : 0x0;
+	ind.low = ind.low < 0 ? stack_value_index(b, c - 1) : ind.low;
+	ind.high = ind.high < 0 ? stack_value_index(b, c) : ind.high;
+	if (ind.stack_flag == (LOW_ON_A & HIGH_ON_A))
 	{
 		if (bound & A_BOUND)
 			return (get_dist_same_stack_bound(a, (&ind), stack_value_index(a, 0)));
 		return (get_dist_same_stack_no_bound(a, (&ind), TRUE));
 	}
-	else if ((&ind)->stack_flag == (LOW_ON_A | HIGH_ON_A))
+	else if (ind.stack_flag == (LOW_ON_A | HIGH_ON_A))
 	{
 		if (bound)
 			return (get_dist_diff_stack_bound(a, b, (&ind), bound));

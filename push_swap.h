@@ -106,5 +106,6 @@ int					ceil_log(int exp, int base);
 int					stack_get(t_stack *s, int i);
 void				stack_set(t_stack *s, int value, int i);
 int					stack_value_index(t_stack *s, int value);
+void				stack_print(t_stack *s);
 
 #endif

@@ -58,7 +58,7 @@ UNAME:= $(shell uname)
 ifeq ($(UNAME), Linux)
 	FLAGS:= -O3
 else
-	FLAGS:= -Wall -Wextra -Werror
+	FLAGS:= -Wall -Wextra -Werror -g
 endif
 
 all : $(NAME_C) $(NAME)
