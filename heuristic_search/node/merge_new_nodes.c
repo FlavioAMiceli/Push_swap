@@ -17,22 +17,49 @@ static	void	link_next_natural_run(
 {
 	t_node	*old;
 	t_node	*new;
+	t_node	*tmp;
 
 	old = *old_current;
 	new = *new_current;
+	// // TEST
+	// t_node	*current; //remove
+	// current = old;
+	// while (current)
+	// {
+	// 	ft_putstr("old node score: ");
+	// 	ft_putnbr(current->fitness);
+	// 	ft_putchar('\n');
+	// 	current = current->next;
+	// }
+	// current = new;
+	// while (current)
+	// {
+	// 	ft_putstr("	new node score: ");
+	// 	ft_putnbr(current->fitness);
+	// 	ft_putchar('\n');
+	// 	current = current->next;
+	// }
+	// ft_putchar('\n');
+	// // TEST
 	if (new->fitness < old->fitness)
 	{
-		while (new->next && new->fitness <= old->fitness)
+		while (new && new->fitness < old->fitness)
+		{
+			tmp = new;
 			new = new->next;
-		*new_current = new->next;
-		new->next = old;
+		}
+		tmp->next = old;
+		*new_current = new;
 	}
 	else
 	{
-		while (old->next && old->fitness <= new->fitness)
+		while (old && old->fitness <= new->fitness)
+		{
+			tmp = old;
 			old = old->next;
-		*old_current = old->next;
-		old->next = new;
+		}
+		tmp->next = new;
+		*old_current = old;
 	}
 }
 
@@ -41,6 +68,26 @@ void			merge_new_nodes(t_node **nodes, t_node **new_nodes)
 	t_node	*old;
 	t_node	*new;
 
+	// // TEST
+	// t_node	*current; //remove
+	// current = *nodes;
+	// while (current)
+	// {
+	// 	ft_putstr("node score: ");
+	// 	ft_putnbr(current->fitness);
+	// 	ft_putchar('\n');
+	// 	current = current->next;
+	// }
+	// current = *new_nodes;
+	// while (current)
+	// {
+	// 	ft_putstr("new node score: ");
+	// 	ft_putnbr(current->fitness);
+	// 	ft_putchar('\n');
+	// 	current = current->next;
+	// }
+	// ft_putchar('\n');
+	// // TEST
 	if (!(*nodes))
 	{
 		*nodes = *new_nodes;

@@ -68,7 +68,7 @@ char			*heuristic_search(t_node *nodes, size_t n, int bound)
 		// }
 		// if (nodes->n_ops > 210)
 		// 	exit(0);
-		// ft_putstr("count: ");
+		// ft_putstr("			count: ");
 		// ft_putnbr(count);
 		// ft_putchar('\n');
 		// current = nodes;
@@ -85,7 +85,7 @@ char			*heuristic_search(t_node *nodes, size_t n, int bound)
 		// 	ft_putchar('\n');
 		// 	ft_putchar('\n');
 		// 	current = current->next;
-		// }
+		//	}
 		expand_best_node(&nodes, sizeof(nodes->s_a->stack), bound);
 	}
 	printf("Nodes expanded: %d\n", count);
