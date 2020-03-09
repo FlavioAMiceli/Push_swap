@@ -63,7 +63,7 @@ typedef struct		s_index
 **	heuristic_search_prep.c
 */
 int				basecase_heuristic(
-					t_stack *origin_a, t_stack *origin_b,
+					t_stack **origin_a, t_stack **origin_b,
 					size_t n_a, size_t n_b);
 
 /*

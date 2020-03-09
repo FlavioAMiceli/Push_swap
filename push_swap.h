@@ -25,7 +25,7 @@
 # define S_END (*s)->end
 # define S_LEN (*s)->len
 # define S_STACK (*s)->stack
-# define BASE_CASE_LEN 10
+# define BASE_CASE_LEN 7
 # define A_HEAD (*a)->start
 # define A_SIZE (*a)->size
 # define A_LEN (*a)->len
@@ -47,11 +47,17 @@ typedef struct		s_stack
 	int				len;
 }					t_stack;
 
-typedef struct		s_lengths
+typedef struct		s_stacks
 {
-	int				top;
-	int				bottom;
-}					t_lengths;
+	t_stack			*a;
+	t_stack			*b;
+}					t_stacks;
+
+// typedef struct		s_lengths
+// {
+// 	int				top;
+// 	int				bottom;
+// }					t_lengths;
 
 /*
 **	ops.c

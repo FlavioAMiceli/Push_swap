@@ -90,8 +90,16 @@ static t_stack	*init_stack_heuristic(
 	return (new);
 }
 
-int			basecase_heuristic(
-	t_stack *origin_a, t_stack *origin_b, size_t n_a, size_t n_b)
+// static void		set_stack_sorted_on_origin(
+// 	t_stack **origin_a, t_stack **origin_b, size_t n_a, size_t n_b)
+// {
+// 	int	arr[n_a + n_b];
+//
+//
+// }
+
+int				basecase_heuristic(
+	t_stack **origin_a, t_stack **origin_b, size_t n_a, size_t n_b)
 {
 	t_stack *a;
 	t_stack *b;
@@ -99,12 +107,12 @@ int			basecase_heuristic(
 	char	*ops;
 	int		bound;
 
-	bound = (size_t)origin_a->len > n_a ? A_BOUND : 0x0;
-	bound |= (size_t)origin_b->len > n_b ? B_BOUND : 0x0;
+	bound = (size_t)(*origin_a)->len > n_a ? A_BOUND : 0x0;
+	bound |= (size_t)(*origin_b)->len > n_b ? B_BOUND : 0x0;
 	a = init_stack_heuristic(
-		origin_a, n_a, n_a + n_b, bound & A_BOUND ? TRUE : FALSE);
+		*origin_a, n_a, n_a + n_b, bound & A_BOUND ? TRUE : FALSE);
 	b = init_stack_heuristic(
-		origin_b, n_b, n_a + n_b, bound & B_BOUND ? TRUE : FALSE);
+		*origin_b, n_b, n_a + n_b, bound & B_BOUND ? TRUE : FALSE);
 	if(!(a && b))
 	{
 		del_stacks(&a, &b);
@@ -115,5 +123,6 @@ int			basecase_heuristic(
 	ft_putendl("Exit HS, STILL NEED TO PROGRAM SORT OF PARTITION ON REAL STACK"); // REMOFENJKN
 	ft_putstr(ops);
 	free(ops);
+	// set_stack_sorted_on_origin(origin_a, origin_b, n_a, n_b);
 	return (TRUE);
 }

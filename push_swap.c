@@ -49,6 +49,32 @@
 // 	}
 // }
 
+static void 	sift_to_b(t_stacks *s, int *sorted, int lo, int hi)
+{
+	if (hi - lo <= BASE_CASE_LEN)
+		basecase_heuristic(&(s->a), &(s->b), hi - lo, 0);
+	else
+	{
+		// SIFT
+		// REVROT IF NEEDED
+		sift_to_b(s, sorted, lo, (lo + hi) / 2);
+		sift_to_a(s, sorted, lo, hi);
+	}
+}
+
+static void 	sift_to_a(t_stacks *s, int *sorted, int lo, int hi)
+{
+	if (hi - lo <= BASE_CASE_LEN)
+		basecase_heuristic(&(s->a), &(s->b), 0, hi - lo);
+	else
+	{
+		// SIFT
+		// REVROT IF NEEDED
+		sift_to_b(s, sorted, lo, (lo + hi) / 2);
+		sift_to_a(s, sorted, lo, hi);
+	}
+}
+
 static int		is_sorted(\
 	t_stack **stack_a, t_stack **stack_b, int *sorted, int n)
 {
@@ -63,36 +89,16 @@ static int		is_sorted(\
 	return (TRUE);
 }
 
-// static void push_swap(t_stack **a, t_stack **b, int *sorted, int n)
-// {
-// 	t_list	*ops;
-// 	int		hi;
-//
-// 	ops = NULL;
-// 	hi = n - 1;
-// 	while (!is_sorted(a, b, sorted, n))
-// 	{
-// 		sift(a, b, 0, hi, sorted, &ops);
-// 		sift(a, b, hi / 2, hi, sorted, &ops);
-// 		shift_stack(a);
-// 		for (int i = 0; i < n; i++)
-// 		{
-// 			ft_putnbr((*a)->stack[i]);
-// 			ft_putchar('\n');
-// 		}
-// 		ft_putchar('\n');
-// 	}
-// }
-
 static void push_swap(t_stack **a, t_stack **b, int *sorted, int n)
 {
-	int	to_b;
+	t_stacks	s;
 
-	to_b = TRUE;
+	s.a = *a;
+	s.b = *b;
 	if (n <= BASE_CASE_LEN)
-		basecase_heuristic(*a, *b, n, 0);
+		basecase_heuristic(a, b, n, 0);
 	else
-		ft_putstr("N TOO LARGE, ONLY BASECASE!");
+		sift_to_b(&s, sorted, 0, n - 1);
 	if (is_sorted(a, b, sorted, n))
 		ft_putstr("Succes!");
 	else

@@ -53,24 +53,27 @@ char			*heuristic_search(t_node *nodes, size_t n, int bound)
 	while (!is_solved(nodes, n))
 	{
 		count++;
-		// if (nodes->n_ops > 200)
-		// {
-		// 	ft_putstr("a: ");
-		// 	stack_print(nodes->s_a);
-		// 	ft_putstr("b: ");
-		// 	stack_print(nodes->s_b);
-		// 	ft_putstr("n_ops: ");
-		// 	ft_putnbr(nodes->n_ops);
-		// 	ft_putstr(" score: ");
-		// 	ft_putnbr(nodes->fitness);
-		// 	ft_putchar('\n');
-		// 	ft_putchar('\n');
-		// }
-		// if (nodes->n_ops > 210)
+		if (nodes->n_ops > 10)
+		{
+			ft_putstr("a: ");
+			stack_print(nodes->s_a);
+			ft_putstr("b: ");
+			stack_print(nodes->s_b);
+			ft_putstr("n_ops: ");
+			ft_putnbr(nodes->n_ops);
+			ft_putstr(" score: ");
+			ft_putnbr(nodes->fitness);
+			ft_putchar('\n');
+			ft_putchar('\n');
+		}
+		// if (nodes->n_ops > 20)
 		// 	exit(0);
-		// ft_putstr("			count: ");
-		// ft_putnbr(count);
-		// ft_putchar('\n');
+		if (count % 1000 == 0)
+		{
+			ft_putstr("		count: ");
+			ft_putnbr(count);
+			ft_putchar('\n');
+		}
 		// current = nodes;
 		// while (current)
 		// {
@@ -85,7 +88,7 @@ char			*heuristic_search(t_node *nodes, size_t n, int bound)
 		// 	ft_putchar('\n');
 		// 	ft_putchar('\n');
 		// 	current = current->next;
-		//	}
+		// }
 		expand_best_node(&nodes, sizeof(nodes->s_a->stack), bound);
 	}
 	printf("Nodes expanded: %d\n", count);
