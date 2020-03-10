@@ -25,7 +25,7 @@
 # define S_END (*s)->end
 # define S_LEN (*s)->len
 # define S_STACK (*s)->stack
-# define BASE_CASE_LEN 7
+# define BASE_CASE_LEN 2
 # define A_HEAD (*a)->start
 # define A_SIZE (*a)->size
 # define A_LEN (*a)->len
@@ -58,6 +58,11 @@ typedef struct		s_stacks
 // 	int				top;
 // 	int				bottom;
 // }					t_lengths;
+
+/*
+**	sift.c
+*/
+void 				partition_to_b(t_stacks *s, int *sorted, int lo, int hi);
 
 /*
 **	ops.c

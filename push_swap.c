@@ -27,34 +27,32 @@ static int		is_sorted(\
 	return (TRUE);
 }
 
-static void push_swap(t_stack **a, t_stack **b, int *sorted, int n)
+static void push_swap(t_stacks *s, int *sorted, int n)
 {
-	t_stacks	s;
-
-	s.a = *a;
-	s.b = *b;
-	if (n <= BASE_CASE_LEN)
-		basecase_heuristic(a, b, n, 0);
-	else
-		partition_to_b(&s, sorted, 0, n - 1);
-	if (!is_sorted(a, b, sorted, n))
+	partition_to_b(s, sorted, 0, n - 1);
+	// if (n <= BASE_CASE_LEN)
+	// 	basecase_heuristic(a, b, n, 0);
+	// else
+	// 	partition_to_b(&s, sorted, 0, n - 1);
+	if (!is_sorted(&(s->a), &(s->b), sorted, n))
 		ft_putendl_fd("Stack was not sorted! Go fix the code!", 2);
 }
 
 int			main(int argc, char **argv)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-	int		sorted_tab[argc - 1];
+	t_stacks	s;
+	// t_stack	*stack_a;
+	// t_stack	*stack_b;
+	int			sorted_tab[argc - 1];
 
 	if (argc < 2 || tab_is_valid(&argv[1], argc - 1) == FALSE)
 	{
 		ft_putendl_fd("Error", 2);
 		return (1);
 	}
-	init_stacks(&stack_a, &stack_b, &argv[1], argc - 1);
+	init_stacks(&(s.a), &(s.b), &argv[1], argc - 1);
 	(void)set_tab(sorted_tab, &argv[1], argc - 1);
 	(void)ft_quicksort(sorted_tab, argc - 1);
-	push_swap(&stack_a, &stack_b, sorted_tab, argc - 1);
+	push_swap(&s, sorted_tab, argc - 1);
 	return (0);
 }
