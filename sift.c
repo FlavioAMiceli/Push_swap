@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 #include "./heuristic_search/heuristic_search.h"
+#include <stdio.h> // remove
 
 static void sift_to_b(t_stacks *s, int pivot, int len)
 {
@@ -73,9 +74,11 @@ static void 	partition_to_a(t_stacks *s, int *sorted, int lo, int hi)
 {
 	int	pivot_i;
 	// TODO: Instead of bc on single stack, always sift and then check for bc.
+	// printf("to_a\n");
+	// printf("lo: %d hi: %d\n", lo, hi);
 	if ((hi - lo) + 1 <= BASE_CASE_LEN)
 	{
-		// TEMP BASECASE, PREFER TO AN ACTUAL BC FUNCTION
+		// TEMP BASECASE, PREFER TO USE AN ACTUAL BC FUNCTION
 		if ((hi - lo) + 1 == 1)
 		{
 			push(&(s->b), &(s->a));
@@ -94,12 +97,12 @@ static void 	partition_to_a(t_stacks *s, int *sorted, int lo, int hi)
 			push(&(s->b), &(s->a));
 			ft_putendl("sb\npa\npa");
 		}
-		//basecase_heuristic(&(s->a), &(s->b), 0, hi - lo);
+		//basecase_heuristic(&(s->a), &(s->b), 0, (hi - lo) + 1);
 	}
 	else
 	{
-		pivot_i = lo + ((lo + hi) / 2);
-		sift_to_a(s, sorted[pivot_i], (lo + hi) / 2);
+		pivot_i = (lo + hi) / 2;
+		sift_to_a(s, sorted[pivot_i], (hi - pivot_i) + 1);
 		partition_to_b(s, sorted, pivot_i + 1, hi);
 		partition_to_a(s, sorted, lo, pivot_i);
 	}
@@ -109,9 +112,11 @@ void 		partition_to_b(t_stacks *s, int *sorted, int lo, int hi)
 {
 	int	pivot_i;
 	// TODO: Instead of bc on single stack, always sift and then check for bc.
+	// printf("to_b\n");
+	// printf("lo: %d hi: %d\n", lo, hi);
 	if ((hi - lo) + 1 <= BASE_CASE_LEN)
 	{
-		// TEMP BASECASE, PREFER TO AN ACTUAL BC FUNCTION
+		// TEMP BASECASE, PREFER TO USE AN ACTUAL BC FUNCTION
 		if ((hi - lo) + 1 == 1)
 			return ;
 		else if (stack_get(s->a, 0) > stack_get(s->a, 1))
@@ -119,12 +124,12 @@ void 		partition_to_b(t_stacks *s, int *sorted, int lo, int hi)
 			swap(&(s->a));
 			ft_putendl("sa");
 		}
-		//basecase_heuristic(&(s->a), &(s->b), hi - lo, 0);
+		//basecase_heuristic(&(s->a), &(s->b), (hi - lo) + 1, 0);
 	}
 	else
 	{
-		pivot_i = lo + ((lo + hi) / 2);
-		sift_to_b(s, sorted[pivot_i], (lo + hi) / 2);
+		pivot_i = (lo + hi) / 2;
+		sift_to_b(s, sorted[pivot_i], pivot_i - lo);
 		partition_to_b(s, sorted, pivot_i, hi);
 		partition_to_a(s, sorted, lo, pivot_i - 1);
 	}

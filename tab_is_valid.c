@@ -27,7 +27,8 @@ int		tab_is_valid(char **tab, int len)
 		while (tab[i][j] != '\0')
 		{
 			if (ft_isdigit(tab[i][j]) == FALSE)
-				return (FALSE);
+				if (j != 0 || (tab[i][0] != '+' && tab[i][0] != '-'))
+					return (FALSE);
 			j++;
 		}
 		i++;
