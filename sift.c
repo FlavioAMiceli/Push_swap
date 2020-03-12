@@ -79,25 +79,10 @@ static void 	partition_to_a(t_stacks *s, int *sorted, int lo, int hi)
 	if ((hi - lo) + 1 <= BASE_CASE_LEN)
 	{
 		// TEMP BASECASE, PREFER TO USE AN ACTUAL BC FUNCTION
-		if ((hi - lo) + 1 == 1)
-		{
-			push(&(s->b), &(s->a));
-			ft_putendl("pa");
-		}
-		else if (stack_get(s->b, 0) > stack_get(s->b, 1))
-		{
-			push(&(s->b), &(s->a));
-			push(&(s->b), &(s->a));
-			ft_putendl("pa\npa");
-		}
+		if ((hi - lo) + 1 <= 3)
+			bc_to_a(s, lo, hi);
 		else
-		{
-			swap(&(s->b));
-			push(&(s->b), &(s->a));
-			push(&(s->b), &(s->a));
-			ft_putendl("sb\npa\npa");
-		}
-		//basecase_heuristic(&(s->a), &(s->b), 0, (hi - lo) + 1);
+			basecase_heuristic(&(s->a), &(s->b), 0, (hi - lo) + 1);
 	}
 	else
 	{
@@ -117,14 +102,10 @@ void 		partition_to_b(t_stacks *s, int *sorted, int lo, int hi)
 	if ((hi - lo) + 1 <= BASE_CASE_LEN)
 	{
 		// TEMP BASECASE, PREFER TO USE AN ACTUAL BC FUNCTION
-		if ((hi - lo) + 1 == 1)
-			return ;
-		else if (stack_get(s->a, 0) > stack_get(s->a, 1))
-		{
-			swap(&(s->a));
-			ft_putendl("sa");
-		}
-		//basecase_heuristic(&(s->a), &(s->b), (hi - lo) + 1, 0);
+		if ((hi - lo) + 1 <= 3)
+			bc_to_b(s, lo, hi);
+		else
+			basecase_heuristic(&(s->a), &(s->b), (hi - lo) + 1, 0);
 	}
 	else
 	{

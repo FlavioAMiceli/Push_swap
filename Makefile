@@ -38,7 +38,8 @@ SRCS_PS:= \
 	moves.c \
 	heuristic_search.c \
 	heuristic_search_prep.c \
-	sift.c
+	sift.c \
+	basecase.c
 
 OBJ:= $(SRCS:.c=.o)
 OBJ_C:= $(SRCS_C:.c=.o)

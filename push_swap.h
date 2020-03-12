@@ -119,4 +119,10 @@ void				stack_set(t_stack *s, int value, int i);
 int					stack_value_index(t_stack *s, int value);
 void				stack_print(t_stack *s);
 
+/*
+**	basecase.c
+*/
+void 				bc_to_a(t_stacks *s, int lo, int hi);
+void 				bc_to_b(t_stacks *s, int lo, int hi);
+
 #endif
