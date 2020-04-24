@@ -111,10 +111,10 @@ void bc_to_a(t_stacks *s, int lo, int hi)
 	stack_print(s->b);
 	if ((hi - lo) + 1 < 3)
 		bc_to_a_small(s, lo, hi);
-	else if (stack_get(s->a, 0) < stack_get(s->a, 2) &&
-		stack_get(s->a, 1) < stack_get(s->a, 2))
+	else if (stack_get(s->b, 0) < stack_get(s->b, 2) &&
+		stack_get(s->b, 1) < stack_get(s->b, 2))
 	{
-		if (stack_get(s->a, 0) < stack_get(s->a, 1))
+		if (stack_get(s->b, 0) < stack_get(s->b, 1))
 		{
 			swap(&(s->b));
 			ft_putendl("sb");
@@ -124,10 +124,10 @@ void bc_to_a(t_stacks *s, int lo, int hi)
 		push(&(s->b), &(s->a));
 		ft_putendl("pa\npa\npa");
 	}
-	else if (stack_get(s->a, 0) > stack_get(s->a, 2) ||
-		stack_get(s->a, 1) > stack_get(s->a, 2))
+	else if (stack_get(s->b, 0) > stack_get(s->b, 2) ||
+		stack_get(s->b, 1) > stack_get(s->b, 2))
 	{
-		if (stack_get(s->a, 0) < stack_get(s->a, 1))
+		if (stack_get(s->b, 0) < stack_get(s->b, 1))
 		{
 			swap(&(s->b));
 			ft_putendl("sb");
@@ -138,7 +138,7 @@ void bc_to_a(t_stacks *s, int lo, int hi)
 		push(&(s->b), &(s->a));
 		ft_putendl("pa\nsb\npa\npa");
 	}
-	else if (stack_get(s->a, 0) > stack_get(s->a, 1))
+	else if (stack_get(s->b, 0) > stack_get(s->b, 1))
 	{
 		push(&(s->b), &(s->a));
 		swap(&(s->b));
