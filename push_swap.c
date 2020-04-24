@@ -34,8 +34,8 @@ static void push_swap(t_stacks *s, int *sorted, int n)
 	// 	basecase_heuristic(a, b, n, 0);
 	// else
 	// 	partition_to_b(&s, sorted, 0, n - 1);
-	// stack_print(s->a);
-	// stack_print(s->b);
+	stack_print(s->a);
+	stack_print(s->b);
 	if (!is_sorted(&(s->a), &(s->b), sorted, n))
 		ft_putendl_fd("Stack was not sorted! Go fix the code!", 2);
 }

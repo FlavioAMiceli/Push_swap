@@ -21,6 +21,9 @@ static void sift_to_b(t_stacks *s, int pivot, int len)
 
 	pushed = 0;
 	rotated = 0;
+	printf("\tsift_to_b\n\tpivot: %d len: %d\n", pivot, len);
+	stack_print(s->a);
+	stack_print(s->b);
 	while (pushed < len)
 	{
 		if (stack_get(s->a, 0) < pivot)
@@ -49,6 +52,9 @@ static void sift_to_a(t_stacks *s, int pivot, int len)
 
 	pushed = 0;
 	rotated = 0;
+	printf("\tsift_to_a\n\tpivot: %d len: %d\n", pivot, len);
+	stack_print(s->a);
+	stack_print(s->b);
 	while (pushed < len)
 	{
 		if (stack_get(s->b, 0) >= pivot)
@@ -74,11 +80,10 @@ static void 	partition_to_a(t_stacks *s, int *sorted, int lo, int hi)
 {
 	int	pivot_i;
 	// TODO: Instead of bc on single stack, always sift and then check for bc.
-	// printf("to_a\n");
-	// printf("lo: %d hi: %d\n", lo, hi);
+	printf("\tto_a\n");
+	printf("\tlo: %d hi: %d\n", lo, hi);
 	if ((hi - lo) + 1 <= BASE_CASE_LEN)
 	{
-		// TEMP BASECASE, PREFER TO USE AN ACTUAL BC FUNCTION
 		if ((hi - lo) + 1 <= 3)
 			bc_to_a(s, lo, hi);
 		else
@@ -97,11 +102,10 @@ void 		partition_to_b(t_stacks *s, int *sorted, int lo, int hi)
 {
 	int	pivot_i;
 	// TODO: Instead of bc on single stack, always sift and then check for bc.
-	// printf("to_b\n");
-	// printf("lo: %d hi: %d\n", lo, hi);
+	printf("\tto_b\n");
+	printf("\tlo: %d hi: %d\n", lo, hi);
 	if ((hi - lo) + 1 <= BASE_CASE_LEN)
 	{
-		// TEMP BASECASE, PREFER TO USE AN ACTUAL BC FUNCTION
 		if ((hi - lo) + 1 <= 3)
 			bc_to_b(s, lo, hi);
 		else
@@ -109,7 +113,7 @@ void 		partition_to_b(t_stacks *s, int *sorted, int lo, int hi)
 	}
 	else
 	{
-		pivot_i = (lo + hi) / 2;
+		pivot_i = (lo + hi + 1) / 2;
 		sift_to_b(s, sorted[pivot_i], pivot_i - lo);
 		partition_to_b(s, sorted, pivot_i, hi);
 		partition_to_a(s, sorted, lo, pivot_i - 1);
