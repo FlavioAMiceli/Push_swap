@@ -21,9 +21,9 @@ static void sift_to_b(t_stacks *s, int pivot, int len)
 
 	pushed = 0;
 	rotated = 0;
-	printf("\tsift_to_b\n\tpivot: %d len: %d\n", pivot, len);
-	stack_print(s->a);
-	stack_print(s->b);
+	// printf("\tsift_to_b\n\tpivot: %d len: %d\n", pivot, len);
+	// stack_print(s->a);
+	// stack_print(s->b);
 	while (pushed < len)
 	{
 		if (stack_get(s->a, 0) < pivot)
@@ -52,9 +52,9 @@ static void sift_to_a(t_stacks *s, int pivot, int len)
 
 	pushed = 0;
 	rotated = 0;
-	printf("\tsift_to_a\n\tpivot: %d len: %d\n", pivot, len);
-	stack_print(s->a);
-	stack_print(s->b);
+	// printf("\tsift_to_a\n\tpivot: %d len: %d\n", pivot, len);
+	// stack_print(s->a);
+	// stack_print(s->b);
 	while (pushed < len)
 	{
 		if (stack_get(s->b, 0) >= pivot)
@@ -80,8 +80,8 @@ static void 	partition_to_a(t_stacks *s, int *sorted, int lo, int hi)
 {
 	int	pivot_i;
 	// TODO: Instead of bc on single stack, always sift and then check for bc.
-	printf("\tto_a\n");
-	printf("\tlo: %d hi: %d\n", lo, hi);
+	// printf("\tto_a\n");
+	// printf("\tlo: %d hi: %d\n", lo, hi);
 	if ((hi - lo) + 1 <= BASE_CASE_LEN)
 	{
 		if ((hi - lo) + 1 <= 3)
@@ -102,8 +102,8 @@ void 		partition_to_b(t_stacks *s, int *sorted, int lo, int hi)
 {
 	int	pivot_i;
 	// TODO: Instead of bc on single stack, always sift and then check for bc.
-	printf("\tto_b\n");
-	printf("\tlo: %d hi: %d\n", lo, hi);
+	// printf("\tto_b\n");
+	// printf("\tlo: %d hi: %d\n", lo, hi);
 	if ((hi - lo) + 1 <= BASE_CASE_LEN)
 	{
 		if ((hi - lo) + 1 <= 3)

@@ -61,9 +61,6 @@ static void to_b_321(t_stacks *s)
 
 void bc_to_b(t_stacks *s, int lo, int hi)
 {
-	printf("\tbc_to_b\n");
-	stack_print(s->a);
-	stack_print(s->b);
 	if ((hi - lo) + 1 < 3)
 	{
 		if ((hi - lo) + 1 == 2 &&
@@ -104,27 +101,57 @@ static void	bc_to_a_small(t_stacks *s, int lo, int hi)
 	ft_putendl("pa\npa");
 }
 
+static void to_a_123(t_stacks *s)
+{
+	rot(&(s->b));
+	swap(&(s->b));
+	push(&(s->b), &(s->a));
+	push(&(s->b), &(s->a));
+	rev_rot(&(s->b));
+	push(&(s->b), &(s->a));
+	ft_putendl("rb\nsb\npa\npa\nrrb\npa");
+}
+
+static void to_a_213(t_stacks *s)
+{
+	push(&(s->b), &(s->a));
+	swap(&(s->b));
+	push(&(s->b), &(s->a));
+	swap(&(s->a));
+	push(&(s->b), &(s->a));
+	ft_putendl("pa\nsb\npa\nsa\npa");
+}
+
+static void to_a_312(t_stacks *s)
+{
+	push(&(s->b), &(s->a));
+	swap(&(s->b));
+	push(&(s->b), &(s->a));
+	push(&(s->b), &(s->a));
+	ft_putendl("pa\nsb\npa\npa");
+}
+
+static void to_a_321(t_stacks *s)
+{
+	push(&(s->b), &(s->a));
+	push(&(s->b), &(s->a));
+	push(&(s->b), &(s->a));
+	ft_putendl("pa\npa\npa");
+}
+
 void bc_to_a(t_stacks *s, int lo, int hi)
 {
-	printf("\tbc_to_a\n");
-	stack_print(s->a);
-	stack_print(s->b);
 	if ((hi - lo) + 1 < 3)
 		bc_to_a_small(s, lo, hi);
 	else if (stack_get(s->b, 0) < stack_get(s->b, 2) &&
 		stack_get(s->b, 1) < stack_get(s->b, 2))
 	{
 		if (stack_get(s->b, 0) < stack_get(s->b, 1))
-		{
-			swap(&(s->b));
-			ft_putendl("sb");
-		}
-		push(&(s->b), &(s->a));
-		push(&(s->b), &(s->a));
-		push(&(s->b), &(s->a));
-		ft_putendl("pa\npa\npa");
+			to_a_123(s);
+		else
+			to_a_213(s);
 	}
-	else if (stack_get(s->b, 0) > stack_get(s->b, 2) ||
+	else if (stack_get(s->b, 0) > stack_get(s->b, 2) &&
 		stack_get(s->b, 1) > stack_get(s->b, 2))
 	{
 		if (stack_get(s->b, 0) < stack_get(s->b, 1))
@@ -132,27 +159,15 @@ void bc_to_a(t_stacks *s, int lo, int hi)
 			swap(&(s->b));
 			ft_putendl("sb");
 		}
-		push(&(s->b), &(s->a));
-		swap(&(s->b));
-		push(&(s->b), &(s->a));
-		push(&(s->b), &(s->a));
-		ft_putendl("pa\nsb\npa\npa");
-	}
-	else if (stack_get(s->b, 0) > stack_get(s->b, 1))
-	{
-		push(&(s->b), &(s->a));
-		swap(&(s->b));
-		push(&(s->b), &(s->a));
-		swap(&(s->a));
-		push(&(s->b), &(s->a));
-		ft_putendl("pa\nsb\npa\nsa\npa");
+		to_a_321(s);
 	}
 	else
-	rot(&(s->b));
-	swap(&(s->b));
-	push(&(s->b), &(s->a));
-	push(&(s->b), &(s->a));
-	rev_rot(&(s->b));
-	push(&(s->b), &(s->a));
-	ft_putendl("pa\nsb\npa\nsa\npa");
+	{
+		if (stack_get(s->b, 0) < stack_get(s->b, 1))
+		{
+			swap(&(s->b));
+			ft_putendl("sb");
+		}
+		to_a_312(s);
+	}
 }
