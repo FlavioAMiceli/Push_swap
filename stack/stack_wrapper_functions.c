@@ -15,6 +15,7 @@
 /*
 **	Returns value at index i in stack.
 */
+
 int		stack_get(t_stack *s, int i)
 {
 	// TODO
@@ -30,6 +31,7 @@ int		stack_get(t_stack *s, int i)
 /*
 **	Sets value at index i in stack.
 */
+
 void	stack_set(t_stack *s, int value, int i)
 {
 	int	start_n;
@@ -41,6 +43,7 @@ void	stack_set(t_stack *s, int value, int i)
 /*
 **	Returns the index of a value. Return -1 if value wasn't found.
 */
+
 int		stack_value_index(t_stack *s, int value)
 {
 	int	i;
@@ -57,7 +60,7 @@ int		stack_value_index(t_stack *s, int value)
 
 void	stack_print(t_stack *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < s->len)

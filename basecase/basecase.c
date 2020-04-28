@@ -5,7 +5,7 @@
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/12 22:45:38 by fmiceli        #+#    #+#                */
+/*   Created: 2020/03/12 22:45:38 by fmiceli       #+#    #+#                 */
 /*   Updated: 2020/03/12 22:45:39 by fmiceli       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
@@ -13,7 +13,7 @@
 #include "basecase.h"
 #include <stdio.h> // remove
 
-void bc_to_b(t_stacks *s, int lo, int hi)
+void 		bc_to_b(t_stacks *s, int lo, int hi)
 {
 	if ((hi - lo) + 1 < 3)
 	{

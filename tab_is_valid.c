@@ -15,6 +15,7 @@
 /*
 ** checks if each character in tab is an ascii digit
 */
+
 int		tab_is_valid(char **tab, int len)
 {
 	int	i;

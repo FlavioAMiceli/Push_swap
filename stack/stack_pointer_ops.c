@@ -39,6 +39,7 @@ void	dec_end(t_stack **s)
 /*
 **	Used to align start of stack with index 0 of array?
 */
+
 void	shift_stack(t_stack **s)
 {
 	int	len_a;
