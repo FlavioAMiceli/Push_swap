@@ -13,7 +13,7 @@
 #include "basecase.h"
 #include <stdio.h> // remove
 
-void 		bc_to_b(t_stacks *s, int lo, int hi)
+void		bc_to_b(t_stacks *s, int lo, int hi)
 {
 	if ((hi - lo) + 1 < 3)
 	{
@@ -37,13 +37,13 @@ void 		bc_to_b(t_stacks *s, int lo, int hi)
 		to_b_321(s);
 }
 
-static void swap_b(t_stacks *s)
+static void	swap_b(t_stacks *s)
 {
 	swap(&(s->b));
 	ft_putendl("sb");
 }
 
-void bc_to_a(t_stacks *s, int lo, int hi)
+void		bc_to_a(t_stacks *s, int lo, int hi)
 {
 	if ((hi - lo) + 1 < 3)
 		bc_to_a_small(s, lo, hi);

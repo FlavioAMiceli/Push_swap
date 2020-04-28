@@ -14,7 +14,7 @@
 #include "./heuristic_search/heuristic_search.h"
 #include <stdio.h> // remove
 
-static void sift_to_b(t_stacks *s, int pivot, int len)
+static void	sift_to_b(t_stacks *s, int pivot, int len)
 {
 	int	pushed;
 	int	rotated;
@@ -45,7 +45,7 @@ static void sift_to_b(t_stacks *s, int pivot, int len)
 	}
 }
 
-static void sift_to_a(t_stacks *s, int pivot, int len)
+static void	sift_to_a(t_stacks *s, int pivot, int len)
 {
 	int	pushed;
 	int	rotated;
@@ -76,7 +76,7 @@ static void sift_to_a(t_stacks *s, int pivot, int len)
 	}
 }
 
-static void 	partition_to_a(t_stacks *s, int *sorted, int lo, int hi)
+static void partition_to_a(t_stacks *s, int *sorted, int lo, int hi)
 {
 	int	pivot_i;
 	// TODO: Instead of bc on single stack, always sift and then check for bc.

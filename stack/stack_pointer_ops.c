@@ -58,5 +58,5 @@ void	shift_stack(t_stack **s)
 	free(S_STACK);
 	S_STACK = arr;
 	S_START = arr;
-	S_END = arr + ((S_SIZE / sizeof(int))  - 1);
+	S_END = arr + ((S_SIZE / sizeof(int)) - 1);
 }

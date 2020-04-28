@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEURISTIC_NODE_H
+#ifndef HEURISTIC_SEARCH_H
 
-# define HEURISTIC_NODE_H
+# define HEURISTIC_SEARCH_H
 
 # include "../push_swap.h"
 
