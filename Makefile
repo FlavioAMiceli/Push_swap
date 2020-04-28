@@ -39,7 +39,9 @@ SRCS_PS:= \
 	heuristic_search.c \
 	heuristic_search_prep.c \
 	sift.c \
-	basecase.c
+	basecase.c \
+	to_a.c \
+	to_b.c
 
 OBJ:= $(SRCS:.c=.o)
 OBJ_C:= $(SRCS_C:.c=.o)
@@ -50,10 +52,11 @@ INCLS:= ./
 LIBFT:= ./libft/libft.a
 
 VPATH:= \
+	./basecase/ \
 	./stack/ \
 	./heuristic_search/ \
 	./heuristic_search/node/ \
-	./heuristic_search/do_moves/ \
+	./heuristic_search/do_moves/
 
 UNAME:= $(shell uname)
 
