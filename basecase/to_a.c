@@ -32,7 +32,6 @@ void	bc_to_a_small(t_stacks *s, int lo, int hi)
 
 void	to_a_123(t_stacks *s)
 {
-	// Why don;t these work?
 	rot(&(s->b));
 	swap(&(s->b));
 	push(&(s->b), &(s->a));

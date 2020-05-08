@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "basecase.h"
-#include <stdio.h> // remove
 
 void		bc_to_b(t_stacks *s, int lo, int hi)
 {
