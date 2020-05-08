@@ -18,10 +18,6 @@
 
 int		stack_get(t_stack *s, int i)
 {
-	// TODO
-	// TEST EVERYTHING!
-	// IF start = S_SIZE - (S_START - S_STACK) is wrong,
-	// Than it's also wrong in shift_stack in stack_pointer_ops!
 	int	start_n;
 
 	start_n = s->start - s->stack;

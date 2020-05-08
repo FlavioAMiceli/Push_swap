@@ -17,7 +17,7 @@ int	swap(t_stack **s)
 	int	i;
 	int	j;
 
-	if (S_LEN < 2)
+	if ((*s)->len < 2)
 		return (FALSE);
 	i = stack_get(*s, 0);
 	j = stack_get(*s, 1);
@@ -40,24 +40,24 @@ int	push(t_stack **src, t_stack **dst)
 
 int	rot(t_stack **s)
 {
-	if (S_LEN == 0)
+	if ((*s)->len == 0)
 		return (FALSE);
-	else if (S_LEN == 1)
+	else if ((*s)->len == 1)
 		return (TRUE);
 	inc_end(s);
-	S_END[0] = stack_get(*s, 0);
+	stack_set(*s, stack_get(*s, 0), (*s)->len);
 	inc_start(s);
 	return (TRUE);
 }
 
 int	rev_rot(t_stack **s)
 {
-	if (S_LEN == 0)
+	if ((*s)->len == 0)
 		return (FALSE);
-	else if (S_LEN == 1)
+	else if ((*s)->len == 1)
 		return (TRUE);
 	dec_start(s);
-	S_START[0] = S_END[0];
+	(*s)->start[0] = (*s)->end[0];
 	dec_end(s);
 	return (TRUE);
 }
