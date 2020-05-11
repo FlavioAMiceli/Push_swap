@@ -68,7 +68,7 @@ static void	sift_to_a(t_stacks *s, int pivot, int len)
 	}
 }
 
-static void partition_to_a(t_stacks *s, int *sorted, int lo, int hi)
+static void	partition_to_a(t_stacks *s, int *sorted, int lo, int hi)
 {
 	int	pivot_i;
 
@@ -83,7 +83,7 @@ static void partition_to_a(t_stacks *s, int *sorted, int lo, int hi)
 	}
 }
 
-void 		partition_to_b(t_stacks *s, int *sorted, int lo, int hi)
+void		partition_to_b(t_stacks *s, int *sorted, int lo, int hi)
 {
 	int	pivot_i;
 

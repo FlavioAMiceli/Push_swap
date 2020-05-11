@@ -26,13 +26,9 @@ static int	is_sorted(\
 	return (TRUE);
 }
 
-static void push_swap(t_stacks *s, int *sorted, int n)
+static void	push_swap(t_stacks *s, int *sorted, int n)
 {
 	partition_to_b(s, sorted, 0, n - 1);
-	// if (n <= BASE_CASE_LEN)
-	// 	basecase_heuristic(a, b, n, 0);
-	// else
-	// 	partition_to_b(&s, sorted, 0, n - 1);
 	stack_print(s->a);
 	stack_print(s->b);
 	if (!is_sorted(&(s->a), &(s->b), sorted, n))
@@ -42,8 +38,6 @@ static void push_swap(t_stacks *s, int *sorted, int n)
 int			main(int argc, char **argv)
 {
 	t_stacks	s;
-	// t_stack	*stack_a;
-	// t_stack	*stack_b;
 	int			sorted_tab[argc - 1];
 
 	if (argc < 2 || tab_is_valid(&argv[1], argc - 1) == FALSE)
