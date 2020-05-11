@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "./heuristic_search/heuristic_search.h"
 
 static void	sift_to_b(t_stacks *s, int pivot, int len)
 {
@@ -74,12 +73,7 @@ static void partition_to_a(t_stacks *s, int *sorted, int lo, int hi)
 	int	pivot_i;
 
 	if ((hi - lo) + 1 <= BASE_CASE_LEN)
-	{
-		if ((hi - lo) + 1 <= 3)
-			bc_to_a(s, lo, hi);
-		else
-			basecase_heuristic(&(s->a), &(s->b), 0, (hi - lo) + 1);
-	}
+		bc_to_a(s, lo, hi);
 	else
 	{
 		pivot_i = (lo + hi) / 2;
@@ -94,12 +88,7 @@ void 		partition_to_b(t_stacks *s, int *sorted, int lo, int hi)
 	int	pivot_i;
 
 	if ((hi - lo) + 1 <= BASE_CASE_LEN)
-	{
-		if ((hi - lo) + 1 <= 3)
-			bc_to_b(s, lo, hi);
-		else
-			basecase_heuristic(&(s->a), &(s->b), (hi - lo) + 1, 0);
-	}
+		bc_to_b(s, lo, hi);
 	else
 	{
 		pivot_i = (lo + hi + 1) / 2;

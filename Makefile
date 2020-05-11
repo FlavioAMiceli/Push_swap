@@ -26,18 +26,6 @@ SRCS_C:= \
 	checker.c
 SRCS_PS:= \
 	push_swap.c \
-	merge_new_nodes.c \
-	node_del.c \
-	node_evaluate.c \
-	node_queue_init.c \
-	node_stackdup.c \
-	do_pushes.c \
-	do_revrots.c \
-	do_rotations.c \
-	do_swaps.c \
-	moves.c \
-	heuristic_search.c \
-	heuristic_search_prep.c \
 	sift.c \
 	basecase.c \
 	to_a.c \
@@ -54,9 +42,6 @@ LIBFT:= ./libft/libft.a
 VPATH:= \
 	./basecase/ \
 	./stack/ \
-	./heuristic_search/ \
-	./heuristic_search/node/ \
-	./heuristic_search/do_moves/
 
 UNAME:= $(shell uname)
 

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "./heuristic_search/heuristic_search.h"
 
 static int	is_sorted(\
 	t_stack **stack_a, t_stack **stack_b, int *sorted, int n)
