@@ -36,9 +36,14 @@ void	to_a_123(t_stacks *s)
 	swap(&(s->b));
 	push(&(s->b), &(s->a));
 	push(&(s->b), &(s->a));
-	rev_rot(&(s->b));
+	ft_putendl("rb\nsb\npa\npa");
+	if (s->b->len > 1)
+	{
+		rev_rot(&(s->b));
+		ft_putendl("rrb");
+	}
 	push(&(s->b), &(s->a));
-	ft_putendl("rb\nsb\npa\npa\nrrb\npa");
+	ft_putendl("pa");
 }
 
 void	to_a_213(t_stacks *s)
