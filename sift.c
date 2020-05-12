@@ -32,7 +32,7 @@ static void	sift_to_b(t_stacks *s, int pivot, int len)
 		ft_putendl("ra");
 		rotated++;
 	}
-	while (rotated > 0)
+	while (rotated != s->a->len && rotated > 0)
 	{
 		rev_rot(&(s->a));
 		ft_putendl("rra");
@@ -60,7 +60,7 @@ static void	sift_to_a(t_stacks *s, int pivot, int len)
 		ft_putendl("rb");
 		rotated++;
 	}
-	while (rotated > 0)
+	while (rotated != s->b->len && rotated > 0)
 	{
 		rev_rot(&(s->b));
 		ft_putendl("rrb");
@@ -72,6 +72,10 @@ static void	partition_to_a(t_stacks *s, int *sorted, int lo, int hi)
 {
 	int	pivot_i;
 
+	ft_putchar('\n');
+	ft_putendl("part_a");
+	stack_print(s->a);
+	stack_print(s->b);
 	if ((hi - lo) + 1 <= BASE_CASE_LEN)
 		bc_to_a(s, lo, hi);
 	else
@@ -87,6 +91,10 @@ void		partition_to_b(t_stacks *s, int *sorted, int lo, int hi)
 {
 	int	pivot_i;
 
+	ft_putchar('\n');
+	ft_putendl("part_b");
+	stack_print(s->a);
+	stack_print(s->b);
 	if ((hi - lo) + 1 <= BASE_CASE_LEN)
 		bc_to_b(s, lo, hi);
 	else

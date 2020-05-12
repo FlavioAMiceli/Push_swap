@@ -28,6 +28,12 @@ void	to_b_213(t_stacks *s)
 
 void	to_b_231(t_stacks *s)
 {
+	if (s->a->len == 3)
+	{
+		rev_rot(&(s->a));
+		ft_putendl("rra");
+		return ;
+	}
 	rot(&(s->a));
 	swap(&(s->a));
 	rev_rot(&(s->a));
@@ -38,22 +44,30 @@ void	to_b_231(t_stacks *s)
 void	to_b_312(t_stacks *s)
 {
 	rot(&(s->a));
-	push(&(s->a), &(s->b));
-	push(&(s->a), &(s->b));
-	rev_rot(&(s->a));
-	push(&(s->b), &(s->a));
-	push(&(s->b), &(s->a));
-	ft_putendl("ra\npb\npb\nrra\npa\npa");
+	ft_putendl("ra");
+	if (s->a->len > 3)
+	{
+		push(&(s->a), &(s->b));
+		push(&(s->a), &(s->b));
+		rev_rot(&(s->a));
+		push(&(s->b), &(s->a));
+		push(&(s->b), &(s->a));
+		ft_putendl("pb\npb\nrra\npa\npa");
+	}
 }
 
 void	to_b_321(t_stacks *s)
 {
 	rot(&(s->a));
 	swap(&(s->a));
-	push(&(s->a), &(s->b));
-	push(&(s->a), &(s->b));
-	rev_rot(&(s->a));
-	push(&(s->b), &(s->a));
-	push(&(s->b), &(s->a));
-	ft_putendl("ra\nsa\npb\npb\nrra\npa\npa");
+	ft_putendl("ra\nsa");
+	if (s->a->len > 3)
+	{
+		push(&(s->a), &(s->b));
+		push(&(s->a), &(s->b));
+		rev_rot(&(s->a));
+		push(&(s->b), &(s->a));
+		push(&(s->b), &(s->a));
+		ft_putendl("pb\npb\nrra\npa\npa");
+	}
 }
