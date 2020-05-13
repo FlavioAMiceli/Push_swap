@@ -12,11 +12,24 @@
 
 #include "push_swap.h"
 
+static int	is_larger_than_max_int(char *str)
+{
+	long int n;
+
+	if (ft_strlen(str) > 11 ||
+		(ft_strlen(str) == 11 && str[0] != '+' && str[0] != '-'))
+		return (FALSE);
+	n = ft_strtol(str);
+	if (n > FT_INT_MAX || n < FT_INT_MIN)
+		return (TRUE);
+	return (FALSE);
+}
+
 /*
 ** checks if each character in tab is an ascii digit
 */
 
-int		tab_is_valid(char **tab, int len)
+int			tab_is_valid(char **tab, int len)
 {
 	int	i;
 	int	j;
@@ -25,6 +38,8 @@ int		tab_is_valid(char **tab, int len)
 	while (i < len)
 	{
 		j = 0;
+		if (is_larger_than_max_int(tab[i]))
+			return (FALSE);
 		while (tab[i][j] != '\0')
 		{
 			if (ft_isdigit(tab[i][j]) == FALSE)
