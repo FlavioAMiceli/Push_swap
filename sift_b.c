@@ -15,19 +15,19 @@
 static void	push_b(t_stacks *s)
 {
 	push(&(s->a), &(s->b));
-	ft_putendl("pa");
+	ft_putendl("pb");
 }
 
 static void	rot_a(t_stacks *s)
 {
 	rot(&(s->a));
-	ft_putendl("rb");
+	ft_putendl("ra");
 }
 
 static void	rev_rot_a(t_stacks *s)
 {
 	rev_rot(&(s->a));
-	ft_putendl("rrb");
+	ft_putendl("rra");
 }
 
 void		sift_to_b(t_stacks *s, int pivot, int len)
