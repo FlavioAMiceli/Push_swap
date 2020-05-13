@@ -18,7 +18,7 @@ static int	is_larger_than_max_int(char *str)
 
 	if (ft_strlen(str) > 11 ||
 		(ft_strlen(str) == 11 && str[0] != '+' && str[0] != '-'))
-		return (FALSE);
+		return (TRUE);
 	n = ft_strtol(str);
 	if (n > FT_INT_MAX || n < FT_INT_MIN)
 		return (TRUE);
