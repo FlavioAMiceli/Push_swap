@@ -12,7 +12,25 @@
 
 #include "push_swap.h"
 
-void	sift_to_a(t_stacks *s, int pivot, int len)
+static void	push_a(t_stacks *s)
+{
+	push(&(s->b), &(s->a));
+	ft_putendl("pa");
+}
+
+static void	rot_b(t_stacks *s)
+{
+	rot(&(s->b));
+	ft_putendl("rb");
+}
+
+static void	rev_rot_b(t_stacks *s)
+{
+	rev_rot(&(s->b));
+	ft_putendl("rrb");
+}
+
+void		sift_to_a(t_stacks *s, int pivot, int len)
 {
 	int	pushed;
 	int	rotated;
@@ -23,21 +41,18 @@ void	sift_to_a(t_stacks *s, int pivot, int len)
 	{
 		if (stack_get(s->b, 0) > pivot)
 		{
-			push(&(s->b), &(s->a));
-			ft_putendl("pa");
+			push_a(s);
 			pushed++;
 			continue ;
 		}
-		rot(&(s->b));
-		ft_putendl("rb");
+		rot_b(s);
 		rotated++;
 	}
 	if (rotated != s->b->len)
 	{
 		while (rotated > 0)
 		{
-			rev_rot(&(s->b));
-			ft_putendl("rrb");
+			rev_rot_b(s);
 			rotated--;
 		}
 	}
