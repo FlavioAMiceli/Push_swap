@@ -26,10 +26,12 @@ SRCS_C:= \
 	checker.c
 SRCS_PS:= \
 	push_swap.c \
-	sift.c \
+	sift_a.c \
+	sift_b.c \
 	basecase.c \
 	to_a.c \
-	to_b.c
+	to_b.c \
+	partition.c
 
 OBJ:= $(SRCS:.c=.o)
 OBJ_C:= $(SRCS_C:.c=.o)

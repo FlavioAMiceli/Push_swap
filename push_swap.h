@@ -41,6 +41,8 @@ typedef struct		s_stacks
 */
 
 void				partition_to_b(t_stacks *s, int *sorted, int lo, int hi);
+void				sift_to_b(t_stacks *s, int pivot, int len);
+void				sift_to_a(t_stacks *s, int pivot, int len);
 
 /*
 **	ops.c
