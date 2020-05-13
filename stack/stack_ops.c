@@ -57,7 +57,7 @@ int	rev_rot(t_stack **s)
 	else if ((*s)->len == 1)
 		return (TRUE);
 	dec_start(s);
-	(*s)->start[0] = (*s)->end[0];
+	stack_set(*s, stack_get(*s, (*s)->len), 0);
 	dec_end(s);
 	return (TRUE);
 }
