@@ -45,13 +45,7 @@ VPATH:= \
 	./basecase/ \
 	./stack/ \
 
-UNAME:= $(shell uname)
-
-ifeq ($(UNAME), Linux)
-	FLAGS:= -O3
-else
-	FLAGS:= -Wall -Wextra -Werror -g
-endif
+FLAGS:= -Wall -Wextra -Werror
 
 all : $(NAME_C) $(NAME)
 

@@ -58,17 +58,17 @@ int				main(int argc, char **argv)
 	t_stack		*stack_a;
 	t_stack		*stack_b;
 	char		*line;
-	int			is_valid;
 	int			ret;
 
-	if (argc < 2 || tab_is_valid(&argv[1], argc - 1) == FALSE)
+	if (argc == 1)
+		return (0);
+	if (tab_is_valid(&argv[1], argc - 1) == FALSE)
 		return (put_msg("Error", 2));
 	init_stacks(&stack_a, &stack_b, &argv[1], argc - 1);
 	ret = get_next_line(0, &line);
 	while (ret > 0)
 	{
-		is_valid = do_instruction(line, &stack_a, &stack_b);
-		if (is_valid == FALSE)
+		if (!do_instruction(line, &stack_a, &stack_b))
 		{
 			del_stacks(&stack_a, &stack_b);
 			return (put_msg("Error", 2));
@@ -76,8 +76,7 @@ int				main(int argc, char **argv)
 		free(line);
 		ret = get_next_line(0, &line);
 	}
-	is_valid = is_sorted(&stack_a, &stack_b, &argv[1], argc - 1);
-	if (is_valid)
+	if (is_sorted(&stack_a, &stack_b, &argv[1], argc - 1))
 		return (put_msg("OK", 1));
 	return (put_msg("KO", 1));
 }

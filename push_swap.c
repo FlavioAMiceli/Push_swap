@@ -28,6 +28,8 @@ static int	is_sorted(\
 
 static void	push_swap(t_stacks *s, int *sorted, int n)
 {
+	if (ft_memcmp(sorted, ((t_stack *)(s->a))->stack, n * sizeof(int)) == 0)
+		return ;
 	partition_to_b(s, sorted, 0, n - 1);
 	if (!is_sorted(&(s->a), &(s->b), sorted, n))
 		ft_putendl_fd("Stack was not sorted! Go fix the code!", 2);
@@ -38,7 +40,9 @@ int			main(int argc, char **argv)
 	t_stacks	s;
 	int			sorted_tab[argc - 1];
 
-	if (argc < 2 || tab_is_valid(&argv[1], argc - 1) == FALSE)
+	if (argc == 1)
+		return (0);
+	else if (tab_is_valid(&argv[1], argc - 1) == FALSE)
 	{
 		ft_putendl_fd("Error", 2);
 		return (1);
@@ -46,6 +50,11 @@ int			main(int argc, char **argv)
 	init_stacks(&(s.a), &(s.b), &argv[1], argc - 1);
 	(void)set_tab(sorted_tab, &argv[1], argc - 1);
 	(void)ft_quicksort(sorted_tab, argc - 1);
+	if (has_duplicates(sorted_tab, argc - 1))
+	{
+		ft_putendl_fd("Error", 2);
+		return (1);
+	}
 	push_swap(&s, sorted_tab, argc - 1);
 	return (0);
 }
