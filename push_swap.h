@@ -79,6 +79,7 @@ void				del_stacks(\
 */
 
 int					tab_is_valid(char **tab, int len);
+int					has_duplicates(int *tab, int n);
 
 /*
 **	set_tab.c

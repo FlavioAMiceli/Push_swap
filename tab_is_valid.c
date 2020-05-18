@@ -25,6 +25,34 @@ static int	is_larger_than_max_int(char *str)
 	return (FALSE);
 }
 
+int			has_duplicates(int *tab, int n)
+{
+	int i;
+
+	i = 0;
+	while (i < n - 1)
+	{
+		if (tab[i] == tab[i + 1])
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
+}
+
+static int	has_duplicate_str(char **tab, int i)
+{
+	int	j;
+
+	j = 0;
+	while (j < i)
+	{
+		if (ft_strcmp(tab[i], tab[j]) == 0)
+			return (TRUE);
+		j++;
+	}
+	return (FALSE);
+}
+
 /*
 ** checks if each character in tab is an ascii digit
 */
@@ -37,6 +65,8 @@ int			tab_is_valid(char **tab, int len)
 	i = 0;
 	while (i < len)
 	{
+		if (has_duplicate_str(tab, i))
+			return (FALSE);
 		j = 0;
 		if (is_larger_than_max_int(tab[i]))
 			return (FALSE);
