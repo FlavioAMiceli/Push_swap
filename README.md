@@ -2,7 +2,7 @@
 Project about sorting algorithms on stacks with limited available operations.
 
 ### TOC
-* [What is push_swap?](#what-is-push_swap
+* [What is push_swap?](#what-is-push_swap?)
 * [What's in it?](#whats-in-it)
 * [Installation](#installation)
 
